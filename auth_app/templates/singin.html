@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block title %}Registro de SysAdmin{% endblock %} 
+{% block content %}
+    {% if messages %}
+        <ul class='messages'>
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method='POST'>
+        {% csrf_token %}
+        <section>
+            <h2>Registro de SysAdmin</h2>
+            
+            <fieldset>
+                <legend>Credenciales del sitio web</legend>
+            
+                <label for='nickname'>nickname:</label>
+                <input type='text' id='nickname', name='nickname'></input>
+            
+                <label for='password'>password:</label>
+                <input type='password' id='password', name='password'></input>
+
+                <label for='repeat_password'>repeat_password:</label>
+                <input type='password' id='repeat_password', name='repeat_password'></input>
+            </fieldset>
+
+            <fieldset>
+                <legend>Información de Telegram</legend>
+            
+                <label for='chat_id'>chat_id:</label>
+                <input type='text' id='chat_id', name='chat_id'></input>
+
+                <label for='token_bot'>token_bot:</label>
+                <input type='text' id='token_bot', name='token_bot'></input>
+            </fieldset>
+        </section>
+
+    <button type='submit'>Enviar</botton>
+        {% endblock %}

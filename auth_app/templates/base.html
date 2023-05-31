@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Título de la página{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <header>
+      {% block header %}
+      <!-- Contenido del encabezado -->
+      {% endblock %}
+    </header>
+
+    <nav>
+      {% block navigation %}
+      <!-- Contenido de la barra de navegación -->
+      {% endblock %}
+    </nav>
+
+    <main>
+      {% block content %}
+      <!-- Contenido principal de la página -->
+      {% endblock %}
+    </main>
+
+    <footer>
+      {% block footer %}
+      <!-- Contenido del pie de página -->
+      {% endblock %}
+    </footer>
+  </body>
+</html>

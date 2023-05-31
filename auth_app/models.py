@@ -1,0 +1,47 @@
+import string
+from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+# Create your models here.
+
+
+class AdmonGlobal(models.Model):
+    nickname = models.CharField(max_length=15, unique=True, primary_key=True)
+    password = models.CharField(max_length=15, unique=True)
+    chat_id = models.CharField(max_length=10, unique=True)
+    token_bot = models.CharField(max_length=50, unique=True)
+    token_double_auth = models.CharField(max_length=8, unique=True)
+    intentos = models.IntegerField(
+        default=0, validators=[MinValueValidator(0), MaxValueValidator(4)])
+    timestamp_ultimo_intento = models.DateTimeField()
+    timestamp_token_double_auth = models.DateTimeField()
+    ipv4_address = models.GenericIPAddressField(protocol='IPv4')
+    autorize_account = models.BooleanField(default=False)
+
+
+class Sysadmin(models.Model):
+    nickname = models.CharField(max_length=15, unique=True, primary_key=True)
+    password = models.CharField(max_length=15, unique=True)
+    chat_id = models.CharField(max_length=10, unique=True)
+    token_bot = models.CharField(max_length=50, unique=True)
+    token_double_auth = models.CharField(max_length=8, unique=True)
+    intentos = models.IntegerField(
+        default=0, validators=[MinValueValidator(0), MaxValueValidator(4)])
+    timestamp_ultimo_intento = models.DateTimeField()
+    timestamp_token_double_auth = models.DateTimeField()
+    ipv4_address = models.GenericIPAddressField(protocol='IPv4')
+    autorize_account = models.BooleanField(default=False)
+
+
+class Servidor(models.Model):
+
+    ON_WORK_CHOISES = [
+        (0, 'Indeterminado'),
+        (1, 'Activo'),
+        (2, 'Apagado')
+    ]
+
+    sysadmin = models.ForeignKey(Sysadmin, on_delete=models.CASCADE)
+    ipv4_address = models.GenericIPAddressField(protocol='IPv4', unique=True)
+    password = models.CharField(max_length=15, unique=True)
+    status = models.IntegerField(default=0, validators=[MinValueValidator(
+        0), MaxValueValidator(2)], choices=ON_WORK_CHOISES)
