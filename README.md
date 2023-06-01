@@ -10,12 +10,12 @@
   - :accept: agregar compañeros
   - :accept: todos deben tener un clon del repo
 
-- :red_circle: análisis de código estático
+- :accept: análisis de código estático
 
   - :accept: instalar sonarqube
   - :accept: scannear el proyecto
   - :accept: asignar tareas (autoasignarse tareas)
-  - :red_circle: generar reporte de mitigaciones
+  - :accept: generar reporte de mitigaciones
 
 - :accept: manejo de configuración sensible
 
