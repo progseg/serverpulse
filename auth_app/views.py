@@ -178,7 +178,8 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
                         is True):
                     if (object_admon_global.nickname == form_nickname
                             and object_admon_global.password == form_password
-                            and object_admon_global.token_double_auth == form_token_double_auth):
+                            and object_admon_global.token_double_auth == form_token_double_auth
+                            and object_admon_global.autorize_account == True):
                         return render(request, 'dashboard.html')
                     else:
                         messages.error(
@@ -318,7 +319,8 @@ def login_sysadmin(request: HttpRequest) -> HttpResponse:
                         is True):
                     if (object_sysadmin.nickname == form_nickname
                             and object_sysadmin.password == form_password
-                            and object_sysadmin.token_double_auth == form_token_double_auth):
+                            and object_sysadmin.token_double_auth == form_token_double_auth
+                            and object_sysadmin.autorize_account == True):
                         return render(request, 'dashboard.html')
                     else:
                         messages.error(
