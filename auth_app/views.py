@@ -48,11 +48,19 @@ def singin(request: HttpRequest) -> HttpResponse:
                 ip = request.META.get('REMOTE_ADDR')
             Sysadmin.ipv4_address = ip
 
-            Sysadmin.save()
+            try:
+                Sysadmin.save()
 
-            messages.success(
-                request, f'El usuario {nickname} fue registrado con éxito')
-            return redirect('login_sysadmin')
+                messages.success(
+                    request, f'El usuario {nickname} fue registrado con éxito')
+                return redirect('login_sysadmin')
+            except:
+                messages.error(
+                    request, 'Ocurrió un error inesperado en el servidor')
+                return redirect('singin')
+        else:
+            messages.error(request, 'Los datos proporcionados no son válidos')
+            return redirect('singin')
 
 
 def check_token_double_auth_lifecicle_admonglobal(object_nickname: str, form_token_double_auth: str) -> bool:
