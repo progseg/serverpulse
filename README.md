@@ -22,7 +22,7 @@
 	- [X] subir evidencias a Github
 
 - [ ] almacenamiento de información sensible
-	- [] registro de usuarios con políticas de contraseñas
+	- [ ] registro de usuarios con políticas de contraseñas
 	- [ ] hashing de contraseñas con salt y algoritmo seguro
 
 - [ ] manejo seguro de sesiones web y cookies
@@ -47,7 +47,7 @@
 	- [ ] has uso de docker images y docker-compose para automatizar el despliegue
 	- [ ] implementa seguridad (el contenedor no usa root)
 
-- [] seguridad en el canal de comunicación
+- [ ] seguridad en el canal de comunicación
 	- [X] agregar soporte de HTTPS al ambiente de producción (hosting con Azure y let's encrypt)
-	- [] agregar soporte de HTTPS al ambiente de producción (certificados autofirmados en entorno local)
+	- [ ] agregar soporte de HTTPS al ambiente de producción (certificados autofirmados en entorno local)
 
