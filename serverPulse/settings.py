@@ -144,3 +144,30 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#  Security settings
+
+# Sessions and cookies
+
+# Sessions storages based in DB
+SESSIONS_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_DB_TABLE = 'django_sessions'
+
+# True only in production, Session cookies only sended over HTTPS
+SESSION_COOKIE_SECURE = False
+
+# If value is True, sessions cannot be accesed via Javascript
+# False only in development enviroment
+SESSION_COOKIE_HTTPONLY = False
+
+# Only in production. this value can be changed to restrict the cookie session only in specified domain ("example.com")
+SESSION_COOKIE_DOMAIN = None
+
+# This setting prevents the cookie from being sent in cross-site request
+SESSION_COOKIE_SAMESITE = "Strict"
+
+# This setting means that browsers ensure that cookie is only sended under HTTPS, use this setting combined with SESSION_COOKIE_SECURE
+SESSION_COOKIE_SECURE = False
+
+# The cookie session will be destroy when the browser is close
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

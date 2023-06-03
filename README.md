@@ -32,7 +32,7 @@
 
 - :red_circle: manejo seguro de sesiones web y cookies
   - :red_circle: configurar sesiones seguras: logout
-  - :red_circle: configurar sesiones seguras: settings
+  - :accept: configurar sesiones seguras: settings
   - :accept: configurar sesiones seguras: csrf
   - :red_circle: la cookie de sesión se maneja de forma segura
 
