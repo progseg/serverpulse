@@ -58,7 +58,7 @@ def singin(request: HttpRequest) -> HttpResponse:
 
                 messages.success(
                     request, f'El usuario {nickname} fue registrado con éxito')
-                return redirect('login_sysadmin')
+                return redirect('login_sys_admin')
             except:
                 messages.error(
                     request, 'Ocurrió un error inesperado en el servidor')
