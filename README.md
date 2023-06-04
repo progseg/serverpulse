@@ -41,11 +41,11 @@
 - :red_circle: seguridad en inicio de sesión
 
   - :accept: inicio de sesión del proyecto y registro de usuarios (bot de cada usuario)
-  - :red_circle: Inicio de sesión multifactor telegram con OTP
+  - :accept: Inicio de sesión multifactor telegram con OTP
   - :red_circle: limitar intentos
-  - :red_circle: utilizar post para entrega de código
-  - :red_circle: código de telegram aleatorios, expirar en 3 minutos, de un solo uso
-  - :red_circle: si el token es incorrecto se invalida todo el proceso
+  - :accept: utilizar post para entrega de código
+  - :yellow_circle: código de telegram aleatorios, expirar en 3 minutos, de un solo uso (Falta implementar la destrucción del token si la autenticación falla)
+  - :yellow_circle: si el token es incorrecto se invalida todo el proceso (Quedó el espacio preparado para implementar esta funcionaldiad)
 
 - :red_circle: sandbox con docker
 
