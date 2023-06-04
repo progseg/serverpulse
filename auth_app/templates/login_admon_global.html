@@ -22,14 +22,7 @@
             <fieldset>
                 <legend>Credenciales de administrador global</legend>
             
-                <label for='nickname'>nickname:</label>
-                <input type='text' id='nickname', name='nickname'></input>
-
-                <label for='password'>password:</label>
-                <input type='password' id='password', name='password' autocomplete='off'></input>
-                
-                <label for='token_double_auth'>token de doble autenticación:</label>
-                <input type='password' id='token_double_auth', name='token_double_auth' autocomplete='off'></input>
+                {{ form.as_p }}
             </fieldset>
         </section>
 

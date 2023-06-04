@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class Singin(forms.Form):
@@ -15,15 +16,15 @@ class Singin(forms.Form):
 
 
 class LoginAdomGlobal(forms.Form):
-    nickname = forms.CharField(
-        label='nombre único de usuario', max_length=15, min_length=4, required=True)
-    password = forms.CharField(label='password', max_length=15,
-                               min_length=4, required=True, widget=forms.PasswordInput)
+    user_name = forms.CharField(
+        label='username', max_length=15, min_length=4, required=True, widget=forms.TextInput(attrs={'name': 'user_name', 'id': 'user_name'}))
+    passwd = forms.CharField(label='password', max_length=15,
+                             min_length=4, required=True, widget=forms.PasswordInput(attrs={'name': 'passwd', 'id': 'passwd'}))
     token_double_auth = forms.CharField(
-        label='token_double_auth', min_length=8, max_length=8)
+        label='token telegram', min_length=24, max_length=24, widget=forms.PasswordInput(attrs={'name': 'token_double_auth', 'id': 'token_double_auth'}))
 
 
-class LoginSysadmin(forms.Form):
+class LoginSysadmin(AuthenticationForm):
     nickname = forms.CharField(
         label='nombre único de usuario', max_length=15, min_length=4, required=True)
     password = forms.CharField(label='password', max_length=15,

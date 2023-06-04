@@ -21,7 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure-vma$^hwwp7-kybtw88tiq%7s*s&i%3#jkn_llby@_sb!j08+(3'
+# SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -89,9 +90,12 @@ WSGI_APPLICATION = 'serverPulse.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('NAME_DATABASE'),
-        'USER': os.environ.get('USER_DATABASE'),
-        'PASSWORD': os.environ.get('PASSWORD_DATABASE'),
+        #        'NAME': os.environ.get('NAME_DATABASE'),
+        'NAME': 'monitoreo',
+        #        'USER': os.environ.get('USER_DATABASE'),
+        'USER': 'servidor',
+        #        'PASSWORD': os.environ.get('PASSWORD_DATABASE'),
+        'PASSWORD': 'AÑ75._ad784os',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -145,8 +149,8 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#  Security settings
 
+#  Security settings
 # Sessions and cookies
 
 # Sessions storages based in DB

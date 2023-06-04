@@ -9,7 +9,11 @@ from . import forms
 from . import models
 import json
 import requests
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseBadRequest, HttpResponseNotAllowed
 # Create your views here.
+
+TOKENOTP_LIVE = 180.0
 
 
 def singin(request: HttpRequest) -> HttpResponse:
@@ -61,14 +65,86 @@ def singin(request: HttpRequest) -> HttpResponse:
         else:
             messages.error(request, 'Los datos proporcionados no son válidos')
             return redirect('singin')
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST'])
 
 
-def check_token_double_auth_lifecicle_admonglobal(object_nickname: str, form_token_double_auth: str) -> bool:
-    timestamp_now = datetime.now(timezone.utc)
+# Section of login admon global
+
+# Section of token OTP admon global
+def request_token_admon_global(request: HttpRequest) -> HttpResponse:
+    if request.method != 'POST':
+        return HttpResponseNotAllowed(['POST'])
+
+    if request.content_type != 'application/json':
+        return HttpResponseBadRequest('Formato de solicitud incorrecto')
+
+    new_token_double_auth = create_tokenotp_admon_global()
+    if new_token_double_auth is None:
+        messages.error(
+            request, 'La solicitud no se pudo completar y el token no fue creado, inténtelo de nuevo')
+        return redirect('login_admon_global')
+
+    data = json.loads(request.body)
+    form_user_name = data.get('user_name')
+    token_updated = update_tokenotp_admon_global(
+        form_user_name, new_token_double_auth)
+
+    if token_updated is not True:
+        messages.error(
+            request, 'Ocurrio un fallo inesperado al registrar su token, solicite un nuevo token')
+        return redirect('login_admon_global')
+
+    token_sended = send_tokenotp_admon_global(form_user_name)
+    if token_sended is True:
+        messages.success(
+            request, 'El token fue enviado con éxito, revise su chat de Telegram')
+        return redirect('login_admon_global')
+    else:
+        messages.error(
+            request, 'Ocurrió un fallo inesperado al enviar el token, solicite un nuevo token')
+        return redirect('login_admon_global')
+
+
+def create_tokenotp_admon_global() -> str:
+    new_token_double_auth = ''.join(secrets.choice(
+        string.ascii_letters + string.digits) for _ in range(24))
+    return new_token_double_auth
+
+
+def update_tokenotp_admon_global(object_user_name: str, new_token_double_auth: str) -> bool:
+    try:
+        models.AdmonGlobal.objects.filter(user_name=object_user_name).update(
+            token_double_auth=new_token_double_auth, timestamp_token_double_auth=datetime.now(timezone.utc))
+        return True
+    except:
+        return False
+
+
+def send_tokenotp_admon_global(admon_global_user_name: str) -> bool:
+    try:
+        admon_global = models.AdmonGlobal.objects.get(
+            user_name=admon_global_user_name)
+        token_bot = admon_global.token_bot
+        chat_id = admon_global.chat_id
+        token_double_auth = admon_global.token_double_auth
+    except:
+        return False
 
     try:
+        url = f'https://api.telegram.org/bot{token_bot}/sendMessage?chat_id={chat_id}&parse_mode=Markdown&text={token_double_auth}'
+        response = requests.post(url)
+        if response.status_code == 200:
+            return True
+    except:
+        return False
+
+
+# Section of token OTP validations
+def check_tokenotp_live_admon_global(object_user_name: str, form_token_double_auth: str) -> bool:
+    try:
         object_admon_global = models.AdmonGlobal.objects.get(
-            nickname=object_nickname)
+            user_name=object_user_name)
 
     except:
         return False
@@ -76,80 +152,17 @@ def check_token_double_auth_lifecicle_admonglobal(object_nickname: str, form_tok
     object_token_double_auth = object_admon_global.token_double_auth
     object_timestamp_token_double_auth = object_admon_global.timestamp_token_double_auth
 
-    if (object_token_double_auth == form_token_double_auth and
-            ((timestamp_now - object_timestamp_token_double_auth).total_seconds()) < 300.0):
+    timestamp_now = datetime.now(timezone.utc)
+    if (object_token_double_auth == form_token_double_auth
+            and ((timestamp_now
+                  - object_timestamp_token_double_auth).total_seconds())
+            < TOKENOTP_LIVE):
         return True
     else:
         return False
 
 
-def create_token_doble_auth_admonglobal(object_nickname: str) -> str:
-    new_token_double_auth = ''.join(secrets.choice(
-        string.ascii_letters + string.digits) for _ in range(8))
-    try:
-        models.AdmonGlobal.objects.filter(nickname=object_nickname).update(
-            token_double_auth=new_token_double_auth, timestamp_token_double_auth=datetime.now())
-        return new_token_double_auth
-    except:
-        return None
-
-
-def send_token_double_auth_admonglobal(chat_id: str, token_bot: str, new_token_double_auth: str, nickname: str) -> bool:
-    url = f'https://api.telegram.org/bot{token_bot}/sendMessage?chat_id={chat_id}&parse_mode=Markdown&text={new_token_double_auth}'
-
-    response = requests.post(url)
-
-    if response.status_code == 200:
-        try:
-            models.AdmonGlobal.objects.filter(nickname=nickname).update(
-                token_double_auth=new_token_double_auth, timestamp_token_double_auth=datetime.now())
-            return True
-        except models.AdmonGlobal.DoesNotExist:
-            return False
-    else:
-        return False
-
-
-def request_token_admon_global(request: HttpRequest) -> HttpResponse:
-    if request.method == 'POST':
-        if request.content_type == 'application/json':
-            data = json.loads(request.body)
-
-            nickname_request = data.get('nickname')
-
-            try:
-                object_admon_global = models.AdmonGlobal.objects.get(
-                    nickname=nickname_request)
-                chat_id = object_admon_global.chat_id
-                token_bot = object_admon_global.token_bot
-                token_double_auth = create_token_doble_auth_admonglobal(
-                    object_admon_global.nickname)
-                if token_double_auth:
-                    token_sended = send_token_double_auth_admonglobal(
-                        chat_id, token_bot, token_double_auth, object_admon_global.nickname)
-                else:
-                    messages.error(
-                        request, 'Ocurrió un error inesperado en su solicitud, inténtelo de nuevo')
-                    return redirect('login_admon_global')
-
-                if token_sended is True:
-                    messages.success(
-                        request, 'El token de doble autenticación fue mandado con éxito')
-                    return redirect('login_admon_global')
-                else:
-                    messages.Error(
-                        request, 'Ocurrió un error inesperado en su solicitud, inténtelo de nuevo')
-                    return redirect('login_admon_global')
-            except models.AdmonGlobal.DoesNotExist:
-                messages.error(
-                    request, 'Los datos proporcionados son incorrectos, vuelva a intentarlo')
-                return redirect('login_admon_global')
-        else:
-            return HttpResponseBadRequest('Formato de solicitud incorrecto')
-    else:
-        return HttpResponseNotAllowed(['POST'])
-
-
+# Section of login admon global
 def login_admon_global(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
         form_login_admon_global = forms.LoginAdomGlobal()
@@ -157,186 +170,74 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
         context = {
             'form': form_login_admon_global
         }
+
         return render(request, 'login_admon_global.html', context)
 
     elif request.method == 'POST':
         form_login_admon_global = forms.LoginAdomGlobal(request.POST)
         if form_login_admon_global.is_valid():
 
-            form_nickname = form_login_admon_global.cleaned_data['nickname']
-            form_password = form_login_admon_global.cleaned_data['password']
+            form_user_name = form_login_admon_global.cleaned_data['user_name']
+            form_passwd = form_login_admon_global.cleaned_data['passwd']
             form_token_double_auth = form_login_admon_global.cleaned_data[
                 'token_double_auth']
-            try:
-                object_admon_global = models.AdmonGlobal.objects.get(
-                    nickname=form_nickname,
-                    password=form_password,
-                    token_double_auth=form_token_double_auth)
-                if (check_token_double_auth_lifecicle_admonglobal(
-                        object_admon_global.nickname,
-                        form_token_double_auth)
-                        is True):
-                    if (object_admon_global.nickname == form_nickname
-                            and object_admon_global.password == form_password
-                            and object_admon_global.token_double_auth == form_token_double_auth
-                            and object_admon_global.autorize_account == True):
-                        return render(request, 'dashboard.html')
-                    else:
-                        messages.error(
-                            request, 'Las crenciales proporcionadas no son válidas')
-                        return redirect('login_admon_global')
-                else:
-                    messages.error(
-                        request, 'El tiempo de vida del token ha caducado, por favor, genere uno nuevo')
-                    return redirect('login_admon_global')
-            except models.AdmonGlobal.DoesNotExist:
+
+            token_alive = check_tokenotp_live_admon_global(
+                form_user_name, form_token_double_auth)
+            if token_alive is not True:
                 messages.error(
-                    request, 'Los datos proporcionados son incorrectos, vuelva a intentaelo')
+                    request, 'El token de autenticación expiró, inténtelo de nuevo')
                 return redirect('login_admon_global')
 
+            admon_global_authenticated = models.AdmonGlobal.objects.get(
+                user_name=form_user_name, passwd=form_passwd, token_double_auth=form_token_double_auth)
+            if admon_global_authenticated is None:
+
+                # nickname or password is wrong, OTP token changes to be single use
+                new_otptoken = create_tokenotp_admon_global()
+
+                if new_otptoken is None:
+                    messages.error(
+                        request, 'La solicitud no se pudo completar y el token no fue creado, inténtelo de nuevo')
+                    return redirect('login_admon_global')
+
+                token_updated = update_tokenotp_admon_global(
+                    form_user_name, new_otptoken)
+
+                if token_updated is not True:
+                    messages.error(
+                        request, 'Ocurrio un fallo inesperado al registrar su token, solicite un nuevo token')
+                    return redirect('login_admon_global')
+
+                messages.error(
+                    request, "La autenticación falló, su token fue revocado. \
+                        revise sus credenciales, solicite un nuevo token e intente iniciar sesión")
+                return redirect('login_admon_global')
+
+            else:
+
+                new_token_session = secrets.token_hex(16)
+                models.AdmonGlobal.objects.filter(user_name=form_user_name, passwd=form_passwd,
+                                                  token_double_auth=form_token_double_auth).update(token_session=new_token_session)
+
+                request.session['logged'] = True
+                request.session['sessionid'] = admon_global_authenticated.token_session
+
+                return redirect('dashboard_admon_global')
         else:
             messages.error(
-                request, 'Los datos proporcionados son incorrectos, vuelva a intentarlo')
+                request, 'Los datos proporcionados no contienen un formato válido, vuelva a intentarlo')
             return redirect('login_admon_global')
     else:
-        return HttpResponseBadRequest('Formato de solicitud incorrecto')
+        return HttpResponseNotAllowed(['GET', 'POST'])
 
 
-def check_token_double_auth_lifecicle_sysadmin(object_nickname: str, form_token_double_auth: str) -> bool:
-    timestamp_now = datetime.now(timezone.utc)
-
-    try:
-        object_sysadmin = models.Sysadmin.objects.get(
-            nickname=object_nickname)
-
-    except:
-        return False
-
-    object_token_double_auth = object_sysadmin.token_double_auth
-    object_timestamp_token_double_auth = object_sysadmin.timestamp_token_double_auth
-
-    if (object_token_double_auth == form_token_double_auth and
-            ((timestamp_now - object_timestamp_token_double_auth).total_seconds()) < 300.0):
-        return True
-    else:
-        return False
-
-
-def create_token_doble_auth_sysadmin(object_nickname: str) -> str:
-    new_token_double_auth = ''.join(secrets.choice(
-        string.ascii_letters + string.digits) for _ in range(8))
-    try:
-        models.Sysadmin.objects.filter(nickname=object_nickname).update(
-            token_double_auth=new_token_double_auth, timestamp_token_double_auth=datetime.now())
-        return new_token_double_auth
-    except:
-        return None
-
-
-def send_token_double_auth_sysadmin(chat_id: str, token_bot: str, new_token_double_auth: str, nickname: str) -> bool:
-    url = f'https://api.telegram.org/bot{token_bot}/sendMessage?chat_id={chat_id}&parse_mode=Markdown&text={new_token_double_auth}'
-
-    response = requests.post(url)
-
-    if response.status_code == 200:
-        try:
-            models.Sysadmin.objects.filter(nickname=nickname).update(
-                token_double_auth=new_token_double_auth, timestamp_token_double_auth=datetime.now())
-            return True
-        except models.Sysadmin.DoesNotExist:
-            return False
-    else:
-        return False
-
-
-def request_token_sysadmin(request: HttpRequest) -> HttpResponse:
-    if request.method == 'POST':
-        if request.content_type == 'application/json':
-            data = json.loads(request.body)
-
-            nickname_request = data.get('nickname')
-
-            try:
-                object_sysadmin = models.Sysadmin.objects.get(
-                    nickname=nickname_request)
-                chat_id = object_sysadmin.chat_id
-                token_bot = object_sysadmin.token_bot
-                token_double_auth = create_token_doble_auth_sysadmin(
-                    object_sysadmin.nickname)
-                if token_double_auth:
-                    token_sended = send_token_double_auth_sysadmin(
-                        chat_id, token_bot, token_double_auth, object_sysadmin.nickname)
-                else:
-                    messages.error(
-                        request, 'Ocurrió un error inesperado en su solicitud, inténtelo de nuevo')
-                    return redirect('login_sysadmin')
-
-                if token_sended is True:
-                    messages.success(
-                        request, 'El token de doble autenticación fue mandado con éxito')
-                    return redirect('login_sysadmin')
-                else:
-                    messages.Error(
-                        request, 'Ocurrió un error inesperado en su solicitud, inténtelo de nuevo')
-                    return redirect('login_sysadmin')
-            except models.Sysadmin.DoesNotExist:
-                messages.error(
-                    request, 'Los datos proporcionados son incorrectos, vuelva a intentarlo')
-                return redirect('login_sysadmin')
-        else:
-            return HttpResponseBadRequest('Formato de solicitud incorrecto')
-    else:
-        return HttpResponseNotAllowed(['POST'])
-
-
-def login_sysadmin(request: HttpRequest) -> HttpResponse:
+def dashboard_admon_global(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
-        form_login_sysadmin = forms.LoginSysadmin()
+        return render(request, 'dashboard.html')
 
-        context = {
-            'form': form_login_sysadmin
-        }
-        return render(request, 'login_sysadmin.html', context)
 
-    elif request.method == 'POST':
-        form_login_sysadmin = forms.LoginSysadmin(request.POST)
-        print(form_login_sysadmin)
-        if form_login_sysadmin.is_valid():
-
-            form_nickname = form_login_sysadmin.cleaned_data['nickname']
-            form_password = form_login_sysadmin.cleaned_data['password']
-            form_token_double_auth = form_login_sysadmin.cleaned_data['token_double_auth']
-
-            print(f'{form_nickname} {form_password} {form_token_double_auth}')
-            try:
-                object_sysadmin = models.Sysadmin.objects.get(
-                    nickname=form_nickname,
-                    password=form_password,
-                    token_double_auth=form_token_double_auth)
-                if (check_token_double_auth_lifecicle_sysadmin(
-                        object_sysadmin.nickname,
-                        form_token_double_auth)
-                        is True):
-                    if (object_sysadmin.nickname == form_nickname
-                            and object_sysadmin.password == form_password
-                            and object_sysadmin.token_double_auth == form_token_double_auth
-                            and object_sysadmin.autorize_account == True):
-                        return render(request, 'dashboard.html')
-                    else:
-                        messages.error(
-                            request, 'Las crenciales proporcionadas no son válidas')
-                        return redirect('login_sysadmin')
-                else:
-                    messages.error(
-                        request, 'El tiempo de vida del token ha caducado, por favor, genere uno nuevo')
-                    return redirect('login_sysadmin')
-            except models.Sysadmin.DoesNotExist:
-                messages.error(
-                    request, 'Los datos proporcionados son incorrectos, vuelva a intentaelo')
-                return redirect('login_sysadmin')
-        else:
-            messages.error(
-                request, 'Los datos proporcionados son incorrectos, vuelva a intentarlo')
-            return redirect('login_sysadmin')
-    else:
-        return HttpResponseBadRequest('Formato de solicitud incorrecto')
+def logout_admon_global(request: HttpRequest) -> HttpResponse:
+    request.session['logged'] = False
+    request.session.flush()
+    return redirect('login_admon_global')
