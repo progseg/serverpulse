@@ -11,7 +11,7 @@ from . import models
 import json
 import requests
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseBadRequest, HttpResponseNotAllowed
+from django.http import HttpResponseBadRequest, HttpResponseNotAllowed, JsonResponse
 # Create your views here.
 
 TOKENOTP_LIVE = 180.0
@@ -82,9 +82,8 @@ def request_token_admon_global(request: HttpRequest) -> HttpResponse:
 
     new_token_double_auth = create_tokenotp_admon_global()
     if new_token_double_auth is None:
-        messages.error(
-            request, 'La solicitud no se pudo completar y el token no fue creado, inténtelo de nuevo')
-        return redirect('login_admon_global')
+        message = 'La solicitud no se pudo completar y el token no fue creado, inténtelo de nuevo'
+        return JsonResponse({'message': message}, status=400)
 
     data = json.loads(request.body)
     form_user_name = data.get('user_name')
@@ -92,19 +91,16 @@ def request_token_admon_global(request: HttpRequest) -> HttpResponse:
         form_user_name, new_token_double_auth)
 
     if token_updated is not True:
-        messages.error(
-            request, 'Ocurrio un fallo inesperado al registrar su token, solicite un nuevo token')
-        return redirect('login_admon_global')
+        message = 'Ocurrio un fallo inesperado al registrar su token, solicite un nuevo token'
+        return JsonResponse({'message': message, 'message_type': 'error'}, status=400)
 
     token_sended = send_tokenotp_admon_global(form_user_name)
-    if token_sended is True:
-        messages.success(
-            request, 'El token fue enviado con éxito, revise su chat de Telegram')
-        return redirect('login_admon_global')
-    else:
-        messages.error(
-            request, 'Ocurrió un fallo inesperado al enviar el token, solicite un nuevo token')
-        return redirect('login_admon_global')
+    if token_sended is not True:
+        message = 'Ocurrió un fallo inesperado al enviar el token, solicite un nuevo token'
+        return JsonResponse({'message': message, 'message_type': 'error'}, status=400)
+
+    message = 'El token fue enviado con éxito, revise su telegram'
+    return JsonResponse({'message': message, 'message_type': 'success'}, status=200)
 
 
 def create_tokenotp_admon_global() -> str:
@@ -217,12 +213,7 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
 
             else:
 
-                new_token_session = secrets.token_hex(16)
-                models.AdmonGlobal.objects.filter(user_name=form_user_name, passwd=form_passwd,
-                                                  token_double_auth=form_token_double_auth).update(token_session=new_token_session)
-
                 request.session['logged'] = True
-                request.session['sessionid'] = admon_global_authenticated.token_session
 
                 return redirect('dashboard_admon_global')
         else:

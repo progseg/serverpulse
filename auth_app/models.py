@@ -16,8 +16,6 @@ class AdmonGlobal(models.Model):
         max_length=10, unique=True, blank=True, null=True)
 
     # Tokens
-    token_session = models.CharField(
-        max_length=50, null=True, blank=True, unique=True, default=None)
     token_bot = models.CharField(
         max_length=50, unique=True, blank=True, null=True)
     token_double_auth = models.CharField(
