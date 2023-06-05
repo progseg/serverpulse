@@ -1,5 +1,8 @@
-{% extends 'base.html' %} {% block title %}Registro de SysAdmin{% endblock %} 
+{% extends 'base.html' %} 
+{% block title %}
+    Registro de SysAdmin{% endblock %} 
 {% block content %}
+
     {% if messages %}
         <ul class='messages'>
         {% for message in messages %}
@@ -10,32 +13,59 @@
 
     <form method='POST'>
         {% csrf_token %}
-        <section>
-            <h2>Registro de SysAdmin</h2>
+        <section class="container mt-3">
+            <div class="page-header">
+                <h1 style="text-align: center;">Registro de SysAdmin</h1>
+                <h3>Credenciales del sitio web</h3>
+            </div>
             
             <fieldset>
-                <legend>Credenciales del sitio web</legend>
-            
-                <label for='nickname'>nickname:</label>
-                <input type='text' id='nickname', name='nickname'></input>
-            
-                <label for='password'>password:</label>
-                <input type='password' id='password', name='password'></input>
+            <form action="/action_page.php" class="was-validated">
+                <div class="mb-3 mt-3">
+                  <label for='nickname' class="form-label" >Nickname:</label>
+                  <input type="text" class="form-control" id="nickname" placeholder="Nickname" name="nickname">
+                  <div class="valid-feedback">Valid.</div>
+                  <div class="invalid-feedback">Escribe el nickname.</div>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password:</label>
+                  <input type="password" class="form-control" id="password" placeholder="*********" name="password" >
+                  <div class="valid-feedback">Valid.</div>
+                  <div class="invalid-feedback">Escribe en el campo.</div>
+                </div>
 
-                <label for='repeat_password'>repeat_password:</label>
-                <input type='password' id='repeat_password', name='repeat_password'></input>
+                <div class="mb-3">
+                    <label for="repeat_password" class="form-label">Confirma el Password:</label>
+                    <input type="password" class="form-control" id="repeat_password" placeholder="***********" name="repeat_password">
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Escribe en el campo.</div>
+                  </div>
             </fieldset>
 
+                
+                
             <fieldset>
                 <legend>Información de Telegram</legend>
-            
-                <label for='chat_id'>chat_id:</label>
-                <input type='text' id='chat_id', name='chat_id'></input>
-
-                <label for='token_bot'>token_bot:</label>
-                <input type='text' id='token_bot', name='token_bot'></input>
+                <div class="mb-3">
+                    <label for="chat_id" class="form-label">ID-Chat:</label>
+                    <input type="text" class="form-control" id="chat_id" placeholder="ID-Chat" name="chat_id" >
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Escribe en el campo.</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="token_bot" class="form-label">Token_Bot</label>
+                    <input type="text" class=" form-control" id="token_bot " placeholder="Token-Bot" name="token_bot">
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Escribe en el campo.</div>
+                </div>
             </fieldset>
+                
+                
+            <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+            
+        </div>
         </section>
-
-    <button type='submit'>Enviar</botton>
         {% endblock %}
