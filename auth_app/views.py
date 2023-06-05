@@ -156,7 +156,7 @@ def check_tokenotp_valid_admon_global(object_user_name: str, form_token_double_a
         return True
     else:
         return False
-    
+
 
 # Section of login admon global
 def login_admon_global(request: HttpRequest) -> HttpResponse:
@@ -178,7 +178,6 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
             form_token_double_auth = form_login_admon_global.cleaned_data[
                 'token_double_auth']
 
-<<<<<<< HEAD
             try:
                 models.AdmonGlobal.objects.get(
                     user_name=form_user_name, passwd=form_passwd)
@@ -187,11 +186,6 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
                 admon_global_authenticated = False
 
             if admon_global_authenticated is not True:
-=======
-            token_alive = check_tokenotp_live_sys_admin(
-                form_user_name, form_token_double_auth)
-            if token_alive is not True:
->>>>>>> ae2d7f3d3cd1c2df48d6fa179e6bcd891cb1340a
                 messages.error(
                     request, 'Las credenciales proporcionadas no son válidas, inténtelo de nuevo')
                 return redirect('login_admon_global')
@@ -408,6 +402,7 @@ def send_tokenotp_sys_admin(sys_admin_nickname: str) -> bool:
             return True
     except:
         return False
+
 
 def check_tokenotp_live_sys_admin(object_nickname: str, form_token_double_auth: str) -> bool:
     try:
