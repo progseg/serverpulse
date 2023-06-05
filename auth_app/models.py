@@ -19,7 +19,7 @@ class AdmonGlobal(models.Model):
     token_bot = models.CharField(
         max_length=50, unique=True, blank=True, null=True)
     token_double_auth = models.CharField(
-        max_length=24, unique=True, default='default')
+        max_length=24, unique=True, null=True)
 
     # Intentos
     intentos = models.IntegerField(

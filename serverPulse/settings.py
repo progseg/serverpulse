@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'admon_global',
     'sysadmin',
     'servers_monitor',
-    'conn_servers'
+    'conn_servers',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -175,3 +176,8 @@ SESSION_COOKIE_SECURE = False
 
 # The cookie session will be destroy when the browser is close
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Cronjob for delete all register ipv4, attemps and timestamp_last_attemps from auth_app
+CRONJOBS = [
+    ('0 0 * * *', 'auth_app.cron.DeleteAttemptsJob')
+]

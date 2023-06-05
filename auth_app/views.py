@@ -309,6 +309,8 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
                     object_admon_global.passwd == form_passwd):
                 admon_global_authenticated = True
             else:
+                object_admon_global.token_double_auth = None
+                object_admon_global.save()
                 admon_global_authenticated = False
 
             if admon_global_authenticated is not True:
