@@ -58,7 +58,7 @@ def singin(request: HttpRequest) -> HttpResponse:
 
                 messages.success(
                     request, f'El usuario {nickname} fue registrado con éxito')
-                return redirect('login_sysadmin')
+                return redirect('login_sys_admin')
             except:
                 messages.error(
                     request, 'Ocurrió un error inesperado en el servidor')
@@ -156,7 +156,7 @@ def check_tokenotp_valid_admon_global(object_user_name: str, form_token_double_a
         return True
     else:
         return False
-
+    
 
 # Section of login admon global
 def login_admon_global(request: HttpRequest) -> HttpResponse:
@@ -178,6 +178,7 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
             form_token_double_auth = form_login_admon_global.cleaned_data[
                 'token_double_auth']
 
+<<<<<<< HEAD
             try:
                 models.AdmonGlobal.objects.get(
                     user_name=form_user_name, passwd=form_passwd)
@@ -186,6 +187,11 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
                 admon_global_authenticated = False
 
             if admon_global_authenticated is not True:
+=======
+            token_alive = check_tokenotp_live_sys_admin(
+                form_user_name, form_token_double_auth)
+            if token_alive is not True:
+>>>>>>> ae2d7f3d3cd1c2df48d6fa179e6bcd891cb1340a
                 messages.error(
                     request, 'Las credenciales proporcionadas no son válidas, inténtelo de nuevo')
                 return redirect('login_admon_global')
@@ -257,3 +263,168 @@ def logout_admon_global(request: HttpRequest) -> HttpResponse:
     request.session['logged'] = False
     request.session.flush()
     return redirect('login_admon_global')
+
+
+# Section of login SysAdmin
+
+def login_sys_admin(request: HttpRequest) -> HttpResponse:
+    if request.method == 'GET':
+        form_login_sys_admin = forms.LoginSysadmin()
+
+        context = {
+            'form': form_login_sys_admin
+        }
+
+        return render(request, 'login_sys_admin.html', context)
+
+    elif request.method == 'POST':
+        form_login_sys_admin = forms.LoginSysadmin(request.POST)
+        if form_login_sys_admin.is_valid():
+
+            form_nickname = form_login_sys_admin.cleaned_data['nickname']
+            form_password = form_login_sys_admin.cleaned_data['password']
+            form_token_double_auth = form_login_sys_admin.cleaned_data[
+                'token_double_auth']
+
+            token_alive = check_tokenotp_live_sys_admin(
+                form_nickname, form_token_double_auth)
+            if token_alive is not True:
+                messages.error(
+                    request, 'El token de autenticación expiró, inténtelo de nuevo')
+                return redirect('login_sys_admin')
+
+            sys_admin_authenticated = models.Sysadmin.objects.get(
+                nickname=form_nickname, password=form_password, token_double_auth=form_token_double_auth)
+            if sys_admin_authenticated is None:
+
+                # nickname or password is wrong, OTP token changes to be single use
+                new_otptoken = create_tokenotp_sys_admin()
+
+                if new_otptoken is None:
+                    messages.error(
+                        request, 'La solicitud no se pudo completar y el token no fue creado, inténtelo de nuevo')
+                    return redirect('login_sys_admin')
+
+                token_updated = update_tokenotp_sys_admin(
+                    form_nickname, new_otptoken)
+
+                if token_updated is not True:
+                    messages.error(
+                        request, 'Ocurrio un fallo inesperado al registrar su token, solicite un nuevo token')
+                    return redirect('login_sys_admin')
+
+                messages.error(
+                    request, "La autenticación falló, su token fue revocado. \
+                        revise sus credenciales, solicite un nuevo token e intente iniciar sesión")
+                return redirect('login_sys_admin')
+
+            else:
+
+                request.session['logged'] = True
+
+                return redirect('dashboard_sys_admin')
+        else:
+            messages.error(
+                request, 'Los datos proporcionados no contienen un formato válido, vuelva a intentarlo')
+            return redirect('login_sys_admin')
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST'])
+
+
+def dashboard_sys_admin(request: HttpRequest) -> HttpResponse:
+    if request.method == 'GET':
+        return render(request, 'dashboard.html')
+
+
+def logout_sys_admin(request: HttpRequest) -> HttpResponse:
+    request.session['logged'] = False
+    request.session.flush()
+    return redirect('login_sys_admin')
+
+
+# Section of login admon global
+
+# Section of token OTP admon global
+
+def request_token_sys_admin(request: HttpRequest) -> HttpResponse:
+    if request.method != 'POST':
+        return HttpResponseNotAllowed(['POST'])
+
+    if request.content_type != 'application/json':
+        return HttpResponseBadRequest('Formato de solicitud incorrecto')
+
+    new_token_double_auth = create_tokenotp_sys_admin()
+    if new_token_double_auth is None:
+        message = 'La solicitud no se pudo completar y el token no fue creado, inténtelo de nuevo'
+        return JsonResponse({'message': message}, status=400)
+
+    data = json.loads(request.body)
+    form_nickname = data.get('nickname')
+    token_updated = update_tokenotp_sys_admin(
+        form_nickname, new_token_double_auth)
+
+    if token_updated is not True:
+        message = 'Ocurrio un fallo inesperado al registrar su token, solicite un nuevo token'
+        return JsonResponse({'message': message, 'message_type': 'error'}, status=400)
+
+    token_sended = send_tokenotp_sys_admin(form_nickname)
+    if token_sended is not True:
+        message = 'Ocurrió un fallo inesperado al enviar el token, solicite un nuevo token'
+        return JsonResponse({'message': message, 'message_type': 'error'}, status=400)
+
+    message = 'El token fue enviado con éxito, revise su telegram'
+    return JsonResponse({'message': message, 'message_type': 'success'}, status=200)
+
+
+def create_tokenotp_sys_admin() -> str:
+    new_token_double_auth = ''.join(secrets.choice(
+        string.ascii_letters + string.digits) for _ in range(24))
+    return new_token_double_auth
+
+
+def update_tokenotp_sys_admin(object_nickname: str, new_token_double_auth: str) -> bool:
+    try:
+        models.Sysadmin.objects.filter(nickaname=object_nickname).update(
+            token_double_auth=new_token_double_auth, timestamp_token_double_auth=datetime.now(timezone.utc))
+        return True
+    except:
+        return False
+
+
+def send_tokenotp_sys_admin(sys_admin_nickname: str) -> bool:
+    try:
+        sys_admin = models.Sysadmin.objects.get(
+            nickname=sys_admin_nickname)
+        token_bot = sys_admin.token_bot
+        chat_id = sys_admin.chat_id
+        token_double_auth = sys_admin.token_double_auth
+    except:
+        return False
+
+    try:
+        url = f'https://api.telegram.org/bot{token_bot}/sendMessage?chat_id={chat_id}&parse_mode=Markdown&text={token_double_auth}'
+        response = requests.post(url)
+        if response.status_code == 200:
+            return True
+    except:
+        return False
+
+def check_tokenotp_live_sys_admin(object_nickname: str, form_token_double_auth: str) -> bool:
+    try:
+        object_sys_admin = models.Sysadmin.objects.get(
+            user_name=object_nickname)
+
+    except:
+        return False
+
+    object_token_double_auth = object_sys_admin.token_double_auth
+    object_timestamp_token_double_auth = object_sys_admin.timestamp_token_double_auth
+
+    timestamp_now = datetime.now(timezone.utc)
+    if (object_token_double_auth == form_token_double_auth
+            and ((timestamp_now
+                  - object_timestamp_token_double_auth).total_seconds())
+            < TOKENOTP_LIVE):
+        return True
+    else:
+        return False
