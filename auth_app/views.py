@@ -137,19 +137,18 @@ def send_tokenotp_admon_global(admon_global_user_name: str) -> bool:
         return False
 
 
-# Section of token OTP validations
-def check_tokenotp_live_admon_global(object_user_name: str, form_token_double_auth: str) -> bool:
+# Section of token OTP validations: it's check the token correspond to user and the token does not expired
+def check_tokenotp_valid_admon_global(object_user_name: str, form_token_double_auth: str) -> bool:
     try:
         object_admon_global = models.AdmonGlobal.objects.get(
             user_name=object_user_name)
-
     except:
         return False
 
     object_token_double_auth = object_admon_global.token_double_auth
     object_timestamp_token_double_auth = object_admon_global.timestamp_token_double_auth
-
     timestamp_now = datetime.now(timezone.utc)
+
     if (object_token_double_auth == form_token_double_auth
             and ((timestamp_now
                   - object_timestamp_token_double_auth).total_seconds())
@@ -179,23 +178,32 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
             form_token_double_auth = form_login_admon_global.cleaned_data[
                 'token_double_auth']
 
-            token_alive = check_tokenotp_live_admon_global(
-                form_user_name, form_token_double_auth)
-            if token_alive is not True:
+            try:
+                models.AdmonGlobal.objects.get(
+                    user_name=form_user_name, passwd=form_passwd)
+                admon_global_authenticated = True
+            except:
+                admon_global_authenticated = False
+
+            if admon_global_authenticated is not True:
                 messages.error(
-                    request, 'El token de autenticación expiró, inténtelo de nuevo')
+                    request, 'Las credenciales proporcionadas no son válidas, inténtelo de nuevo')
                 return redirect('login_admon_global')
+            else:
+                double_auth_status = login_double_auth_admon_global(
+                    form_user_name, form_token_double_auth)
 
-            admon_global_authenticated = models.AdmonGlobal.objects.get(
-                user_name=form_user_name, passwd=form_passwd, token_double_auth=form_token_double_auth)
-            if admon_global_authenticated is None:
+                if double_auth_status is not True:
+                    messages.error(
+                        request, 'El token no es correcto o a expirado, solicite un nuevo token')
+                    return redirect('login_admon_global')
 
-                # nickname or password is wrong, OTP token changes to be single use
+                # change token to it be single use even when athentication is successfully
                 new_otptoken = create_tokenotp_admon_global()
 
                 if new_otptoken is None:
                     messages.error(
-                        request, 'La solicitud no se pudo completar y el token no fue creado, inténtelo de nuevo')
+                        request, 'Ocurrió un error inesperado en el servidor, su sesión no se creará. Inténtelo de nuevo')
                     return redirect('login_admon_global')
 
                 token_updated = update_tokenotp_admon_global(
@@ -203,18 +211,11 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
 
                 if token_updated is not True:
                     messages.error(
-                        request, 'Ocurrio un fallo inesperado al registrar su token, solicite un nuevo token')
+                        request, 'Ocurrió un error inesperado en el servidor, su sesión no se creará. Inténtelo de nuevo')
                     return redirect('login_admon_global')
 
-                messages.error(
-                    request, "La autenticación falló, su token fue revocado. \
-                        revise sus credenciales, solicite un nuevo token e intente iniciar sesión")
-                return redirect('login_admon_global')
-
-            else:
-
+                # Session start
                 request.session['logged'] = True
-
                 return redirect('dashboard_admon_global')
         else:
             messages.error(
@@ -222,6 +223,29 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
             return redirect('login_admon_global')
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
+
+
+def login_double_auth_admon_global(form_user_name: str, form_token_double_auth: str) -> bool:
+    token_alive = check_tokenotp_valid_admon_global(
+        form_user_name, form_token_double_auth)
+
+    # token is wrong, OTP token changes to be single use
+    if token_alive is not True:
+        new_otptoken = create_tokenotp_admon_global()
+
+        if new_otptoken is None:
+            return False
+
+        token_updated = update_tokenotp_admon_global(
+            form_user_name, new_otptoken)
+
+        if token_updated is not True:
+            return False
+
+        return False
+
+    # auth is ok
+    return True
 
 
 def dashboard_admon_global(request: HttpRequest) -> HttpResponse:
