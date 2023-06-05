@@ -30,8 +30,8 @@
   - :red_circle: registro de usuarios con políticas de contraseñas (10char,uppercase,lowecase,digits,special)
   - :red_circle: hashing de contraseñas con salt y algoritmo seguro
 
-- :red_circle: manejo seguro de sesiones web y cookies
-  - :yellow_circle: configurar sesiones seguras: logout (Se implementó logout, falta aplicar decoradores para proteger rutas y ver si la función logout funciona)
+- :accept: manejo seguro de sesiones web y cookies
+  - :accept: configurar sesiones seguras: logout
   - :accept: configurar sesiones seguras: settings
   - :accept: configurar sesiones seguras: csrf
   - :yellow_circle: la cookie de sesión se maneja de forma segura (La protección sobre HTTPS y javascript queda pendiente, la de js porque el modo de pedir el token necesita acceder al CSRF)
