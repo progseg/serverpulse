@@ -34,9 +34,6 @@ class AdmonGlobal(models.Model):
     ipv4_address = models.GenericIPAddressField(
         protocol='IPv4', blank=True, null=True)
 
-    # Authorize by superuser or webmaster
-    is_authorize = models.BooleanField(default=False)
-
 
 class Sysadmin(models.Model):
     nickname = models.CharField(max_length=15, unique=True, primary_key=True)

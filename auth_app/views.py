@@ -15,7 +15,10 @@ from django.http import HttpResponseBadRequest, HttpResponseNotAllowed, JsonResp
 from admon_global import views as views_admon_global
 # Create your views here.
 
-TOKENOTP_LIVE = 180.0
+TOKENOTP_LIVE = 180.0  # 3 min
+MAX_ATTEMPS = 5
+MIN_ATTEMPS = 0
+LOCK_TIME_RANGE = 300.0  # 5 min
 
 
 def singin(request: HttpRequest) -> HttpResponse:
@@ -81,27 +84,34 @@ def request_token_admon_global(request: HttpRequest) -> HttpResponse:
     if request.content_type != 'application/json':
         return HttpResponseBadRequest('Formato de solicitud incorrecto')
 
+    data = json.loads(request.body)
+    form_user_name = data.get('user_name')
+    try:
+        models.AdmonGlobal.objects.get(user_name=form_user_name)
+    except:
+        print('Nombre de usario no encontrado')
+        message = 'El usuario no fue encontrado.\nIngrese correctamente su nombre de usuario en el campo username'
+        return JsonResponse({'message': message, 'message_type': 'error'})
+
     new_token_double_auth = create_tokenotp_admon_global()
     if new_token_double_auth is None:
         message = 'La solicitud no se pudo completar y el token no fue creado, inténtelo de nuevo'
-        return JsonResponse({'message': message}, status=400)
+        return JsonResponse({'message': message, 'message_type': 'error'})
 
-    data = json.loads(request.body)
-    form_user_name = data.get('user_name')
     token_updated = update_tokenotp_admon_global(
         form_user_name, new_token_double_auth)
 
     if token_updated is not True:
         message = 'Ocurrio un fallo inesperado al registrar su token, solicite un nuevo token'
-        return JsonResponse({'message': message, 'message_type': 'error'}, status=400)
+        return JsonResponse({'message': message, 'message_type': 'error'})
 
     token_sended = send_tokenotp_admon_global(form_user_name)
     if token_sended is not True:
         message = 'Ocurrió un fallo inesperado al enviar el token, solicite un nuevo token'
-        return JsonResponse({'message': message, 'message_type': 'error'}, status=400)
+        return JsonResponse({'message': message, 'message_type': 'error'})
 
     message = 'El token fue enviado con éxito, revise su telegram'
-    return JsonResponse({'message': message, 'message_type': 'success'}, status=200)
+    return JsonResponse({'message': message, 'message_type': 'success'})
 
 
 def create_tokenotp_admon_global() -> str:
@@ -113,7 +123,7 @@ def create_tokenotp_admon_global() -> str:
 def update_tokenotp_admon_global(object_user_name: str, new_token_double_auth: str) -> bool:
     try:
         models.AdmonGlobal.objects.filter(user_name=object_user_name).update(
-            token_double_auth=new_token_double_auth, timestamp_token_double_auth=datetime.now(timezone.utc))
+            token_double_auth=new_token_double_auth)
         return True
     except:
         return False
@@ -133,8 +143,14 @@ def send_tokenotp_admon_global(admon_global_user_name: str) -> bool:
         url = f'https://api.telegram.org/bot{token_bot}/sendMessage?chat_id={chat_id}&parse_mode=Markdown&text={token_double_auth}'
         response = requests.post(url)
         if response.status_code == 200:
+            admon_global.timestamp_token_double_auth = datetime.now(
+                timezone.utc)
+            admon_global.save()
             return True
     except:
+        admon_global.timestamp_token_double_auth = None
+        admon_global.token_double_auth = None
+        admon_global.save()
         return False
 
 
@@ -159,6 +175,95 @@ def check_tokenotp_valid_admon_global(object_user_name: str, form_token_double_a
         return False
 
 
+# login attemps validation over IPv4
+def get_ip_client(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
+    return ip
+
+
+def save_ip_client(ip: str, user_name: str) -> bool:
+    timestamp_now = datetime.now(timezone.utc)
+    try:
+        admon_global = models.AdmonGlobal.objects.get(user_name=user_name)
+        if admon_global.ipv4_address != ip:
+            admon_global.ipv4_address = ip
+            admon_global.timestamp_ultimo_intento = timestamp_now
+            admon_global.intentos = MIN_ATTEMPS
+            admon_global.save()
+        return True
+    except:
+        return False
+
+
+def check_attemps_login(attemps_account: int) -> bool:
+    if (attemps_account < MAX_ATTEMPS):
+        return True
+    else:
+        return False
+
+
+def increment_attemps_account(object_admon_global: models.AdmonGlobal) -> bool:
+    # incrementa el contador de intentos y actualiza el timestamp
+    try:
+        update_attemps = object_admon_global.intentos + 1
+        object_admon_global.intentos = update_attemps
+        object_admon_global.save()
+        return True
+    except:
+        return False
+
+
+def block_admon_global(object_admon_global: models.AdmonGlobal) -> bool:
+    # si ya pasaron más de 5 minutos, reinicia el contador y el timestamp, sino, truena la atenticación
+    # False seugnifica que la cuenta no se bloquea, True que la cuenta si se bloquea
+    timestamp_now = datetime.now(timezone.utc)
+    timestamp_attemps = object_admon_global.timestamp_ultimo_intento
+
+    # if it is a new client
+    if timestamp_attemps is None:
+        object_admon_global.timestamp_ultimo_intento = timestamp_now
+        object_admon_global.intentos = MIN_ATTEMPS
+        object_admon_global.save()
+        return False
+
+    if (((timestamp_now
+          - timestamp_attemps).total_seconds())
+            < LOCK_TIME_RANGE):
+        object_admon_global.timestamp_ultimo_intento = timestamp_now
+        object_admon_global.save()
+        return True
+    else:
+        object_admon_global.intentos = MIN_ATTEMPS
+        object_admon_global.timestamp_ultimo_intento = None
+        object_admon_global.save()
+        return False
+
+
+def restart_attemps(object_admon_global: models.AdmonGlobal) -> bool:
+    # settea el contador a 0 y borra el último timestamp de intentos
+    try:
+        object_admon_global.intentos = MIN_ATTEMPS
+        object_admon_global.timestamp_ultimo_intento = None
+        object_admon_global.save()
+        return True
+    except:
+        return False
+
+
+def delete_ipv4_client(object_admon_global: models.AdmonGlobal) -> bool:
+    try:
+        object_admon_global.ipv4_address = None
+        object_admon_global.save()
+        return True
+    except:
+        return False
+
+
 # Section of login admon global
 def login_admon_global(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
@@ -172,6 +277,7 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
 
     elif request.method == 'POST':
         form_login_admon_global = forms.LoginAdomGlobal(request.POST)
+
         if form_login_admon_global.is_valid():
 
             form_user_name = form_login_admon_global.cleaned_data['user_name']
@@ -179,26 +285,49 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
             form_token_double_auth = form_login_admon_global.cleaned_data[
                 'token_double_auth']
 
+            ip = get_ip_client(request)
+            if save_ip_client(ip, form_user_name) is not True:
+                messages.error(
+                    request, 'Ocurrió un error inesperado, no se pudo guardar la dirección IPv4 del cliente')
+                return redirect('login_admon_global')
+
             try:
-                models.AdmonGlobal.objects.get(
-                    user_name=form_user_name, passwd=form_passwd)
-                admon_global_authenticated = True
+                object_admon_global = models.AdmonGlobal.objects.get(
+                    user_name=form_user_name)
             except:
+                messages.error(request, 'Cuenta no encontrada')
+
+            attemps = object_admon_global.intentos
+            if check_attemps_login(attemps) is not True:
+                if block_admon_global(object_admon_global) is True:
+                    messages.error(
+                        request, 'Intentos de inicio de sesión superados, espere 5 minutos antes de intentar de nuevo')
+                    return redirect('login_admon_global')
+
+            # Basic auth username and password
+            if (object_admon_global.user_name == form_user_name and
+                    object_admon_global.passwd == form_passwd):
+                admon_global_authenticated = True
+            else:
                 admon_global_authenticated = False
 
             if admon_global_authenticated is not True:
+                if increment_attemps_account(object_admon_global) is not True:
+                    messages.error(
+                        request, 'Error al actualizar los intentos de inicio de sesión')
+                    return (request, 'login_admon_global')
                 messages.error(
                     request, 'Las credenciales proporcionadas no son válidas, inténtelo de nuevo')
                 return redirect('login_admon_global')
-            else:
-                double_auth_status = login_double_auth_admon_global(
-                    form_user_name, form_token_double_auth)
 
-                if double_auth_status is not True:
+            double_auth_status = login_double_auth_admon_global(
+                form_user_name, form_token_double_auth)
+
+            if double_auth_status is not True:
+                if increment_attemps_account(object_admon_global) is not True:
                     messages.error(
-                        request, 'El token no es correcto o a expirado, solicite un nuevo token')
-                    return redirect('login_admon_global')
-
+                        request, 'Error al actualizar los intentos de inicio de sesión')
+                    return (request, 'login_admon_global')
                 # change token to it be single use even when athentication is successfully
                 new_otptoken = create_tokenotp_admon_global()
 
@@ -215,9 +344,15 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
                         request, 'Ocurrió un error inesperado en el servidor, su sesión no se creará. Inténtelo de nuevo')
                     return redirect('login_admon_global')
 
-                # Session start
-                request.session['logged'] = True
-                return redirect('dashboard_admon_global')
+                messages.error(
+                    request, 'El token no es correcto o a expirado, solicite un nuevo token')
+                return redirect('login_admon_global')
+
+            # Session start
+            restart_attemps(object_admon_global)
+            delete_ipv4_client(object_admon_global)
+            request.session['logged'] = True
+            return redirect('dashboard_admon_global')
         else:
             messages.error(
                 request, 'Los datos proporcionados no contienen un formato válido, vuelva a intentarlo')
