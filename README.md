@@ -29,6 +29,7 @@
 
   - :red_circle: registro de usuarios con políticas de contraseñas (10char,uppercase,lowecase,digits,special)
   - :red_circle: hashing de contraseñas con salt y algoritmo seguro
+  - :red_circle: validaciones de entradas externas (Recuerda que pedir token manda datos al backend)
 
 - :accept: manejo seguro de sesiones web y cookies
   - :accept: configurar sesiones seguras: logout
