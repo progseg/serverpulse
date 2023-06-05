@@ -44,8 +44,8 @@
   - :accept: Inicio de sesión multifactor telegram con OTP
   - :red_circle: limitar intentos
   - :accept: utilizar post para entrega de código
-  - :yellow_circle: código de telegram aleatorios, expirar en 3 minutos, de un solo uso (Falta implementar la destrucción del token si la autenticación falla)
-  - :yellow_circle: si el token es incorrecto se invalida todo el proceso (Quedó el espacio preparado para implementar esta funcionaldiad)
+  - :accept: código de telegram aleatorios, expirar en 3 minutos, de un solo uso
+  - :accept: si el token es incorrecto se invalida todo el proceso (Quedó el espacio preparado para implementar esta funcionaldiad)
 
 - :red_circle: sandbox con docker
 
