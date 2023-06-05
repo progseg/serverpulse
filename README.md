@@ -31,7 +31,7 @@
   - :red_circle: hashing de contraseñas con salt y algoritmo seguro
   - :red_circle: validaciones de entradas externas (Recuerda que pedir token manda datos al backend)
 
-- :accept: manejo seguro de sesiones web y cookies
+- :yellow_circle: manejo seguro de sesiones web y cookies
   - :accept: configurar sesiones seguras: logout
   - :accept: configurar sesiones seguras: settings
   - :accept: configurar sesiones seguras: csrf
@@ -39,14 +39,14 @@
 
 ### Ordinario - martes 6 de junio del 2023
 
-- :red_circle: seguridad en inicio de sesión
+- :accept: seguridad en inicio de sesión
 
   - :accept: inicio de sesión del proyecto y registro de usuarios (bot de cada usuario)
   - :accept: Inicio de sesión multifactor telegram con OTP
-  - :red_circle: limitar intentos
+  - :accept: limitar intentos
   - :accept: utilizar post para entrega de código
   - :accept: código de telegram aleatorios, expirar en 3 minutos, de un solo uso
-  - :accept: si el token es incorrecto se invalida todo el proceso (Quedó el espacio preparado para implementar esta funcionaldiad)
+  - :accept: si el token es incorrecto se invalida todo el proceso
 
 - :red_circle: sandbox con docker
 
