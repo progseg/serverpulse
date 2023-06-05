@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
-from django.urls import include
 
 
 urlpatterns = [
@@ -24,9 +23,6 @@ urlpatterns = [
     #    path('login_sysadmin', views.login_sysadmin, name='login_sysadmin'),
     path('request_token_admon_global', views.request_token_admon_global,
          name='request_token_admon_global'),
-    #    path('request_token_sysadmin', views.request_token_sysadmin,
-    #         name='request_token_sysadmin'),
-    path('dashboard_admon_global', views.dashboard_admon_global,
-         name='dashboard_admon_global'),
-    path('accounts/login', include('django.contrib.auth.urls'))
+    path('login_sys_admin', views.login_sys_admin, name='login_sys_admin'),
+    path('logout', views.logout, name='logout')
 ]

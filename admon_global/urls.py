@@ -18,4 +18,6 @@ from . import views
 
 
 urlpatterns = [
+    path('dashboard_admon_global', views.dashboard_admon_global,
+         name='dashboard_admon_global')
 ]

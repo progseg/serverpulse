@@ -12,6 +12,7 @@ import json
 import requests
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseBadRequest, HttpResponseNotAllowed, JsonResponse
+from admon_global import views as views_admon_global
 # Create your views here.
 
 TOKENOTP_LIVE = 180.0
@@ -248,15 +249,10 @@ def login_double_auth_admon_global(form_user_name: str, form_token_double_auth: 
     return True
 
 
-def dashboard_admon_global(request: HttpRequest) -> HttpResponse:
-    if request.method == 'GET':
-        return render(request, 'dashboard.html')
-
-
-def logout_admon_global(request: HttpRequest) -> HttpResponse:
+def logout(request: HttpRequest) -> HttpResponse:
     request.session['logged'] = False
     request.session.flush()
-    return redirect('login_admon_global')
+    return redirect('login_sys_admin')
 
 
 # Section of login SysAdmin

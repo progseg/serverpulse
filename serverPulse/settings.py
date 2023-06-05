@@ -61,7 +61,7 @@ ROOT_URLCONF = 'serverPulse.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['auth_app/templates', 'admon_global/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
