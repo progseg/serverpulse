@@ -514,11 +514,6 @@ def login_double_auth_sys_admin(form_nickname: str, form_token_double_auth: str)
     return True
 
 
-def dashboard_sys_admin(request: HttpRequest) -> HttpResponse:
-    if request.method == 'GET':
-        return render(request, 'dashboard.html')
-
-
 def logout_sys_admin(request: HttpRequest) -> HttpResponse:
     request.session['logged'] = False
     request.session.flush()
