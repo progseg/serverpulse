@@ -4,8 +4,11 @@
 {% endblock %}
 {% block content %}
     <div id="loading-message" hidden='True'>Por favor, espera mientras se envía el token...</div>
-
-    <p>Introduzca el nombre de su usuario en el campo "nickname" y a continuación solicite su token de doble autenticación</p>
+    <div class="page-header">
+       <h1 style="text-align: center;">Introduzca el nombre de su usuario en el campo "Nickname"</h1>
+       <h4 style="text-align: center;">solicite su token de doble autenticación</h4>
+    </div>
+  
     {% if messages %}
         <ul class='messages'>
         {% for message in messages %}
@@ -18,21 +21,32 @@
         {% csrf_token %}
         <section>
             <h2>Iniciar Sesión</h2>
+            <h5 style="text-align: center;">Credenciales de SysAdmin</h5>
             
             <fieldset>
-                <legend>Credenciales de Sysadmin</legend>
-            
-                <label for='nickname'>nickname:</label>
-                <input type='text' id='nickname', name='nickname'></input>
+            <form action="/action_page.php" class="was-validated">
+                <div class="login">
+                <div class="col-md-9">
+                    <label for='nickname' class="form-label" >Nickname:</label>
+                    <input type="text" class="form-control" id="nickname" placeholder="Nickname" name="nickname">
+                </div>
+                    
+                <div class="col-md-9">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="password" placeholder="*********" name="password" autocomplete='off'>
+                </div>
 
-                <label for='password'>password:</label>
-                <input type='password' id='password', name='password' autocomplete='off'></input>
-                
-                <label for='token_double_auth'>token de doble autenticación:</label>
-                <input type='password' id='token_double_auth', name='token_double_auth' autocomplete='off'></input>
+                <div class="col-md-9">
+                    <label for='token_double_auth' class="form-label" >Token de doble autenticación:</label>
+                    <input type="password" class="form-control" id='token_double_auth' placeholder="*********" name="token_double_auth" autocomplete='off'>
+                </div>
+                    
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <h6>Solicitar Token doble autenticación</h6>
+                <button type='button' class="btn btn-outline-dark" class="btn btn-dark" id="bttn_request_token">Solicitar token</button>
+                </div>
+                    
+            </form>   
             </fieldset>
         </section>
-
-    <button type='submit'>Enviar</button>
-    <button type='button' id="bttn_request_token">Solicitar token de doble autenticación</button>
 {% endblock %}
