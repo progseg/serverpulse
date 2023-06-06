@@ -1,0 +1,48 @@
+version: '2.18.1'
+services:
+  postgres:
+    image: postgres:14.8-bullseye
+    restart: always
+    environment:
+      POSTGRES_USER: ${USER_DATABASE}
+      POSTGRES_PASSWORD: ${PASSWORD_DATABASE} 
+      POSTGRES_DB: ${NAME_DATABASE}
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      - serverpulse_net
+
+  django:
+    image: serverpulse:latest
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_NAME: ${NAME_DATABASE}
+      DB_USER: ${USER_DATABASE}
+      DB_PASSWORD: ${PASSWORD_DATABASE}
+      SECRET_KEY: ${SECRET_KEY}
+    volumes:
+      - /home/dllg/Documentos/ProgramaciónSegura/nuevoProyFin/serverPulse:/app
+    networks:
+      - serverpulse_net
+    
+  nginx:
+    image: nginx:stable-bullseye
+    ports:
+      - 80:80
+      #- 443:443
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./certs:/etc/nginx/certs
+      - /home/dllg/Documentos/ProgramaciónSegura/nuevoProyFin/serverPulse/static:/static/
+    depends_on:
+      - django
+    networks:
+      - serverpulse_net
+
+volumes:
+  postgres_data:
+networks:
+  serverpulse_net:
+    driver: bridge
