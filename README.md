@@ -48,7 +48,7 @@
   - :accept: código de telegram aleatorios, expirar en 3 minutos, de un solo uso
   - :accept: si el token es incorrecto se invalida todo el proceso
 
-- :red_circle: sandbox con docker
+- :accept: sandbox con docker
 
   - :accept: integrar todo el proyecto con docker
   - :accept: has uso de docker images y docker-compose para automatizar el despliegue
