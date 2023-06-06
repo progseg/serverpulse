@@ -20,9 +20,11 @@ from . import views
 urlpatterns = [
     path('singin/', views.singin, name='singin'),
     path('login_admon_global', views.login_admon_global, name='login_admon_global'),
-    #    path('login_sysadmin', views.login_sysadmin, name='login_sysadmin'),
     path('request_token_admon_global', views.request_token_admon_global,
          name='request_token_admon_global'),
+    path('request_token_sys_admin', views.request_token_sys_admin,
+         name='request_token_sys_admin'),
     path('login_sys_admin', views.login_sys_admin, name='login_sys_admin'),
-    path('logout', views.logout, name='logout')
+    path('logout', views.logout, name='logout'),
+    path('logout_sys_admin', views.logout_sys_admin, name='logout_sys_admin')
 ]
