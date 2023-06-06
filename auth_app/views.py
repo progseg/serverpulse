@@ -13,6 +13,7 @@ import requests
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseBadRequest, HttpResponseNotAllowed, JsonResponse
 from admon_global import views as views_admon_global
+from sysadmin import views as views_sysadmin
 # Create your views here.
 
 TOKENOTP_LIVE = 180.0  # 3 min
