@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
 
         document.getElementById('loading-message').hidden = false;
-        fetch('request_token_sysadmin', {
+        fetch('request_token_sys_admin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
