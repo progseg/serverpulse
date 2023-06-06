@@ -413,23 +413,57 @@ def login_sys_admin(request: HttpRequest) -> HttpResponse:
             form_token_double_auth = form_login_sys_admin.cleaned_data[
                 'token_double_auth']
 
-            token_alive = check_tokenotp_live_sys_admin(
-                form_nickname, form_token_double_auth)
-            if token_alive is not True:
+            ip = get_ip_client(request)
+            if save_ip_client_sysadmin(ip, form_nickname) is not True:
                 messages.error(
-                    request, 'El token de autenticación expiró, inténtelo de nuevo')
+                    request, 'Ocurrió un error inesperado, no se pudo guardar la dirección IPv4 del cliente')
                 return redirect('login_sys_admin')
 
-            sys_admin_authenticated = models.Sysadmin.objects.get(
-                nickname=form_nickname, password=form_password, token_double_auth=form_token_double_auth)
-            if sys_admin_authenticated is None:
+            try:
+                object_sys_admin = models.Sysadmin.objects.get(
+                    nickname=form_nickname)
+            except:
+                messages.error(request, 'Cuenta no encontrada')
 
-                # nickname or password is wrong, OTP token changes to be single use
+            attemps = object_sys_admin.intentos
+            if check_attemps_login(attemps) is not True:
+                if block_sys_admin(object_sys_admin) is True:
+                    messages.error(
+                        request, 'Intentos de inicio de sesión superados, espere 5 minutos antes de intentar de nuevo')
+                    return redirect('login_sys_admin')
+
+            # Basic auth username and password
+            if (object_sys_admin.nickname == form_nickname and
+                    object_sys_admin.password == form_password):
+                sys_admin_authenticated = True
+            else:
+                object_sys_admin.token_double_auth = None
+                object_sys_admin.save()
+                sys_admin_authenticated = False
+
+            if sys_admin_authenticated is not True:
+                if increment_attemps_account_sysadmin(object_sys_admin) is not True:
+                    messages.error(
+                        request, 'Error al actualizar los intentos de inicio de sesión')
+                    return (request, 'login_sys_admin')
+                messages.error(
+                    request, 'Las credenciales proporcionadas no son válidas, inténtelo de nuevo')
+                return redirect('login_sys_admin')
+
+            double_auth_status = login_double_auth_sys_admin(
+                form_nickname, form_token_double_auth)
+
+            if double_auth_status is not True:
+                if increment_attemps_account_sysadmin(object_sys_admin) is not True:
+                    messages.error(
+                        request, 'Error al actualizar los intentos de inicio de sesión')
+                    return (request, 'login_sys_admin')
+                # change token to it be single use even when athentication is successfully
                 new_otptoken = create_tokenotp_sys_admin()
 
                 if new_otptoken is None:
                     messages.error(
-                        request, 'La solicitud no se pudo completar y el token no fue creado, inténtelo de nuevo')
+                        request, 'Ocurrió un error inesperado en el servidor, su sesión no se creará. Inténtelo de nuevo')
                     return redirect('login_sys_admin')
 
                 token_updated = update_tokenotp_sys_admin(
@@ -437,25 +471,47 @@ def login_sys_admin(request: HttpRequest) -> HttpResponse:
 
                 if token_updated is not True:
                     messages.error(
-                        request, 'Ocurrio un fallo inesperado al registrar su token, solicite un nuevo token')
+                        request, 'Ocurrió un error inesperado en el servidor, su sesión no se creará. Inténtelo de nuevo')
                     return redirect('login_sys_admin')
 
                 messages.error(
-                    request, "La autenticación falló, su token fue revocado. \
-                        revise sus credenciales, solicite un nuevo token e intente iniciar sesión")
+                    request, 'El token no es correcto o a expirado, solicite un nuevo token')
                 return redirect('login_sys_admin')
 
-            else:
-
-                request.session['logged'] = True
-
-                return redirect('dashboard_sys_admin')
+            # Session start
+            restart_attemps_sysadmin(object_sys_admin)
+            delete_ipv4_client_sysadmin(object_sys_admin)
+            request.session['logged'] = True
+            return redirect('dashboard_sys_admin')
         else:
             messages.error(
                 request, 'Los datos proporcionados no contienen un formato válido, vuelva a intentarlo')
             return redirect('login_sys_admin')
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
+
+
+def login_double_auth_sys_admin(form_nickname: str, form_token_double_auth: str) -> bool:
+    token_alive = check_tokenotp_live_sys_admin(
+        form_nickname, form_token_double_auth)
+
+    # token is wrong, OTP token changes to be single use
+    if token_alive is not True:
+        new_otptoken = create_tokenotp_sys_admin()
+
+        if new_otptoken is None:
+            return False
+
+        token_updated = update_tokenotp_sys_admin(
+            form_nickname, new_otptoken)
+
+        if token_updated is not True:
+            return False
+
+        return False
+
+    # auth is ok
+    return True
 
 
 def dashboard_sys_admin(request: HttpRequest) -> HttpResponse:
@@ -480,27 +536,34 @@ def request_token_sys_admin(request: HttpRequest) -> HttpResponse:
     if request.content_type != 'application/json':
         return HttpResponseBadRequest('Formato de solicitud incorrecto')
 
+    data = json.loads(request.body)
+    form_nickname = data.get('nickname')
+    try:
+        models.Sysadmin.objects.get(nickname=form_nickname)
+    except:
+        print('Nombre de usario no encontrado')
+        message = 'El usuario no fue encontrado.\nIngrese correctamente su nombre de usuario en el campo nickname'
+        return JsonResponse({'message': message, 'message_type': 'error'})
+
     new_token_double_auth = create_tokenotp_sys_admin()
     if new_token_double_auth is None:
         message = 'La solicitud no se pudo completar y el token no fue creado, inténtelo de nuevo'
-        return JsonResponse({'message': message}, status=400)
+        return JsonResponse({'message': message, 'message_type': 'error'})
 
-    data = json.loads(request.body)
-    form_nickname = data.get('nickname')
     token_updated = update_tokenotp_sys_admin(
         form_nickname, new_token_double_auth)
 
     if token_updated is not True:
         message = 'Ocurrio un fallo inesperado al registrar su token, solicite un nuevo token'
-        return JsonResponse({'message': message, 'message_type': 'error'}, status=400)
+        return JsonResponse({'message': message, 'message_type': 'error'})
 
     token_sended = send_tokenotp_sys_admin(form_nickname)
     if token_sended is not True:
         message = 'Ocurrió un fallo inesperado al enviar el token, solicite un nuevo token'
-        return JsonResponse({'message': message, 'message_type': 'error'}, status=400)
+        return JsonResponse({'message': message, 'message_type': 'error'})
 
     message = 'El token fue enviado con éxito, revise su telegram'
-    return JsonResponse({'message': message, 'message_type': 'success'}, status=200)
+    return JsonResponse({'message': message, 'message_type': 'success'})
 
 
 def create_tokenotp_sys_admin() -> str:
@@ -532,8 +595,14 @@ def send_tokenotp_sys_admin(sys_admin_nickname: str) -> bool:
         url = f'https://api.telegram.org/bot{token_bot}/sendMessage?chat_id={chat_id}&parse_mode=Markdown&text={token_double_auth}'
         response = requests.post(url)
         if response.status_code == 200:
+            sys_admin.timestamp_token_double_auth = datetime.now(
+                timezone.utc)
+            sys_admin.save()
             return True
     except:
+        sys_admin.timestamp_token_double_auth = None
+        sys_admin.token_double_auth = None
+        sys_admin.save()
         return False
 
 
@@ -547,12 +616,82 @@ def check_tokenotp_live_sys_admin(object_nickname: str, form_token_double_auth: 
 
     object_token_double_auth = object_sys_admin.token_double_auth
     object_timestamp_token_double_auth = object_sys_admin.timestamp_token_double_auth
-
     timestamp_now = datetime.now(timezone.utc)
+
     if (object_token_double_auth == form_token_double_auth
             and ((timestamp_now
                   - object_timestamp_token_double_auth).total_seconds())
             < TOKENOTP_LIVE):
         return True
     else:
+        return False
+    
+def save_ip_client_sysadmin(ip: str, nickname: str) -> bool:
+    timestamp_now = datetime.now(timezone.utc)
+    try:
+        sys_admin = models.Sysadmin.objects.get(nickname=nickname)
+        if sys_admin.ipv4_address != ip:
+            sys_admin.ipv4_address = ip
+            sys_admin.timestamp_ultimo_intento = timestamp_now
+            sys_admin.intentos = MIN_ATTEMPS
+            sys_admin.save()
+        return True
+    except:
+        return False
+    
+
+def increment_attemps_account_sysadmin(object_sys_admin: models.Sysadmin) -> bool:
+    # incrementa el contador de intentos y actualiza el timestamp
+    try:
+        update_attemps = object_sys_admin.intentos + 1
+        object_sys_admin.intentos = update_attemps
+        object_sys_admin.save()
+        return True
+    except:
+        return False
+
+
+def block_sys_admin(object_sys_admin: models.Sysadmin) -> bool:
+    # si ya pasaron más de 5 minutos, reinicia el contador y el timestamp, sino, truena la atenticación
+    # False seugnifica que la cuenta no se bloquea, True que la cuenta si se bloquea
+    timestamp_now = datetime.now(timezone.utc)
+    timestamp_attemps = object_sys_admin.timestamp_ultimo_intento
+
+    # if it is a new client
+    if timestamp_attemps is None:
+        object_sys_admin.timestamp_ultimo_intento = timestamp_now
+        object_sys_admin.intentos = MIN_ATTEMPS
+        object_sys_admin.save()
+        return False
+
+    if (((timestamp_now
+          - timestamp_attemps).total_seconds())
+            < LOCK_TIME_RANGE):
+        object_sys_admin.timestamp_ultimo_intento = timestamp_now
+        object_sys_admin.save()
+        return True
+    else:
+        object_sys_admin.intentos = MIN_ATTEMPS
+        object_sys_admin.timestamp_ultimo_intento = None
+        object_sys_admin.save()
+        return False
+    
+
+def restart_attemps_sysadmin(object_sys_admin: models.Sysadmin) -> bool:
+    # settea el contador a 0 y borra el último timestamp de intentos
+    try:
+        object_sys_admin.intentos = MIN_ATTEMPS
+        object_sys_admin.timestamp_ultimo_intento = None
+        object_sys_admin.save()
+        return True
+    except:
+        return False
+
+
+def delete_ipv4_client_sysadmin(object_sys_admin: models.Sysadmin) -> bool:
+    try:
+        object_sys_admin.ipv4_address = None
+        object_sys_admin.save()
+        return True
+    except:
         return False
