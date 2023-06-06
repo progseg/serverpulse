@@ -50,10 +50,10 @@
 
 - :red_circle: sandbox con docker
 
-  - :red_circle: integrar todo el proyecto con docker
-  - :red_circle: has uso de docker images y docker-compose para automatizar el despliegue
-  - :red_circle: implementa seguridad (el contenedor no usa root)
+  - :accept: integrar todo el proyecto con docker
+  - :accept: has uso de docker images y docker-compose para automatizar el despliegue
+  - :accept: implementa seguridad (el contenedor no usa root)
 
 - :red_circle: seguridad en el canal de comunicación
-  - :accept: agregar soporte de HTTPS al ambiente de producción (hosting con Azure y let's encrypt)
+  - :yellow_circle: agregar soporte de HTTPS al ambiente de producción (hosting con Azure y let's encrypt)
   - :red_circle: agregar soporte de HTTPS al ambiente de producción (certificados autofirmados en entorno local)
