@@ -12,6 +12,7 @@ import json
 import requests
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseBadRequest, HttpResponseNotAllowed, JsonResponse
+from django.contrib.auth.hashers import make_password, check_password
 from admon_global import views as views_admon_global
 from sysadmin import views as views_sysadmin
 # Create your views here.
@@ -43,7 +44,7 @@ def singin(request: HttpRequest) -> HttpResponse:
             Sysadmin = models.Sysadmin()
 
             Sysadmin.nickname = nickname
-            Sysadmin.password = password
+            Sysadmin.password = validar_password(password)
             Sysadmin.chat_id = chat_id
             Sysadmin.token_bot = token_bot
 
@@ -75,9 +76,39 @@ def singin(request: HttpRequest) -> HttpResponse:
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 
+def validar_password(password):
+    """ Llama a la función check_password donde devuelve un valor booleano de 
+        si la contraseña sin procesar coincide con el 
+        resumen codificado en tres partes. 
+
+    Args:
+        password (_type_): -
+
+    Returns:
+        _type_: -
+    """
+    return check_password(password)
+
+
+def hashear_password(password):
+    """ Llama a la función make_password donde convierte 
+        una contraseña de texto sin formato en un hash para 
+        el almacenamiento de la base de datos 
+
+    Args:
+        password (_type_): -
+
+    Returns:
+        _type_: -
+    """
+    return make_password(password)
+
+
 # Section of login admon global
 
 # Section of token OTP admon global
+
+
 def request_token_admon_global(request: HttpRequest) -> HttpResponse:
     if request.method != 'POST':
         return HttpResponseNotAllowed(['POST'])
@@ -621,7 +652,8 @@ def check_tokenotp_live_sys_admin(object_nickname: str, form_token_double_auth: 
         return True
     else:
         return False
-    
+
+
 def save_ip_client_sysadmin(ip: str, nickname: str) -> bool:
     timestamp_now = datetime.now(timezone.utc)
     try:
@@ -634,7 +666,7 @@ def save_ip_client_sysadmin(ip: str, nickname: str) -> bool:
         return True
     except:
         return False
-    
+
 
 def increment_attemps_account_sysadmin(object_sys_admin: models.Sysadmin) -> bool:
     # incrementa el contador de intentos y actualiza el timestamp
@@ -671,7 +703,7 @@ def block_sys_admin(object_sys_admin: models.Sysadmin) -> bool:
         object_sys_admin.timestamp_ultimo_intento = None
         object_sys_admin.save()
         return False
-    
+
 
 def restart_attemps_sysadmin(object_sys_admin: models.Sysadmin) -> bool:
     # settea el contador a 0 y borra el último timestamp de intentos

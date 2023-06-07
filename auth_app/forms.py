@@ -1,6 +1,7 @@
 from typing import Any, Dict
 from django import forms
 from .models import *
+from . import views
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -59,6 +60,16 @@ class Singin(forms.Form):
             raise forms.ValidationError(
                 'Repetir la contraseña no puede estar vacio')
         return repeat_password
+    
+
+    def save(self, commit=True):
+        user = super().save(commit=False) # Se redefine la forma en que se guarda la contraseña
+        password_hash = views.hashear_password(self.cleaned_data['password'])
+        user.password = password_hash
+        if commit:
+            user.save()
+        return user
+
 
     def clean_chat_id(self):
         chat_id = self.cleaned_data['chat_id']
