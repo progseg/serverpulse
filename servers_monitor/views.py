@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest, HttpResponseNotAllowed
+from django.http import HttpResponse, HttpRequest, HttpResponseNotAllowed, JsonResponse
 from . import decorators_sys_admin
 from . import models
 
@@ -60,3 +60,15 @@ def off_servidor(request):
             server.save()
     return HttpResponse("Apagado")
 
+
+def recuperar_registros(request):
+    servs =  models.Servidor.objects.all()
+    result = serializar_registros(servs)
+    return JsonResponse(result, safe=False)
+
+
+def serializar_registros(servs):
+    result = []
+    for register in servs:
+        result.append({'Direccion': register.ipv4_address, 'Estado': register.status})
+    return result
