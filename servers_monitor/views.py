@@ -1,7 +1,6 @@
 from django.shortcuts import render
 import logging
 from django.http import HttpResponse, HttpRequest, HttpResponseNotAllowed, JsonResponse
-from . import decorators_sys_admin
 from . import models
 
 # Create your views here.
