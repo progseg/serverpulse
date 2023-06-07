@@ -17,58 +17,68 @@ class Singin(forms.Form):
     token_bot = forms.CharField(
         label='token de su bot en Telegram', min_length=40, max_length=50, required=True)
 
-
     def clean_nickname(self):
         nickname = self.cleaned_data['nickname']
         if nickname == '':
             raise forms.ValidationError('El Nickname no puede estar vacio')
         if len(nickname) < 4:
-            raise forms.ValidationError('El Nickname debe contener al menos 4 caracteres')
+            raise forms.ValidationError(
+                'El Nickname debe contener al menos 4 caracteres')
         return nickname
-    
-    def clean_password(self): # Verificación de contraseña (10char,uppercase,lowecase,digits,special)
+
+    # Verificación de contraseña (10char,uppercase,lowecase,digits,special)
+    def clean_password(self):
         password = self.cleaned_data['password']
         if ' ' in password:
-            raise forms.ValidationError('La "Contraseña" no debe contener espacios')
+            raise forms.ValidationError(
+                'La "Contraseña" no debe contener espacios')
         if len(password) < 10:
-            raise forms.ValidationError('La "Contraseña" debe contener al menos 10 caracteres')
+            raise forms.ValidationError(
+                'La "Contraseña" debe contener al menos 10 caracteres')
         if not any(caracter.isupper() for caracter in password):
-            raise forms.ValidationError('La "Contraseña" al menos debe contener una letra mayúscula')
+            raise forms.ValidationError(
+                'La "Contraseña" al menos debe contener una letra mayúscula')
         if not any(caracter.islower() for caracter in password):
-            raise forms.ValidationError('La "Contraseña" al menos debe contener una letra minúscula')
+            raise forms.ValidationError(
+                'La "Contraseña" al menos debe contener una letra minúscula')
         if not any(caracter.isdigit() for caracter in password):
-            raise forms.ValidationError('La "Contraseña" al menos debe contener un número')
+            raise forms.ValidationError(
+                'La "Contraseña" al menos debe contener un número')
         if password == '':
             raise forms.ValidationError('La Contraseña no puede estar vacia')
         return password
-    
 
-    def clean_repeat_password(self): # Verificacion de si la contraeña coincide
+    # Verificacion de si la contraeña coincide
+    def clean_repeat_password(self):
         password = self.cleaned_data['password']
         repeat_password = self.cleaned_data['repeat_password']
         if password != repeat_password:
-            raise forms.ValidationError('Las contraseñas no coinciden') # Este es el error que esta en forms.error
+            # Este es el error que esta en forms.error
+            raise forms.ValidationError('Las contraseñas no coinciden')
         if repeat_password == '':
-            raise forms.ValidationError('Repetir la contraseña no puede estar vacio')
+            raise forms.ValidationError(
+                'Repetir la contraseña no puede estar vacio')
         return repeat_password
-    
 
     def clean_chat_id(self):
         chat_id = self.cleaned_data['chat_id']
         if chat_id == '':
             raise forms.ValidationError('El Chat ID no puede estar vacio')
         if len(chat_id) < 10:
-            raise forms.ValidationError('Su Chat ID no puede tener menos de 10 caracteres')
+            raise forms.ValidationError(
+                'Su Chat ID no puede tener menos de 10 caracteres')
         return chat_id
-    
 
     def clean_token_bot(self):
         token_bot = self.cleaned_data['token_bot']
         if token_bot == '':
-            raise forms.ValidationError('El Token de su BOT no puede estar vacio')
+            raise forms.ValidationError(
+                'El Token de su BOT no puede estar vacio')
         if len(token_bot) < 46:
-            raise forms.ValidationError('Su Token BOT no puede tener menos de 46 caracteres')
+            raise forms.ValidationError(
+                'Su Token BOT no puede tener menos de 46 caracteres')
         return token_bot
+
 
 class LoginAdomGlobal(forms.Form):
     user_name = forms.CharField(
