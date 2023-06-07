@@ -18,4 +18,16 @@ from . import views
 
 
 urlpatterns = [
+    path('state_servidor', views.state_servidor,
+         name='state_servidor'),
+    path('on_servidor', views.on_servidor,
+         name='on_servidor'),
+    path('off_servidor', views.off_servidor,
+         name='off_servidor'),
+    path('indeterminate_servidor', views.indeterminate_servidor,
+         name='indeterminate_servidor'),
+    path('recuperar_registros', views.recuperar_registros,
+         name='recuperar_registros'),
+    path('serializar_registros', views.serializar_registros,
+         name='serializar_registros')
 ]
