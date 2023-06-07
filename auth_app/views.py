@@ -50,7 +50,7 @@ def singin(request: HttpRequest) -> HttpResponse:
             Sysadmin = models.Sysadmin()
 
             Sysadmin.nickname = nickname
-            Sysadmin.password = validar_password(password)
+            Sysadmin.password = password
             Sysadmin.chat_id = chat_id
             Sysadmin.token_bot = token_bot
 

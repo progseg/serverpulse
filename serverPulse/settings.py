@@ -97,7 +97,7 @@ DATABASES = {
         #        'USER': 'servidor',
         'PASSWORD': os.environ.get('PASSWORD_DATABASE'),
         #        'PASSWORD': 'AÑ75._ad784os',
-        'HOST': 'localhost',
+        'HOST': 'postgres',
         'PORT': '',
     }
 }
