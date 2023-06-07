@@ -10,12 +10,17 @@ from . import forms
 from . import models
 import json
 import requests
+import logging
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseBadRequest, HttpResponseNotAllowed, JsonResponse
 from django.contrib.auth.hashers import make_password, check_password
 from admon_global import views as views_admon_global
 from sysadmin import views as views_sysadmin
 # Create your views here.
+
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
+                    datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO,
+                    filename='resgistros.log', filemode='a')
 
 TOKENOTP_LIVE = 180.0  # 3 min
 MAX_ATTEMPS = 5
@@ -24,7 +29,8 @@ LOCK_TIME_RANGE = 300.0  # 5 min
 
 
 def singin(request: HttpRequest) -> HttpResponse:
-
+    logging.info(
+        'Singin: Se hace petición por el método: ' + request.method)
     if request.method == 'GET':
         form_singin = forms.Singin()
 
@@ -64,13 +70,19 @@ def singin(request: HttpRequest) -> HttpResponse:
 
                 messages.success(
                     request, f'El usuario {nickname} fue registrado con éxito')
+                logging.info(
+                    'Singin: El usuario ingreso adecuadamente en su sesión')
                 return redirect('login_sys_admin')
             except:
                 messages.error(
                     request, 'Ocurrió un error inesperado en el servidor')
+                logging.error(
+                    'Singin: Error en el servidor')
                 return redirect('singin')
         else:
             messages.error(request, 'Los datos proporcionados no son válidos')
+            logging.error(
+                'Singin: Los datos que ingreso el usuario no son correctos')
             return redirect('singin')
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
@@ -110,6 +122,8 @@ def hashear_password(password):
 
 
 def request_token_admon_global(request: HttpRequest) -> HttpResponse:
+    logging.info(
+        'mandar token Admin Global: Se hace petición por el método: ' + request.method)
     if request.method != 'POST':
         return HttpResponseNotAllowed(['POST'])
 
@@ -123,11 +137,15 @@ def request_token_admon_global(request: HttpRequest) -> HttpResponse:
     except:
         print('Nombre de usario no encontrado')
         message = 'El usuario no fue encontrado.\nIngrese correctamente su nombre de usuario en el campo username'
+        logging.error(
+            'mandar token Admin Global: No existe el usuario que se ingreso')
         return JsonResponse({'message': message, 'message_type': 'error'})
 
     new_token_double_auth = create_tokenotp_admon_global()
     if new_token_double_auth is None:
         message = 'La solicitud no se pudo completar y el token no fue creado, inténtelo de nuevo'
+        logging.error(
+            'mandar token Admin Global: El token no se creo')
         return JsonResponse({'message': message, 'message_type': 'error'})
 
     token_updated = update_tokenotp_admon_global(
@@ -135,14 +153,20 @@ def request_token_admon_global(request: HttpRequest) -> HttpResponse:
 
     if token_updated is not True:
         message = 'Ocurrio un fallo inesperado al registrar su token, solicite un nuevo token'
+        logging.error(
+            'mandar token Admin Global: El token no se registro adecuadamente')
         return JsonResponse({'message': message, 'message_type': 'error'})
 
     token_sended = send_tokenotp_admon_global(form_user_name)
     if token_sended is not True:
         message = 'Ocurrió un fallo inesperado al enviar el token, solicite un nuevo token'
+        logging.error(
+            'mandar token Admin Global: El token no se mando adecuadamente')
         return JsonResponse({'message': message, 'message_type': 'error'})
 
     message = 'El token fue enviado con éxito, revise su telegram'
+    logging.info(
+        'mandar token Admin Global: El token se mando adecuadamente')
     return JsonResponse({'message': message, 'message_type': 'success'})
 
 
@@ -179,11 +203,15 @@ def send_tokenotp_admon_global(admon_global_user_name: str) -> bool:
                 timezone.utc)
             admon_global.save()
             return True
+        logging.info(
+            'mandar_token Admmin Global: el token por mensaje se mando adecuadamente')
     except:
         admon_global.timestamp_token_double_auth = None
         admon_global.token_double_auth = None
         admon_global.save()
         return False
+    logging.error(
+        'mandar_token Sys Admmin: el token por mensaje NO se mando adecuadamente')
 
 
 # Section of token OTP validations: it's check the token correspond to user and the token does not expired
@@ -298,6 +326,8 @@ def delete_ipv4_client(object_admon_global: models.AdmonGlobal) -> bool:
 
 # Section of login admon global
 def login_admon_global(request: HttpRequest) -> HttpResponse:
+    logging.info(
+        'login Admin Global: Se hace petición por el método: ' + request.method)
     if request.method == 'GET':
         form_login_admon_global = forms.LoginAdomGlobal()
 
@@ -321,6 +351,8 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
             if save_ip_client(ip, form_user_name) is not True:
                 messages.error(
                     request, 'Ocurrió un error inesperado, no se pudo guardar la dirección IPv4 del cliente')
+                logging.error(
+                    'login Admin Global: Error al guardar la dirección IP del usuario')
                 return redirect('login_admon_global')
 
             try:
@@ -328,12 +360,15 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
                     user_name=form_user_name)
             except:
                 messages.error(request, 'Cuenta no encontrada')
+                logging.error('login Admin Global: Error no existe el usuario')
 
             attemps = object_admon_global.intentos
             if check_attemps_login(attemps) is not True:
                 if block_admon_global(object_admon_global) is True:
                     messages.error(
                         request, 'Intentos de inicio de sesión superados, espere 5 minutos antes de intentar de nuevo')
+                    logging.error(
+                        'login Admin Global: Error se agotaron los intentos para iniciar sesión')
                     return redirect('login_admon_global')
 
             # Basic auth username and password
@@ -349,9 +384,13 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
                 if increment_attemps_account(object_admon_global) is not True:
                     messages.error(
                         request, 'Error al actualizar los intentos de inicio de sesión')
+                    logging.error(
+                        'login Admin Global: Error al momento de actualizar intentos al momento de iniciar sesión')
                     return (request, 'login_admon_global')
                 messages.error(
                     request, 'Las credenciales proporcionadas no son válidas, inténtelo de nuevo')
+                logging.error(
+                    'login Admin Global: Error al momento de ingresar las credenciales del usuario')
                 return redirect('login_admon_global')
 
             double_auth_status = login_double_auth_admon_global(
@@ -361,6 +400,8 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
                 if increment_attemps_account(object_admon_global) is not True:
                     messages.error(
                         request, 'Error al actualizar los intentos de inicio de sesión')
+                    logging.error(
+                        'login Admin Global: Error al momento de actualizar intentos al momento de iniciar sesión')
                     return (request, 'login_admon_global')
                 # change token to it be single use even when athentication is successfully
                 new_otptoken = create_tokenotp_admon_global()
@@ -368,6 +409,7 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
                 if new_otptoken is None:
                     messages.error(
                         request, 'Ocurrió un error inesperado en el servidor, su sesión no se creará. Inténtelo de nuevo')
+                    logging.error('login Admin Global: Error en el Servidor')
                     return redirect('login_admon_global')
 
                 token_updated = update_tokenotp_admon_global(
@@ -376,20 +418,27 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
                 if token_updated is not True:
                     messages.error(
                         request, 'Ocurrió un error inesperado en el servidor, su sesión no se creará. Inténtelo de nuevo')
+                    logging.error('login Admin Global: Error en el Servidor')
                     return redirect('login_admon_global')
 
                 messages.error(
                     request, 'El token no es correcto o a expirado, solicite un nuevo token')
+                logging.error(
+                    'login Admin Global: El Token no es correcto o ha expirado')
                 return redirect('login_admon_global')
 
             # Session start
             restart_attemps(object_admon_global)
             delete_ipv4_client(object_admon_global)
             request.session['logged'] = True
+            logging.info(
+                'login Admin Global: Se termina de autenticar el usuario ')
             return redirect('dashboard_admon_global')
         else:
             messages.error(
                 request, 'Los datos proporcionados no contienen un formato válido, vuelva a intentarlo')
+            logging.error(
+                'login Admin Global: Datos inválidos por parte del usuario')
             return redirect('login_admon_global')
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
@@ -419,14 +468,18 @@ def login_double_auth_admon_global(form_user_name: str, form_token_double_auth: 
 
 
 def logout(request: HttpRequest) -> HttpResponse:
+    logging.info(
+        'logout Admin Global: Se hace petición por el método: ' + request.method)
     request.session['logged'] = False
     request.session.flush()
-    return redirect('login_sys_admin')
+    return redirect('login_admon_global')
 
 
 # Section of login SysAdmin
 
 def login_sys_admin(request: HttpRequest) -> HttpResponse:
+    logging.info(
+        'login Sys Admin: Se hace petición por el método: ' + request.method)
     if request.method == 'GET':
         form_login_sys_admin = forms.LoginSysadmin()
 
@@ -449,6 +502,8 @@ def login_sys_admin(request: HttpRequest) -> HttpResponse:
             if save_ip_client_sysadmin(ip, form_nickname) is not True:
                 messages.error(
                     request, 'Ocurrió un error inesperado, no se pudo guardar la dirección IPv4 del cliente')
+                logging.error(
+                    'login Sys Admin: Error no se pudo guardar la dirección IP del usuario')
                 return redirect('login_sys_admin')
 
             try:
@@ -456,12 +511,15 @@ def login_sys_admin(request: HttpRequest) -> HttpResponse:
                     nickname=form_nickname)
             except:
                 messages.error(request, 'Cuenta no encontrada')
+                logging.error('login Sys Admin: Error no existe el usuario')
 
             attemps = object_sys_admin.intentos
             if check_attemps_login(attemps) is not True:
                 if block_sys_admin(object_sys_admin) is True:
                     messages.error(
                         request, 'Intentos de inicio de sesión superados, espere 5 minutos antes de intentar de nuevo')
+                    logging.error(
+                        'login Sys Admin: Error intentos superados para iniciar sesión por parte del usuario')
                     return redirect('login_sys_admin')
 
             # Basic auth username and password
@@ -477,9 +535,13 @@ def login_sys_admin(request: HttpRequest) -> HttpResponse:
                 if increment_attemps_account_sysadmin(object_sys_admin) is not True:
                     messages.error(
                         request, 'Error al actualizar los intentos de inicio de sesión')
+                    logging.error(
+                        'login Sys Admin: Error al actualizar los intentos de inicio de sesión por parte del usuario')
                     return (request, 'login_sys_admin')
                 messages.error(
                     request, 'Las credenciales proporcionadas no son válidas, inténtelo de nuevo')
+                logging.error(
+                    'login Sys Admin: Error credenciales proporcionadas por el usuario incorrectas')
                 return redirect('login_sys_admin')
 
             double_auth_status = login_double_auth_sys_admin(
@@ -489,6 +551,8 @@ def login_sys_admin(request: HttpRequest) -> HttpResponse:
                 if increment_attemps_account_sysadmin(object_sys_admin) is not True:
                     messages.error(
                         request, 'Error al actualizar los intentos de inicio de sesión')
+                    logging.error(
+                        'login Sys Admin: Error al actualizar los intentos de inicio de sesión por parte del usuario')
                     return (request, 'login_sys_admin')
                 # change token to it be single use even when athentication is successfully
                 new_otptoken = create_tokenotp_sys_admin()
@@ -496,6 +560,7 @@ def login_sys_admin(request: HttpRequest) -> HttpResponse:
                 if new_otptoken is None:
                     messages.error(
                         request, 'Ocurrió un error inesperado en el servidor, su sesión no se creará. Inténtelo de nuevo')
+                    logging.error('login Sys Admin: Error en el servidor')
                     return redirect('login_sys_admin')
 
                 token_updated = update_tokenotp_sys_admin(
@@ -504,20 +569,27 @@ def login_sys_admin(request: HttpRequest) -> HttpResponse:
                 if token_updated is not True:
                     messages.error(
                         request, 'Ocurrió un error inesperado en el servidor, su sesión no se creará. Inténtelo de nuevo')
+                    logging.error('login Sys Admin: Error en el servidor')
                     return redirect('login_sys_admin')
 
                 messages.error(
                     request, 'El token no es correcto o a expirado, solicite un nuevo token')
+                logging.error(
+                    'login Sys Admin: Error en el Token del usuario es incorrecto o a expirado')
                 return redirect('login_sys_admin')
 
             # Session start
             restart_attemps_sysadmin(object_sys_admin)
             delete_ipv4_client_sysadmin(object_sys_admin)
             request.session['logged'] = True
+            logging.info(
+                'login Sys Admin: Se termina de autenticar el usuario ')
             return redirect('dashboard_sys_admin')
         else:
             messages.error(
                 request, 'Los datos proporcionados no contienen un formato válido, vuelva a intentarlo')
+            logging.error(
+                'login Sys Admin: Error datos inválidos por parte del usuario')
             return redirect('login_sys_admin')
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
@@ -547,6 +619,8 @@ def login_double_auth_sys_admin(form_nickname: str, form_token_double_auth: str)
 
 
 def logout_sys_admin(request: HttpRequest) -> HttpResponse:
+    logging.info(
+        'logout Sys Admin: Se hace petición por el método: ' + request.method)
     request.session['logged'] = False
     request.session.flush()
     return redirect('login_sys_admin')
@@ -557,6 +631,8 @@ def logout_sys_admin(request: HttpRequest) -> HttpResponse:
 # Section of token OTP admon global
 
 def request_token_sys_admin(request: HttpRequest) -> HttpResponse:
+    logging.info(
+        'solicitar_token Sys Admin: Se hace petición por el método: ' + request.method)
     if request.method != 'POST':
         return HttpResponseNotAllowed(['POST'])
 
@@ -570,11 +646,13 @@ def request_token_sys_admin(request: HttpRequest) -> HttpResponse:
     except:
         print('Nombre de usario no encontrado')
         message = 'El usuario no fue encontrado.\nIngrese correctamente su nombre de usuario en el campo nickname'
+        logging.error('solicitar_token Sys Admin: usuario no encontrado')
         return JsonResponse({'message': message, 'message_type': 'error'})
 
     new_token_double_auth = create_tokenotp_sys_admin()
     if new_token_double_auth is None:
         message = 'La solicitud no se pudo completar y el token no fue creado, inténtelo de nuevo'
+        logging.error('solicitar_token Sys Admmin: token no creado')
         return JsonResponse({'message': message, 'message_type': 'error'})
 
     token_updated = update_tokenotp_sys_admin(
@@ -582,14 +660,19 @@ def request_token_sys_admin(request: HttpRequest) -> HttpResponse:
 
     if token_updated is not True:
         message = 'Ocurrio un fallo inesperado al registrar su token, solicite un nuevo token'
+        logging.error(
+            'solicitar_token Sys Admmin: el token no registro adecuadamente')
         return JsonResponse({'message': message, 'message_type': 'error'})
 
     token_sended = send_tokenotp_sys_admin(form_nickname)
     if token_sended is not True:
         message = 'Ocurrió un fallo inesperado al enviar el token, solicite un nuevo token'
+        logging.error(
+            'solicitar_token Sys Admmin: el token no se envío adecuadamente')
         return JsonResponse({'message': message, 'message_type': 'error'})
 
     message = 'El token fue enviado con éxito, revise su telegram'
+    logging.info('solicitar_token Sys Admmin: el token se envio adecuadamente')
     return JsonResponse({'message': message, 'message_type': 'success'})
 
 
@@ -626,11 +709,15 @@ def send_tokenotp_sys_admin(sys_admin_nickname: str) -> bool:
                 timezone.utc)
             sys_admin.save()
             return True
+        logging.info(
+            'mandar_token Sys Admmin: el token por mensaje se mando adecuadamente')
     except:
         sys_admin.timestamp_token_double_auth = None
         sys_admin.token_double_auth = None
         sys_admin.save()
         return False
+    logging.error(
+        'mandar_token Sys Admmin: el token por mensaje NO se mando adecuadamente')
 
 
 def check_tokenotp_live_sys_admin(object_nickname: str, form_token_double_auth: str) -> bool:
