@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}
+Monitoreo de servidores
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/servicio.js"></script>
+{% endblock %}
+
+<!-- Contenido del titulo -->
+{% block content %}
+<div class="container mt-3">
+  <figure class="text-center">
+    <blockquote class="blockquote">
+      <h2>Monitoreo de servidores</h2>
+      <footer class="blockquote-footer">Credenciales de cada servidor
+        monitorizado</footer>
+    </blockquote>
+  </figure>
+
+  <!-- Contenido del tabla de monitoreo -->
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th>Hostname</th>
+        <th>Dirección IP</th>
+        <th>Estado</th>
+        <th>Procesador</th>
+        <th>Memoria</th>
+        <th>Disco</th>
+      </tr>
+    </thead>
+
+    <tbody id="cambiar"></tbody>
+  </table>
+</div>
+
+<!-- Contenido del cerrar Sesión -->
+<div>
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'singin' %}"><span
+          class="glyphicon glyphicon-log-in"></span> Cerrar Sesión</a>
+    </li>
+  </div>
+
+{% endblock %}
