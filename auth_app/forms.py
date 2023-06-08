@@ -20,6 +20,9 @@ class Singin(forms.Form):
 
     def clean_nickname(self):
         nickname = self.cleaned_data['nickname']
+        exist = Sysadmin.objects.filter(nickname__iexact=nickname).exists()
+        if exist:
+            raise forms.ValidationError("Este nickname ya existe")
         if nickname == '':
             raise forms.ValidationError('El Nickname no puede estar vacio')
         if len(nickname) < 4:
@@ -73,6 +76,9 @@ class Singin(forms.Form):
 
     def clean_chat_id(self):
         chat_id = self.cleaned_data['chat_id']
+        exist = Sysadmin.objects.filter(chat_id__iexact=chat_id).exists()
+        if exist:
+            raise forms.ValidationError("Este Chat ID ya existe")
         if chat_id == '':
             raise forms.ValidationError('El Chat ID no puede estar vacio')
         if len(chat_id) < 10:
@@ -82,6 +88,9 @@ class Singin(forms.Form):
 
     def clean_token_bot(self):
         token_bot = self.cleaned_data['token_bot']
+        exist = Sysadmin.objects.filter(token_bot__iexact=token_bot).exists()
+        if exist:
+            raise forms.ValidationError("Este Token BOT ya existe")
         if token_bot == '':
             raise forms.ValidationError(
                 'El Token de su BOT no puede estar vacio')
