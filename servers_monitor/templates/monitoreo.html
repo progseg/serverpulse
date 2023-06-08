@@ -4,6 +4,16 @@
 {% endblock %}
 
 
+  <!-- Nav -->
+  <div>
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard_sys_admin' %}"><span class="glyphicon glyphicon-log-in"></span> Inicio SysAdmin</a>
+        <a class="nav-link" href="{% url '#' %}"><span class="glyphicon glyphicon-log-in"></span>Monitoreo de Servidores</a>
+        <a class="nav-link" href="{% url 'logout_sys_admin' %}"><span class="glyphicon glyphicon-log-in"></span> Cerrar Sesión</a>
+      </li>
+  </div>
+
 <!-- Contenido del titulo -->
 {% block content %}
 <div class="container mt-3">
@@ -14,16 +24,6 @@
         monitorizado</footer>
     </blockquote>
   </figure>
-
-  <!-- Nav -->
-  <div>
-    <ul class="nav justify-content-end">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'dashboard_sys_admin' %}"><span class="glyphicon glyphicon-log-in"></span> Inicio SysAdmin</a>
-        <a class="nav-link" href="{% url '#' %}"><span class="glyphicon glyphicon-log-in"></span>Monitoreo de Servidores</a>
-        <a class="nav-link" href="{% url 'logout_sys_admin' %}"><span class="glyphicon glyphicon-log-in"></span> Cerrar Sesión</a>
-      </li>
-  </div>
 
   <!-- Contenido del tabla de monitoreo -->
   <table class="table table-dark table-striped">
