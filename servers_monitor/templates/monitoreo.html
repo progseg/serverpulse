@@ -3,6 +3,7 @@
     <script src="{% static 'js/monitor_server.js' %}"></script>
 {% endblock %}
 
+
 <!-- Contenido del titulo -->
 {% block content %}
 <div class="container mt-3">
@@ -13,20 +14,22 @@
         monitorizado</footer>
     </blockquote>
   </figure>
-</div>
-<!-- Contenido del cerrar Sesión -->
-<div>
-  <ul class="nav justify-content-end">
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'singin' %}"><span
-          class="glyphicon glyphicon-log-in"></span> Cerrar Sesión</a>
-    </li>
-</div>
+
+  <!-- Nav -->
+  <div>
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard_sys_admin' %}"><span class="glyphicon glyphicon-log-in"></span> Inicio SysAdmin</a>
+        <a class="nav-link" href="{% url '#' %}"><span class="glyphicon glyphicon-log-in"></span>Monitoreo de Servidores</a>
+        <a class="nav-link" href="{% url 'logout_sys_admin' %}"><span class="glyphicon glyphicon-log-in"></span> Cerrar Sesión</a>
+      </li>
+  </div>
 
   <!-- Contenido del tabla de monitoreo -->
   <table class="table table-dark table-striped">
     <thead>
       <tr>
+        <th>Hostname</th>
         <th>Dirección IP</th>
         <th>Estado</th>
         <th>Procesador</th>
@@ -37,4 +40,6 @@
 
     <tbody id="cambiar"></tbody>
   </table>
+</div>
+
 {% endblock %}
