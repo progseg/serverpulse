@@ -80,6 +80,7 @@ def singin(request: HttpRequest) -> HttpResponse:
                     'Singin: Error en el servidor')
                 return redirect('singin')
         else:
+            form_singin = forms.Singin()
             messages.error(request, 'Los datos proporcionados no son válidos')
             logging.error(
                 'Singin: Los datos que ingreso el usuario no son correctos')
