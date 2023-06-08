@@ -43,7 +43,7 @@ def singin(request: HttpRequest) -> HttpResponse:
         form_singin = forms.Singin(request.POST)
         if form_singin.is_valid():
             nickname = form_singin.cleaned_data['nickname']
-            password = form_singin.cleaned_data['password']
+            password = form_singin.cleaned_data['password'] = make_password(password)
             chat_id = form_singin.cleaned_data['chat_id']
             token_bot = form_singin.cleaned_data['token_bot']
 
@@ -87,34 +87,6 @@ def singin(request: HttpRequest) -> HttpResponse:
             return redirect('singin')
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
-
-
-def validar_password(password):
-    """ Llama a la función check_password donde devuelve un valor booleano de 
-        si la contraseña sin procesar coincide con el 
-        resumen codificado en tres partes. 
-
-    Args:
-        password (_type_): -
-
-    Returns:
-        _type_: -
-    """
-    return check_password(password)
-
-
-def hashear_password(password):
-    """ Llama a la función make_password donde convierte 
-        una contraseña de texto sin formato en un hash para 
-        el almacenamiento de la base de datos 
-
-    Args:
-        password (_type_): -
-
-    Returns:
-        _type_: -
-    """
-    return make_password(password)
 
 
 # Section of login admon global
@@ -513,6 +485,9 @@ def login_sys_admin(request: HttpRequest) -> HttpResponse:
             except:
                 messages.error(request, 'Cuenta no encontrada')
                 logging.error('login Sys Admin: Error no existe el usuario')
+
+            if not check_password(form_password):
+                form_login_sys_admin.add.error('form_password', 'La contraseña es incorrecta')
 
             attemps = object_sys_admin.intentos
             if check_attemps_login(attemps) is not True:
