@@ -800,7 +800,7 @@ def singin_server(request: HttpRequest) -> HttpResponse:
         return render(request, 'singin_server.html', context)
 
     elif request.method == 'POST':
-        form_singin_server = forms.Singin(request.POST)
+        form_singin_server = forms.SinginServers(request.POST)
         if form_singin_server.is_valid():
             ipv4_address = form_singin_server.cleaned_data['ipv4_address']
             password = form_singin_server.cleaned_data['password'] = make_password(password)
