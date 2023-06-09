@@ -19,5 +19,7 @@ from . import views
 
 urlpatterns = [
     path('dashboard_admon_global', views.dashboard_admon_global,
-         name='dashboard_admon_global')
+         name='dashboard_admon_global'),
+    path('list_date', views.list_date, name='list_date'),
+    path('edit_server', views.edit_server, name='edit_server')
 ]
