@@ -817,7 +817,7 @@ def singin_server(request: HttpRequest) -> HttpResponse:
                     request, 'El servidor {ipv4_address} fue registrado con éxito')
                 logging.info(
                     'Singin Servidor: El servidor ingreso adecuadamente en su sesión')
-                return redirect('dashboard_admon_globa')
+                return redirect('dashboard_admon_global')
             except:
                 messages.error(
                     request, 'Ocurrió un error inesperado en el servidor')
