@@ -1,3 +1,4 @@
+import re
 from typing import Any, Dict
 from django import forms
 from .models import *
@@ -116,3 +117,54 @@ class LoginSysadmin(AuthenticationForm):
                                min_length=4, required=True, widget=forms.PasswordInput)
     token_double_auth = forms.CharField(
         label='token_doble_auth', min_length=8, max_length=8)
+    
+class SinginServers(forms.Form):
+    ipv4_address = forms.CharField(
+        label='Dirección IP del Servidor', max_length=15, min_length=7, required=True)
+    password = forms.CharField(label='contraseña', max_length=15,
+                               min_length=4, required=True, widget=forms.PasswordInput)
+    repeat_password = forms.CharField(
+        label='Repetir contraseña', max_length=15, min_length=4, required=True, widget=forms.PasswordInput)
+    
+
+    def clean_ipv4_address(self):
+        ipv4_address = self.cleaned_data['ipv4_address']
+        expresion_regular_ip = re.compile(
+        r'^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$')
+        if not expresion_regular_ip(ipv4_address):
+            raise forms.ValidationError("Por favor, introduce una dirección IPv4 válida.")
+        return ipv4_address
+
+        # Verificación de contraseña (10char,uppercase,lowecase,digits,special)
+    def clean_password(self):
+        password = self.cleaned_data['password']
+        if ' ' in password:
+            raise forms.ValidationError(
+                'La "Contraseña" no debe contener espacios')
+        if len(password) < 10:
+            raise forms.ValidationError(
+                'La "Contraseña" debe contener al menos 10 caracteres')
+        if not any(caracter.isupper() for caracter in password):
+            raise forms.ValidationError(
+                'La "Contraseña" al menos debe contener una letra mayúscula')
+        if not any(caracter.islower() for caracter in password):
+            raise forms.ValidationError(
+                'La "Contraseña" al menos debe contener una letra minúscula')
+        if not any(caracter.isdigit() for caracter in password):
+            raise forms.ValidationError(
+                'La "Contraseña" al menos debe contener un número')
+        if password == '':
+            raise forms.ValidationError('La Contraseña no puede estar vacia')
+        return password
+
+    # Verificacion de si la contraeña coincide
+    def clean_repeat_password(self):
+        password = self.cleaned_data['password']
+        repeat_password = self.cleaned_data['repeat_password']
+        if password != repeat_password:
+            # Este es el error que esta en forms.error
+            raise forms.ValidationError('Las contraseñas no coinciden')
+        if repeat_password == '':
+            raise forms.ValidationError(
+                'Repetir la contraseña no puede estar vacio')
+        return repeat_password
