@@ -78,6 +78,20 @@ def off_servidor(request):
     return HttpResponse("Apagado")
 
 
+def comparar_ip(request):
+    t = 'monitoreo.html'
+    d = {'list': models.Servidor.objects.all()}
+    solicitud = get_client_ip(request)
+    for servidor in models.Servidor.objects.all():
+        if solicitud == servidor.Direccion:
+            servidor.status = "Encendido"
+            servidor.save()
+        else:
+            servidor.status = "Indeterminado"
+            servidor.save()
+    return render(request, t, d)
+
+
 def recuperar_registros(request):
     logging.info(
         'recupertar_registros AJAX Monitoreo: Se hace petición por el método: ' + request.method)
