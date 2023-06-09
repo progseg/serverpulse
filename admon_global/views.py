@@ -1,4 +1,7 @@
+import datetime
 from pyexpat.errors import messages
+import secrets
+import string
 from django.shortcuts import get_object_or_404, redirect, render
 import logging
 from django.http import HttpResponse, HttpRequest, HttpResponseNotAllowed
@@ -27,6 +30,12 @@ def list_date(request: HttpRequest) -> HttpResponse:
     template = 'list_date.html'
     if request.method == 'GET':
         return render(request, template)
+    
+def delete_sysadmin(request: HttpRequest, id) -> HttpRequest:
+    admin = get_object_or_404(forms.Singin, pk=id)
+    if request.method == 'POST':
+        admin.delete()
+    return redirect('/list_date')
 
 def delete_server(request: HttpRequest, id) -> HttpRequest:
     serv = get_object_or_404(forms.SinginServers, pk=id)
@@ -67,6 +76,57 @@ def edit_server(request: HttpRequest, id) -> HttpRequest:
             logging.error(
                 'Singin Servidor: Los datos que ingreso el usuario no son correctos')
             return redirect('edit_server')
+    return redirect('/list_date')
+
+
+def edit_sysadmin(request: HttpRequest, id) -> HttpRequest:
+    admin = get_object_or_404(forms.Singin, pk=id)
+    if request.method == 'POST':
+        form_singin = forms.Singin(request.POST, isinstance=admin)
+        if form_singin.is_valid():
+            nickname = form_singin.cleaned_data['nickname']
+            password = form_singin.cleaned_data['password'] = make_password(password)
+            chat_id = form_singin.cleaned_data['chat_id']
+            token_bot = form_singin.cleaned_data['token_bot']
+
+            Sysadmin = models.Sysadmin()
+
+            Sysadmin.nickname = nickname
+            Sysadmin.password = password
+            Sysadmin.chat_id = chat_id
+            Sysadmin.token_bot = token_bot
+
+            Sysadmin.token_double_auth = ''.join(secrets.choice(
+                string.ascii_letters + string.digits) for _ in range(8))
+            Sysadmin.timestamp_ultimo_intento = datetime.now()
+            Sysadmin.timestamp_token_double_auth = datetime.now()
+            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forwarded_for:
+                ip = x_forwarded_for.split(',')[0]
+            else:
+                ip = request.META.get('REMOTE_ADDR')
+            Sysadmin.ipv4_address = ip
+
+            try:
+                Sysadmin.save()
+
+                messages.success(
+                    request, f'El usuario {nickname} fue registrado con éxito')
+                logging.info(
+                    'Singin: El usuario se registro adecuadamente')
+                return redirect('list_date')
+            except:
+                messages.error(
+                    request, 'Ocurrió un error inesperado en el servidor')
+                logging.error(
+                    'Singin: Error en el servidor')
+                return redirect('edit_sysadmin')
+        else:
+            form_singin = forms.Singin()
+            messages.error(request, 'Los datos proporcionados no son válidos')
+            logging.error(
+                'Singin: Los datos que ingreso el usuario no son correctos')
+            return redirect('edit_sysadmin')
     return redirect('/list_date')
 
 

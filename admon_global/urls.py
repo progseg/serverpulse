@@ -22,5 +22,7 @@ urlpatterns = [
          name='dashboard_admon_global'),
     path('list_date', views.list_date, name='list_date'),
     path('edit_server/<int:id>/', views.edit_server, name='edit_server'),
-    path('delete_server/<int:id>/', views.edit_server, name='edit_server')
+    path('delete_server/<int:id>/', views.edit_server, name='edit_server'),
+    path('edit_sysadmin/<int:id>/', views.edit_sysadmin, name='edit_sysadmin'),
+    path('delete_sysadmin/<int:id>/', views.delete_sysadmin, name='delete_sysadmin')
 ]
