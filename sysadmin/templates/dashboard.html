@@ -1,15 +1,59 @@
-{% extends 'base.html' %}{% block title %}dashboard SysAdmin{% endblock %}<!---->
-{% block navigation %}
- <!-- Nav -->
- <div>
-    <ul class="nav justify-content-end">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'dashboard_sys_admin' %}"><span class="glyphicon glyphicon-log-in"></span> Inicio SysAdmin</a>
-        <a class="nav-link" href="{% url 'state_servidor' %}"><span class="glyphicon glyphicon-log-in"></span>Monitoreo de Servidores</a>
-        <a class="nav-link" href="{% url 'logout_sys_admin' %}"><span class="glyphicon glyphicon-log-in"></span> Cerrar Sesión</a>
-      </li>
+{% extends 'base_admin.html' %}
+{% block titulo %}Inicio{% endblock %}
+{% block encabezado %}Bienvenido Administrador{% endblock %}
+{% block estilos %}
+<link rel="stylesheet" href="/static/js/style.css">
+{% endblock %}
+
+{% block contenido %}
+<section class="content sau">
+
+  <h2 class="title">Inicio Monitoreo de Servidores</h2>
+  <ul>
+    <b>* Supervise todo tipo de servidores.</b>
+  </ul>
+  <ul>
+    <b>* Supervise sus SysAdmin.</b>
+  </ul>
+  <ul>
+    <b>* Supervise las funciones de sus servidores (mermoria, disco, procesador).</b>
+  </ul>
+
+  <div class="box-container">
+
+      <div class="box">
+          <i class="fab fa-angular"></i>
+          <h3>Nuestros usuarios otorgan las mejores calificaciones al monitoreo</h3>
+          <p>Nu</p>
+      </div>
+      <div class="box">
+          <i class="fab fa-apple"></i>
+          <h3>Texto</h3>
+          <p>Texto....</p>
+      </div>
+      <div class="box">
+          <i class="fab fa-android"></i>
+          <h3>Texto</h3>
+          <p>Texto....</p>
+      </div>
+
   </div>
-{% endblock %} {%block content %}
-<h2>Inicio de Sesión Exitoso</h2>
-<h3>Bienvenido Sys Admin</h3>
+
+</section>
+
+<section class="content about">
+
+  <h2 class="title">Nosotros</h2>
+  <ul><b>Conoce nuestro proyecto</b>
+  </ul>
+
+  <a href="https://github.com/progseg/serverpulse" class="btn">Saber mas</a>
+
+</section>
+
+<section class="content contact">
+  <h2 class="title">Contacto</h2>
+  <ul><b>Ante cualquier falla o duda consulte a nuestro Admin</ul>
+  <ul>Administrador: 2821270585</ul>
+</section>
 {% endblock %}

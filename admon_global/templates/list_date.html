@@ -1,0 +1,32 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Lista Servidores{% endblock %}
+{% block encabezado %}Lista Servidores{% endblock %}
+{% block contenido %}
+<article class="container">
+  <div class="table-responsive">
+    <table class="table table table-blue">
+      <thead>
+        <tr>
+          <th>Direccion IP del Host</th>
+          <th>Configuración del Servidor</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+      {% for serv in servs %}
+        <tr>
+          <td>{{ serv.ipv4_address }}</td>
+          <td>
+            <a class="btn btn-info" href="{% url 'edit_server' serv.id %}">Editar</a>
+            <a class="btn btn-danger" href="{% url 'delet_server' serv.id %}">Eliminar</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <div class="container-fluid"></div>
+  </nav>
+{% endblock %}

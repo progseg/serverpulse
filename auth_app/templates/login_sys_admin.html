@@ -1,8 +1,8 @@
-{% extends 'base.html' %}{% load static %}{% block title %}login Sysadmin{% endblock %} 
+{% extends 'base_sysadmin.html' %}{% load static %}{% block title %}login Sysadmin{% endblock %} 
 {% block head %}
     <script src="{% static 'js/request_token_sys_admin.js' %}"></script>
 {% endblock %}
-{% block content %}
+{% block contenido %}
     <div id="loading-message" hidden='True'>Por favor, espera mientras se envía el token...</div>
     <div class="page-header">
        <h1 style="text-align: center;">Introduzca el nombre de su usuario en el campo "Nickname"</h1>

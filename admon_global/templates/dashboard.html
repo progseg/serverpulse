@@ -1,16 +1,59 @@
-{% extends 'base.html' %}{% block title %}dashboard Admin Global{% endblock %}<!---->
-{% block navigation %}
- <!-- Nav -->
- <div>
-    <ul class="nav justify-content-end">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'dashboard_admon_global' %}"><span class="glyphicon glyphicon-log-in"></span> Inicio Admin Global</a>
-        <a class="nav-link" href="{% url 'singin_servers' %}"><span class="glyphicon glyphicon-log-in"></span>Registro de Servidores</a>
-        <a class="nav-link" href="{% url 'list_dates' %}"><span class="glyphicon glyphicon-log-in"></span>Listado de SysAdmin/Servidores</a>
-        <a class="nav-link" href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Cerrar Sesión</a>
-      </li>
+{% extends 'base_admin.html' %}
+{% block titulo %}Inicio{% endblock %}
+{% block encabezado %}Bienvenido Administrador{% endblock %}
+{% block estilos %}
+<link rel="stylesheet" href="/static/js/style.css">
+{% endblock %}
+
+{% block contenido %}
+<section class="content sau">
+
+  <h2 class="title">Inicio Monitoreo de Servidores</h2>
+  <ul>
+    <b>* Supervise todo tipo de servidores.</b>
+  </ul>
+  <ul>
+    <b>* Supervise sus SysAdmin.</b>
+  </ul>
+  <ul>
+    <b>* Supervise las funciones de sus servidores (mermoria, disco, procesador).</b>
+  </ul>
+
+  <div class="box-container">
+
+      <div class="box">
+          <i class="fab fa-angular"></i>
+          <h3>Nuestros usuarios otorgan las mejores calificaciones al monitoreo</h3>
+          <p>Nu</p>
+      </div>
+      <div class="box">
+          <i class="fab fa-apple"></i>
+          <h3>Texto</h3>
+          <p>Texto....</p>
+      </div>
+      <div class="box">
+          <i class="fab fa-android"></i>
+          <h3>Texto</h3>
+          <p>Texto....</p>
+      </div>
+
   </div>
-{% endblock %} {%block content %}
-<h2>Inicio de Sesión Exitoso</h2>
-<h3>Bienvenido Admin</h3>
+
+</section>
+
+<section class="content about">
+
+  <h2 class="title">Nosotros</h2>
+  <ul><b>Conoce nuestro proyecto</b>
+  </ul>
+
+  <a href="https://github.com/progseg/serverpulse" class="btn">Saber más</a>
+
+</section>
+
+<section class="content contact">
+  <h2 class="title">Contacto</h2>
+  <ul><b>Ante cualquier falla o duda consulte a nuestro Admin</ul>
+  <ul>Administrador: 2821270585</ul>
+</section>
 {% endblock %}
