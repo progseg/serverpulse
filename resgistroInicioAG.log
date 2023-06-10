@@ -1,0 +1,845 @@
+10-Jun-23 01:03:17 - INFO - /home/leonel/Vídeos/serverpulse/serverPulse/settings.py changed, reloading.
+10-Jun-23 01:03:21 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 01:03:32 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 01:04:01 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 01:04:01 - ERROR - Internal Server Error: /serverpulse/login_sys_admin
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 463, in login_sys_admin
+    return render(request, 'login_sys_admin.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'singin/' not found. 'singin/' is not a valid view function or pattern name.
+10-Jun-23 01:04:32 - WARNING - Not Found: /serverpulse/
+10-Jun-23 01:04:37 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:04:37 - ERROR - Internal Server Error: /serverpulse/singin/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 40, in singin
+    return render(request, 'singin.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'singin/' not found. 'singin/' is not a valid view function or pattern name.
+10-Jun-23 01:04:50 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 01:05:13 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 01:05:13 - ERROR - Internal Server Error: /serverpulse/login_admon_global
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 311, in login_admon_global
+    return render(request, 'login_admon_global.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'singin/' not found. 'singin/' is not a valid view function or pattern name.
+10-Jun-23 01:05:38 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 01:06:10 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 01:06:15 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:06:20 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 01:06:22 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 01:06:41 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 01:06:44 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:06:46 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 01:06:52 - WARNING - Not Found: /serverpulse/monitoreo
+10-Jun-23 01:07:16 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 01:07:20 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:07:26 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 01:07:45 - INFO - logout Admin Global: Se hace petición por el método: GET
+10-Jun-23 01:07:45 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 01:08:06 - WARNING - Not Found: /serverpulse/state_server
+10-Jun-23 01:08:15 - INFO - Estado del servidor Monitoreo: Se hace petición por el método: GET
+10-Jun-23 01:08:15 - ERROR - Internal Server Error: /serverpulse/state_servidor
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/servers_monitor/views.py", line 35, in state_servidor
+    d = {'list': models.Servidor.objects.all()}
+                 ^^^^^^^^^^^^^^^
+AttributeError: module 'servers_monitor.models' has no attribute 'Servidor'
+10-Jun-23 01:11:00 - INFO - /home/leonel/Vídeos/serverpulse/servers_monitor/views.py changed, reloading.
+10-Jun-23 01:11:05 - INFO - Estado del servidor Monitoreo: Se hace petición por el método: GET
+10-Jun-23 01:11:06 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:07 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:08 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:08 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 01:11:12 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:12 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:13 - INFO - Estado del servidor Monitoreo: Se hace petición por el método: GET
+10-Jun-23 01:11:14 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:15 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:16 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:17 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:18 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:19 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:20 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:21 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:22 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:23 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:24 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:25 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:26 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:27 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:28 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:29 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:30 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:31 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:32 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:33 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:34 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:35 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:36 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:37 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:38 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:39 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:40 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:41 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:42 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:43 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:44 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:45 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:46 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:47 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:48 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:49 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:50 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:51 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:52 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:53 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:54 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:55 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:56 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:57 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:58 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:11:59 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:00 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:01 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:02 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:03 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:04 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:05 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:06 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:07 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:08 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:09 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:10 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:11 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:12 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:13 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:14 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:15 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:16 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:17 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:18 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:19 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:20 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:21 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:22 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:23 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:24 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:25 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:26 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:27 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:28 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:29 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:30 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:31 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:32 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:33 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:34 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:35 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:36 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:37 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:38 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:39 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:40 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:41 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:42 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:43 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:44 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:45 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:46 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:47 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:48 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:49 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:50 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:51 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:52 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:53 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:54 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:55 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:56 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:57 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:58 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:12:59 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:00 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:01 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:02 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:03 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:04 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:05 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:06 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:07 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:08 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:09 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:10 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:11 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:12 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:13 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:14 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:15 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:16 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:17 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:18 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:19 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:20 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:21 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:22 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:23 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:24 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:25 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:26 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:27 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:28 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:29 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:30 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:31 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:32 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:33 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:34 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:35 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:36 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:37 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:38 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:39 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:40 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:41 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:42 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:43 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:44 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:45 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:46 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:47 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:48 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:49 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:50 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:51 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:52 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:53 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:54 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:55 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:56 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:57 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:58 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:13:59 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:00 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:01 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:02 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:03 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:04 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:05 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:06 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:07 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:08 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:09 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:10 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:11 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:12 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:13 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:14 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:15 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:16 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:17 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:18 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:19 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:20 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:21 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:22 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:23 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:24 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:25 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:26 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:27 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:28 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:29 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:30 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:31 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:32 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:33 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:34 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:35 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:36 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:37 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:38 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:39 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:40 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:41 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:42 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:43 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:44 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:45 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:46 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:47 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:48 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:49 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:50 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:51 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:52 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:53 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:54 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:55 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:56 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:57 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:58 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:14:59 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:00 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:01 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:02 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:03 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:04 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:05 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:06 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:07 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:08 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:09 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:10 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:11 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:12 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:13 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:14 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:15 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:16 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:17 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:18 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:19 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:20 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:21 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:22 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:23 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:24 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:25 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:26 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:27 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:28 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:29 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:30 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:31 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:32 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:33 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:34 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:35 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:36 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:37 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:38 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:39 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:40 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:41 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:42 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:43 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:44 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:45 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:46 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:47 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:48 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:49 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:50 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:51 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:52 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:53 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:54 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:55 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:56 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:57 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:58 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:15:59 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:00 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:01 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:02 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:03 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:04 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:05 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:06 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:07 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:08 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:09 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:10 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:11 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:12 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:13 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:14 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:15 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:16 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:17 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:18 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:19 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:20 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:21 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:22 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:23 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:24 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:25 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:26 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:27 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:28 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:29 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:30 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:31 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:32 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:33 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:34 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:35 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:36 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:37 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:38 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:39 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:40 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:41 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:42 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:43 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:44 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:45 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:46 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:47 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:48 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:49 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:50 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:51 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:52 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:53 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:54 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:55 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:56 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:57 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:58 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:16:59 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:00 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:01 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:02 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:03 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:04 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:05 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:06 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:07 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:08 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:09 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:10 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:11 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:12 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:13 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:14 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:15 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:16 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:17 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:18 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:19 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:20 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:21 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:22 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:23 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:24 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:25 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:26 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:27 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:28 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:29 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:30 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:31 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:32 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:33 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:34 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:35 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:36 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:37 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:38 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:39 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:40 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:41 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:42 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:43 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:44 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:45 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:46 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:47 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:48 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:49 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:50 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:51 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:52 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:53 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:54 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:55 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:56 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:57 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:58 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:17:59 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:00 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:01 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:02 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:03 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:04 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:05 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:06 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:07 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:08 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:09 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:10 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:11 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:12 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:13 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:14 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:15 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:16 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:17 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:18 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:19 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:20 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:21 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:22 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:23 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:24 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:25 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:26 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:27 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:28 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:29 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:30 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:31 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:32 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:33 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:33 - INFO - Estado del servidor Monitoreo: Se hace petición por el método: GET
+10-Jun-23 01:18:34 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:35 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:36 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:37 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:38 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:39 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:40 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:41 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:42 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:43 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:44 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:45 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:46 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:47 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:48 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:49 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:50 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:51 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:52 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:53 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:54 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:55 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:56 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:57 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:58 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:18:59 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:00 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:01 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:02 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:03 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:04 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:05 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:06 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:07 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:08 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:09 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:10 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:11 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:12 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:13 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:14 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:15 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:16 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:17 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:18 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:19 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:20 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:21 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:22 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:23 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:24 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:25 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:26 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:27 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:28 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:29 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:30 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:31 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:32 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:33 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:34 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:35 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:36 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:37 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:38 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:39 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:40 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:41 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:42 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:43 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:44 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:45 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:46 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:47 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:48 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:49 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:50 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:51 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:52 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:53 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:54 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:55 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:56 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:57 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:58 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:19:59 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:00 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:01 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:02 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:03 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:04 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:05 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:06 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:07 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:08 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:09 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:10 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:11 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:12 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:13 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:14 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:15 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:16 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:17 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:18 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:19 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:20 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:21 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:22 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:23 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:24 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:25 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:26 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:27 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:28 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:29 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:30 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:31 - INFO - Estado del servidor Monitoreo: Se hace petición por el método: GET
+10-Jun-23 01:20:32 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:33 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:34 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:35 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:36 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:37 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:38 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:39 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:40 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:41 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:42 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:43 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:44 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:45 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:46 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:47 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:48 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:49 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:50 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:51 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:52 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:53 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:54 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:55 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:56 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:57 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:58 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:20:59 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:21:00 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:21:01 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:21:02 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:21:03 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:21:04 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:21:05 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:21:06 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:21:07 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:21:08 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:21:09 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:21:10 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:21:11 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:21:12 - WARNING - Not Found: /recuperar_registros
+10-Jun-23 01:21:13 - WARNING - Not Found: /serverpulse/edit_server
+10-Jun-23 01:22:35 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 01:22:40 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 01:22:40 - ERROR - Singin Servidor: Los datos que ingreso el usuario no son correctos
+10-Jun-23 01:22:40 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 01:22:41 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 01:22:41 - ERROR - Singin Servidor: Los datos que ingreso el usuario no son correctos
+10-Jun-23 01:22:41 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 01:22:43 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 01:22:43 - ERROR - Singin Servidor: Los datos que ingreso el usuario no son correctos
+10-Jun-23 01:22:43 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 01:22:44 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 01:22:44 - ERROR - Singin Servidor: Los datos que ingreso el usuario no son correctos
+10-Jun-23 01:22:44 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 01:23:48 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 01:23:51 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 01:23:51 - ERROR - Singin Servidor: Los datos que ingreso el usuario no son correctos
+10-Jun-23 01:23:51 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 01:23:52 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 01:23:52 - ERROR - Singin Servidor: Los datos que ingreso el usuario no son correctos
+10-Jun-23 01:23:52 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 01:23:53 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 01:23:53 - ERROR - Singin Servidor: Los datos que ingreso el usuario no son correctos
+10-Jun-23 01:23:53 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 01:25:32 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:25:35 - INFO - Singin: Se hace petición por el método: POST
+10-Jun-23 01:25:35 - ERROR - Singin: Los datos que ingreso el usuario no son correctos
+10-Jun-23 01:25:35 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:25:53 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/views.py changed, reloading.
+10-Jun-23 01:25:56 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:25:59 - INFO - Singin: Se hace petición por el método: POST
+10-Jun-23 01:25:59 - ERROR - Singin: Los datos que ingreso el usuario no son correctos
+10-Jun-23 01:25:59 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:26:02 - INFO - Singin: Se hace petición por el método: POST
+10-Jun-23 01:26:02 - ERROR - Singin: Los datos que ingreso el usuario no son correctos
+10-Jun-23 01:26:02 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:26:37 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/views.py changed, reloading.
+10-Jun-23 01:26:41 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:26:44 - INFO - Singin: Se hace petición por el método: POST
+10-Jun-23 01:26:44 - ERROR - Singin: Los datos que ingreso el usuario no son correctos
+10-Jun-23 01:26:44 - INFO - Singin: Se hace petición por el método: GET

@@ -1,8 +1,8 @@
-{% extends 'base_admin.html' %}{% load static %}{% block title %}login Admon Global{% endblock %} 
+{% extends 'base_login.html' %}{% load static %}{% block title %}login Admon Global{% endblock %} 
 {% block head %}
     <script src="{% static 'js/request_token.js' %}"></script>
 {% endblock %}
-{% block content %}
+{% block contenido %}
     <div id="loading-message" hidden='True'>Por favor, espera mientras se envía el token...</div>
 
     <p>Introduzca el nombre de su usuario en el campo "nickname" y a continuación solicite su token de doble autenticación</p>

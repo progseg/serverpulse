@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import logging
 from django.http import HttpResponse, HttpRequest, HttpResponseNotAllowed, JsonResponse
-from . import models
+from auth_app import forms, models, views as auth_app
 
 # Create your views here.
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
