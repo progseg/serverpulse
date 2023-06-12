@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import *
+from . import forms
 
 
 @admin.register(AdmonGlobal)

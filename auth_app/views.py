@@ -1,5 +1,5 @@
+from django.conf import settings
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.http import HttpRequest, HttpResponse
 from django.http.response import HttpResponseNotAllowed, HttpResponseBadRequest
 from django.contrib import messages
@@ -8,15 +8,22 @@ from datetime import datetime, timezone
 import string
 from . import forms
 from . import models
+from django.db.models import Model
 import json
 import requests
 import logging
-from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseBadRequest, HttpResponseNotAllowed, JsonResponse
 from django.contrib.auth.hashers import make_password, check_password
 from admon_global import views as views_admon_global
 from sysadmin import views as views_sysadmin
+from admon_global import decorators_admon_global as dec_admong
+from sysadmin import decorators_sys_admin as dec_sysadmin
+from django.views.decorators.csrf import csrf_protect
+from django.utils import timezone
+from django.views.decorators.cache import never_cache
+from captcha.fields import ReCaptchaField
 # Create your views here.
+
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
                     datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO,
@@ -43,7 +50,8 @@ def singin(request: HttpRequest) -> HttpResponse:
         form_singin = forms.Singin(request.POST)
         if form_singin.is_valid():
             nickname = form_singin.cleaned_data['nickname']
-            password = form_singin.cleaned_data['password'] = make_password(password)
+            password = form_singin.cleaned_data['password'] = make_password(
+                password)
             chat_id = form_singin.cleaned_data['chat_id']
             token_bot = form_singin.cleaned_data['token_bot']
 
@@ -88,120 +96,99 @@ def singin(request: HttpRequest) -> HttpResponse:
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
 
+# General functions
 
-# Section of login admon global
-
-# Section of token OTP admon global
+# Section of token OTP
 
 
-def request_token_admon_global(request: HttpRequest) -> HttpResponse:
+def request_tokenotp(user: Model) -> bool:
     logging.info(
-        'mandar token Admin Global: Se hace petición por el método: ' + request.method)
-    if request.method != 'POST':
-        return HttpResponseNotAllowed(['POST'])
+        'mandar token: Se hace petición de token')
 
-    if request.content_type != 'application/json':
-        return HttpResponseBadRequest('Formato de solicitud incorrecto')
-
-    data = json.loads(request.body)
-    form_user_name = data.get('user_name')
-    try:
-        models.AdmonGlobal.objects.get(user_name=form_user_name)
-    except:
-        print('Nombre de usario no encontrado')
-        message = 'El usuario no fue encontrado.\nIngrese correctamente su nombre de usuario en el campo username'
-        logging.error(
-            'mandar token Admin Global: No existe el usuario que se ingreso')
-        return JsonResponse({'message': message, 'message_type': 'error'})
-
-    new_token_double_auth = create_tokenotp_admon_global()
+    new_token_double_auth = create_tokenotp()
     if new_token_double_auth is None:
-        message = 'La solicitud no se pudo completar y el token no fue creado, inténtelo de nuevo'
         logging.error(
-            'mandar token Admin Global: El token no se creo')
-        return JsonResponse({'message': message, 'message_type': 'error'})
+            'mandar token: El token no se creo')
+        return False
 
-    token_updated = update_tokenotp_admon_global(
-        form_user_name, new_token_double_auth)
+    token_updated = update_tokenotp(
+        user, new_token_double_auth)
 
     if token_updated is not True:
-        message = 'Ocurrio un fallo inesperado al registrar su token, solicite un nuevo token'
         logging.error(
-            'mandar token Admin Global: El token no se registro adecuadamente')
-        return JsonResponse({'message': message, 'message_type': 'error'})
+            'mandar token: El token no se registro adecuadamente')
+        return False
 
-    token_sended = send_tokenotp_admon_global(form_user_name)
+    token_sended = send_tokenotp(user)
     if token_sended is not True:
-        message = 'Ocurrió un fallo inesperado al enviar el token, solicite un nuevo token'
         logging.error(
-            'mandar token Admin Global: El token no se mando adecuadamente')
-        return JsonResponse({'message': message, 'message_type': 'error'})
+            'mandar token: El token no se mando adecuadamente')
+        return False
 
-    message = 'El token fue enviado con éxito, revise su telegram'
     logging.info(
-        'mandar token Admin Global: El token se mando adecuadamente')
-    return JsonResponse({'message': message, 'message_type': 'success'})
+        'mandar token: El token se mando adecuadamente')
+    return True
 
 
-def create_tokenotp_admon_global() -> str:
+def create_tokenotp() -> str:
     new_token_double_auth = ''.join(secrets.choice(
         string.ascii_letters + string.digits) for _ in range(24))
     return new_token_double_auth
 
 
-def update_tokenotp_admon_global(object_user_name: str, new_token_double_auth: str) -> bool:
+def update_tokenotp(user: Model, new_token_double_auth: str) -> bool:
+    user.token_double_auth = new_token_double_auth
+    if new_token_double_auth is None:
+        user.timestamp_token_double_auth = None
     try:
-        models.AdmonGlobal.objects.filter(user_name=object_user_name).update(
-            token_double_auth=new_token_double_auth)
+        user.save()
         return True
-    except:
+    except Exception as e:
+        logging.error(
+            f'No se pudo actualizar el token en la base de datos: {e}')
         return False
 
 
-def send_tokenotp_admon_global(admon_global_user_name: str) -> bool:
-    try:
-        admon_global = models.AdmonGlobal.objects.get(
-            user_name=admon_global_user_name)
-        token_bot = admon_global.token_bot
-        chat_id = admon_global.chat_id
-        token_double_auth = admon_global.token_double_auth
-    except:
-        return False
+def send_tokenotp(user: Model) -> bool:
+
+    username = user.user_name
+    token_bot = user.token_bot
+    chat_id = user.chat_id
+    token_double_auth = user.token_double_auth
 
     try:
         url = f'https://api.telegram.org/bot{token_bot}/sendMessage?chat_id={chat_id}&parse_mode=Markdown&text={token_double_auth}'
         response = requests.post(url)
-        if response.status_code == 200:
-            admon_global.timestamp_token_double_auth = datetime.now(
-                timezone.utc)
-            admon_global.save()
-            return True
-        logging.info(
-            'mandar_token Admmin Global: el token por mensaje se mando adecuadamente')
-    except:
-        admon_global.timestamp_token_double_auth = None
-        admon_global.token_double_auth = None
-        admon_global.save()
-        return False
-    logging.error(
-        'mandar_token Sys Admmin: el token por mensaje NO se mando adecuadamente')
-
-
-# Section of token OTP validations: it's check the token correspond to user and the token does not expired
-def check_tokenotp_valid_admon_global(object_user_name: str, form_token_double_auth: str) -> bool:
-    try:
-        object_admon_global = models.AdmonGlobal.objects.get(
-            user_name=object_user_name)
-    except:
+    except Exception as e:
+        logging.error(
+            f'El mensaje a telegram para {username} no se completó: {e}')
+        user.timestamp_token_double_auth = None
+        user.token_double_auth = None
+        user.save()
         return False
 
-    object_token_double_auth = object_admon_global.token_double_auth
-    object_timestamp_token_double_auth = object_admon_global.timestamp_token_double_auth
-    timestamp_now = datetime.now(timezone.utc)
+    if response.status_code == 200:
+        user.timestamp_token_double_auth = timezone.now()
+        user.save()
+        return True
+    else:
+        logging.error(
+            f'El mensaje a telegram para {username} no se completó: {response.status_code}')
+        user.timestamp_token_double_auth = None
+        user.token_double_auth = None
+        user.save()
+        return False
 
-    if (object_token_double_auth == form_token_double_auth
+
+def check_tokenotp_valid(user: Model, form_tokenotp: str) -> bool:
+
+    user_token = user.token_double_auth
+    user_timestamp_token = user.timestamp_token_double_auth
+    timestamp_now = timezone.now()
+
+    if (user_token == form_tokenotp
             and ((timestamp_now
-                  - object_timestamp_token_double_auth).total_seconds())
+                  - user_timestamp_token).total_seconds())
             < TOKENOTP_LIVE):
         return True
     else:
@@ -209,7 +196,7 @@ def check_tokenotp_valid_admon_global(object_user_name: str, form_token_double_a
 
 
 # login attemps validation over IPv4
-def get_ip_client(request):
+def get_ip_client(request: HttpRequest) -> str:
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
@@ -219,125 +206,163 @@ def get_ip_client(request):
     return ip
 
 
-def save_ip_client(ip: str, user_name: str) -> bool:
-    timestamp_now = datetime.now(timezone.utc)
+def save_ip_client(user: Model, ip: str) -> bool:
+
+    timestamp_now = timezone.now()
+
+    if user.ipv4_address != ip:
+        user.ipv4_address = ip
+        user.timestamp_ultimo_intento = timestamp_now
+        user.intentos = MIN_ATTEMPS
+        user.save()
+        return True
+    else:
+        return True
+
+
+def delete_ipv4_client(user: Model) -> bool:
     try:
-        admon_global = models.AdmonGlobal.objects.get(user_name=user_name)
-        if admon_global.ipv4_address != ip:
-            admon_global.ipv4_address = ip
-            admon_global.timestamp_ultimo_intento = timestamp_now
-            admon_global.intentos = MIN_ATTEMPS
-            admon_global.save()
+        user.ipv4_address = None
+        user.save()
         return True
     except:
         return False
 
 
-def check_attemps_login(attemps_account: int) -> bool:
-    if (attemps_account < MAX_ATTEMPS):
+# Section of attempt count
+def check_attemps_login(attemps_count: int) -> bool:
+    if (attemps_count < MAX_ATTEMPS):
         return True
     else:
         return False
 
 
-def increment_attemps_account(object_admon_global: models.AdmonGlobal) -> bool:
+def increment_attemps_account(user: Model) -> bool:
     # incrementa el contador de intentos y actualiza el timestamp
+    update_attemps = user.intentos + 1
+    update_timestamp_attemps = timezone.now()
+
+    user.intentos = update_attemps
+    user.timestamp_ultimo_intento = update_timestamp_attemps
     try:
-        update_attemps = object_admon_global.intentos + 1
-        object_admon_global.intentos = update_attemps
-        object_admon_global.save()
+        user.save()
         return True
     except:
         return False
 
 
-def block_admon_global(object_admon_global: models.AdmonGlobal) -> bool:
+def block_user(user: Model) -> bool:
     # si ya pasaron más de 5 minutos, reinicia el contador y el timestamp, sino, truena la atenticación
     # False seugnifica que la cuenta no se bloquea, True que la cuenta si se bloquea
-    timestamp_now = datetime.now(timezone.utc)
-    timestamp_attemps = object_admon_global.timestamp_ultimo_intento
+    timestamp_now = timezone.now()
+    timestamp_last_attemp = user.timestamp_ultimo_intento
 
-    # if it is a new client
-    if timestamp_attemps is None:
-        object_admon_global.timestamp_ultimo_intento = timestamp_now
-        object_admon_global.intentos = MIN_ATTEMPS
-        object_admon_global.save()
+    # if user is a new client
+    if timestamp_last_attemp is None:
+        user.timestamp_ultimo_intento = timestamp_now
+        user.intentos = MIN_ATTEMPS
+        user.save()
         return False
 
     if (((timestamp_now
-          - timestamp_attemps).total_seconds())
+          - timestamp_last_attemp).total_seconds())
             < LOCK_TIME_RANGE):
-        object_admon_global.timestamp_ultimo_intento = timestamp_now
-        object_admon_global.save()
+        user.timestamp_ultimo_intento = timestamp_now
+        user.save()
         return True
     else:
-        object_admon_global.intentos = MIN_ATTEMPS
-        object_admon_global.timestamp_ultimo_intento = None
-        object_admon_global.save()
+        # if blocking time is over, attemps will be restart
+        user.intentos = MIN_ATTEMPS
+        user.timestamp_ultimo_intento = None
+        user.save()
         return False
 
 
-def restart_attemps(object_admon_global: models.AdmonGlobal) -> bool:
-    # settea el contador a 0 y borra el último timestamp de intentos
+def restart_attemps(user: Model) -> bool:
     try:
-        object_admon_global.intentos = MIN_ATTEMPS
-        object_admon_global.timestamp_ultimo_intento = None
-        object_admon_global.save()
+        user.intentos = MIN_ATTEMPS
+        user.timestamp_ultimo_intento = None
+        user.save()
         return True
     except:
         return False
 
 
-def delete_ipv4_client(object_admon_global: models.AdmonGlobal) -> bool:
-    try:
-        object_admon_global.ipv4_address = None
-        object_admon_global.save()
-        return True
-    except:
-        return False
+# logout section
+def logout(request: HttpRequest) -> HttpResponse:
+    logging.info(
+        'logout Admin Global: Se hace petición por el método: ' + request.method)
+    request.session.flush()
+    return redirect('login_admon_global')
+
+
+def logout_sysadmin(request: HttpRequest) -> HttpResponse:
+    logging.info(
+        'logout sysadmin: Se hace petición por el método: ' + request.method)
+    request.session.flush()
+    return redirect('login_sysadmin')
 
 
 # Section of login admon global
 def login_admon_global(request: HttpRequest) -> HttpResponse:
-    logging.info(
-        'login Admin Global: Se hace petición por el método: ' + request.method)
     if request.method == 'GET':
-        form_login_admon_global = forms.LoginAdomGlobal()
+        logging.info(
+            'login Admin Global: Se hace petición por el método: ' + request.method)
+        form_login = forms.Login()
+
+        if request.session.get('logged') is True:
+            username = request.session.get('username')
+
+            try:
+                user = models.AdmonGlobal.objects.get(
+                    user_name=username)
+            except:
+                logout(request)
+                logging.error('login Admin Global: Error no existe el usuario')
+                messages.error(request, 'Cuenta no encontrada')
+                return redirect('login_admon_global')
+
+            new_token = None
+            update_tokenotp(user, new_token)
+            increment_attemps_account(user)
+
+            logout(request)
+            messages.info(request, 'Usted ha abandonado su sesión')
+            return redirect('login_admon_global')
 
         context = {
-            'form': form_login_admon_global
+            'form': form_login
         }
 
-        return render(request, 'login_admon_global.html', context)
+        return render(request, 'login.html', context)
 
     elif request.method == 'POST':
-        form_login_admon_global = forms.LoginAdomGlobal(request.POST)
+        form_login = forms.Login(request.POST)
 
-        if form_login_admon_global.is_valid():
+        if form_login.is_valid():
 
-            form_user_name = form_login_admon_global.cleaned_data['user_name']
-            form_passwd = form_login_admon_global.cleaned_data['passwd']
-            form_token_double_auth = form_login_admon_global.cleaned_data[
-                'token_double_auth']
+            form_user_name = form_login.cleaned_data['user_name']
+            form_passwd = form_login.cleaned_data['passwd']
+
+            try:
+                user = models.AdmonGlobal.objects.get(
+                    user_name=form_user_name)
+            except:
+                logging.error('login Admin Global: Error no existe el usuario')
+                messages.error(request, 'Cuenta no encontrada')
+                return redirect('login_admon_global')
 
             ip = get_ip_client(request)
-            if save_ip_client(ip, form_user_name) is not True:
+            if save_ip_client(user, ip) is not True:
                 messages.error(
                     request, 'Ocurrió un error inesperado, no se pudo guardar la dirección IPv4 del cliente')
                 logging.error(
                     'login Admin Global: Error al guardar la dirección IP del usuario')
                 return redirect('login_admon_global')
 
-            try:
-                object_admon_global = models.AdmonGlobal.objects.get(
-                    user_name=form_user_name)
-            except:
-                messages.error(request, 'Cuenta no encontrada')
-                logging.error('login Admin Global: Error no existe el usuario')
-
-            attemps = object_admon_global.intentos
+            attemps = user.intentos
             if check_attemps_login(attemps) is not True:
-                if block_admon_global(object_admon_global) is True:
+                if block_user(user) is True:
                     messages.error(
                         request, 'Intentos de inicio de sesión superados, espere 5 minutos antes de intentar de nuevo')
                     logging.error(
@@ -345,444 +370,388 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
                     return redirect('login_admon_global')
 
             # Basic auth username and password
-            if (object_admon_global.user_name == form_user_name and
-                    object_admon_global.passwd == form_passwd):
-                admon_global_authenticated = True
+            if (user.user_name == form_user_name and
+                    user.passwd == form_passwd):
+                user_authenticated = True
             else:
-                object_admon_global.token_double_auth = None
-                object_admon_global.save()
-                admon_global_authenticated = False
+                # if user fails basic auth, token is cancel
+                new_token = None
+                update_tokenotp(user, new_token)
+                user_authenticated = False
 
-            if admon_global_authenticated is not True:
-                if increment_attemps_account(object_admon_global) is not True:
+            if user_authenticated is not True:
+                if increment_attemps_account(user) is not True:
                     messages.error(
                         request, 'Error al actualizar los intentos de inicio de sesión')
+
                     logging.error(
                         'login Admin Global: Error al momento de actualizar intentos al momento de iniciar sesión')
+
                     return (request, 'login_admon_global')
                 messages.error(
                     request, 'Las credenciales proporcionadas no son válidas, inténtelo de nuevo')
+
                 logging.error(
                     'login Admin Global: Error al momento de ingresar las credenciales del usuario')
+
                 return redirect('login_admon_global')
 
-            double_auth_status = login_double_auth_admon_global(
-                form_user_name, form_token_double_auth)
-
-            if double_auth_status is not True:
-                if increment_attemps_account(object_admon_global) is not True:
-                    messages.error(
-                        request, 'Error al actualizar los intentos de inicio de sesión')
-                    logging.error(
-                        'login Admin Global: Error al momento de actualizar intentos al momento de iniciar sesión')
-                    return (request, 'login_admon_global')
-                # change token to it be single use even when athentication is successfully
-                new_otptoken = create_tokenotp_admon_global()
-
-                if new_otptoken is None:
-                    messages.error(
-                        request, 'Ocurrió un error inesperado en el servidor, su sesión no se creará. Inténtelo de nuevo')
-                    logging.error('login Admin Global: Error en el Servidor')
-                    return redirect('login_admon_global')
-
-                token_updated = update_tokenotp_admon_global(
-                    form_user_name, new_otptoken)
-
-                if token_updated is not True:
-                    messages.error(
-                        request, 'Ocurrió un error inesperado en el servidor, su sesión no se creará. Inténtelo de nuevo')
-                    logging.error('login Admin Global: Error en el Servidor')
-                    return redirect('login_admon_global')
-
-                messages.error(
-                    request, 'El token no es correcto o a expirado, solicite un nuevo token')
-                logging.error(
-                    'login Admin Global: El Token no es correcto o ha expirado')
-                return redirect('login_admon_global')
+            # The basic auth is valid and token was sended correctly
 
             # Session start
-            restart_attemps(object_admon_global)
-            delete_ipv4_client(object_admon_global)
             request.session['logged'] = True
+            request.session['username'] = user.user_name
+            request.session['token_spected'] = True
+
             logging.info(
-                'login Admin Global: Se termina de autenticar el usuario ')
-            return redirect('dashboard_admon_global')
+                f'login admon global: Basic auth success to {user.user_name} from {user.ipv4_address}')
+            return redirect('2FAadmonglobal')
         else:
-            messages.error(
-                request, 'Los datos proporcionados no contienen un formato válido, vuelva a intentarlo')
             logging.error(
-                'login Admin Global: Datos inválidos por parte del usuario')
+                f'login admin global: Basic auth incorrect')
+
+            context = {
+                'form': form_login
+            }
+            return render(request, 'login.html', context)
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST'])
+
+
+@dec_admong.logged_required
+@csrf_protect
+@never_cache
+def login_double_auth_admon_global(request: HttpRequest) -> HttpResponse:
+    if request.method == 'GET':
+
+        if request.session.get('token_spected') is not True:
+            username = request.session.get('username')
+
+            try:
+                user = models.AdmonGlobal.objects.get(
+                    user_name=username)
+            except:
+                logging.error('login Admin Global: Error no existe el usuario')
+                messages.error(request, 'Cuenta no encontrada')
+                return redirect('login_admon_global')
+
+            #! No increment attempt, process fails
+            new_token = None
+            update_tokenotp(user, new_token)
+            increment_attemps_account(user)
+
+            logout(request)
+            messages.info(request, 'Usted ha abandonado su sesión')
+            return redirect('login_admon_global')
+
+        form_double_auth = forms.Login2FA()
+
+        context = {
+            'form': form_double_auth
+        }
+
+        username = request.session.get('username')
+
+        try:
+            user = models.AdmonGlobal.objects.get(
+                user_name=username)
+        except:
+            logout(request)
+            messages.error(request,
+                           'Error inesperado. Vuelva a inicar sesión')
+            return redirect('login_adom_global')
+
+        if request_tokenotp(user) is not True:
+            logout(request)
+            new_token = None
+            update_tokenotp(user, new_token)
+            messages.error(request,
+                           'No se completó la solicitud del token. Por favor, vuelva a inicar sesión')
+            return redirect('login_admon_global')
+
+        request.session['username'] = user.user_name
+        request.session['token_spected'] = True
+
+        return render(request, 'login2FA.html', context)
+
+    elif request.method == 'POST':
+        form_2FA = forms.Login2FA(request.POST)
+
+        if form_2FA.is_valid():
+
+            session_username = request.session.get('username')
+            form_token = form_2FA.cleaned_data['token_double_auth']
+
+            try:
+                user = models.AdmonGlobal.objects.get(
+                    user_name=session_username)
+            except:
+                logout(request)
+                logging.error(
+                    f'Credenciales no encontradas para {session_username}')
+                messages.error(request,
+                               'No se encontraron las credenciales proporcionadas')
+                return redirect('login_admon_global')
+
+            token_alive = check_tokenotp_valid(user, form_token)
+
+            # if token is wrong, OTP token changes to be single use
+            if token_alive is not True:
+
+                new_token = None
+                token_updated = update_tokenotp(user, new_token)
+                if token_updated is not True:
+                    messages.error(
+                        request, 'Error interno, solicite un nuevo token')
+                    return redirect('login_admon_global')
+
+                increment_attemps_account(user)
+                logout(request)
+                messages.error(request,
+                               'El token es inválido. Ha expirado o no es el correcto, solicite un nuevo token')
+                return redirect('login_admon_global')
+
+            new_token = None
+            update_tokenotp(user, new_token)
+            user.intentos = 0
+            user.timestamp_ultimo_intento = None
+            user.ipv4_address = None
+            user.save()
+            request.session['token_spected'] = False
+            return redirect('dashboard_admon_global')
+
+        else:
+            request.session['token_spected'] = False
+            logout(request)
+            messages.error(
+                request, 'El desafío captcha no fue completado, se cancela el inicio de sesión')
             return redirect('login_admon_global')
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 
-def login_double_auth_admon_global(form_user_name: str, form_token_double_auth: str) -> bool:
-    token_alive = check_tokenotp_valid_admon_global(
-        form_user_name, form_token_double_auth)
-
-    # token is wrong, OTP token changes to be single use
-    if token_alive is not True:
-        new_otptoken = create_tokenotp_admon_global()
-
-        if new_otptoken is None:
-            return False
-
-        token_updated = update_tokenotp_admon_global(
-            form_user_name, new_otptoken)
-
-        if token_updated is not True:
-            return False
-
-        return False
-
-    # auth is ok
-    return True
-
-
-def logout(request: HttpRequest) -> HttpResponse:
-    logging.info(
-        'logout Admin Global: Se hace petición por el método: ' + request.method)
-    request.session['logged'] = False
-    request.session.flush()
-    return redirect('login_admon_global')
-
-
-# Section of login SysAdmin
-
-def login_sys_admin(request: HttpRequest) -> HttpResponse:
-    logging.info(
-        'login Sys Admin: Se hace petición por el método: ' + request.method)
+# Section of Sysadmin
+def login_sysadmin(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
-        form_login_sys_admin = forms.LoginSysadmin()
+        logging.info(
+            'login sysadmin: Se hace petición por el método: ' + request.method)
+        form_login = forms.Login()
+
+        if request.session.get('logged') is True:
+            username = request.session.get('username')
+
+            try:
+                user = models.Sysadmin.objects.get(
+                    user_name=username)
+            except:
+                logout(request)
+                logging.error('login sysadmin: Error no existe el usuario')
+                messages.error(request, 'Cuenta no encontrada')
+                return redirect('login_sysadmin')
+
+            new_token = None
+            update_tokenotp(user, new_token)
+            increment_attemps_account(user)
+
+            logout(request)
+            messages.info(request, 'Usted ha abandonado su sesión')
+            return redirect('login_sysadmin')
 
         context = {
-            'form': form_login_sys_admin
+            'form': form_login
         }
 
-        return render(request, 'login_sys_admin.html', context)
+        return render(request, 'login.html', context)
 
     elif request.method == 'POST':
-        form_login_sys_admin = forms.LoginSysadmin(request.POST)
-        if form_login_sys_admin.is_valid():
+        form_login = forms.Login(request.POST)
 
-            form_nickname = form_login_sys_admin.cleaned_data['nickname']
-            form_password = form_login_sys_admin.cleaned_data['password']
-            form_token_double_auth = form_login_sys_admin.cleaned_data[
-                'token_double_auth']
+        if form_login.is_valid():
+
+            form_user_name = form_login.cleaned_data['user_name']
+            form_passwd = form_login.cleaned_data['passwd']
+
+            try:
+                user = models.Sysadmin.objects.get(
+                    user_name=form_user_name)
+            except:
+                logging.error('login sysadmin: Error no existe el usuario')
+                messages.error(request, 'Cuenta no encontrada')
+                return redirect('login_sysadmin')
 
             ip = get_ip_client(request)
-            if save_ip_client_sysadmin(ip, form_nickname) is not True:
+            if save_ip_client(user, ip) is not True:
                 messages.error(
                     request, 'Ocurrió un error inesperado, no se pudo guardar la dirección IPv4 del cliente')
                 logging.error(
-                    'login Sys Admin: Error no se pudo guardar la dirección IP del usuario')
-                return redirect('login_sys_admin')
+                    'login sysadmin: Error al guardar la dirección IP del usuario')
+                return redirect('login_sysadmin')
 
-            try:
-                object_sys_admin = models.Sysadmin.objects.get(
-                    nickname=form_nickname)
-            except:
-                messages.error(request, 'Cuenta no encontrada')
-                logging.error('login Sys Admin: Error no existe el usuario')
-
-            if not check_password(form_password):
-                form_login_sys_admin.add.error('form_password', 'La contraseña es incorrecta')
-
-            attemps = object_sys_admin.intentos
+            attemps = user.intentos
             if check_attemps_login(attemps) is not True:
-                if block_sys_admin(object_sys_admin) is True:
+                if block_user(user) is True:
                     messages.error(
                         request, 'Intentos de inicio de sesión superados, espere 5 minutos antes de intentar de nuevo')
                     logging.error(
-                        'login Sys Admin: Error intentos superados para iniciar sesión por parte del usuario')
-                    return redirect('login_sys_admin')
+                        'login sysadmin: Error se agotaron los intentos para iniciar sesión')
+                    return redirect('login_sysadmin')
 
             # Basic auth username and password
-            if (object_sys_admin.nickname == form_nickname and
-                    object_sys_admin.password == form_password):
-                sys_admin_authenticated = True
+            if (user.user_name == form_user_name and
+                    user.passwd == form_passwd):
+                user_authenticated = True
             else:
-                object_sys_admin.token_double_auth = None
-                object_sys_admin.save()
-                sys_admin_authenticated = False
+                # if user fails basic auth, token is cancel
+                new_token = None
+                update_tokenotp(user, new_token)
+                user_authenticated = False
 
-            if sys_admin_authenticated is not True:
-                if increment_attemps_account_sysadmin(object_sys_admin) is not True:
+            if user_authenticated is not True:
+                if increment_attemps_account(user) is not True:
                     messages.error(
                         request, 'Error al actualizar los intentos de inicio de sesión')
+
                     logging.error(
-                        'login Sys Admin: Error al actualizar los intentos de inicio de sesión por parte del usuario')
-                    return (request, 'login_sys_admin')
+                        'login sysadmin: Error al momento de actualizar intentos al momento de iniciar sesión')
+
+                    return (request, 'login_sysadmin')
                 messages.error(
                     request, 'Las credenciales proporcionadas no son válidas, inténtelo de nuevo')
+
                 logging.error(
-                    'login Sys Admin: Error credenciales proporcionadas por el usuario incorrectas')
-                return redirect('login_sys_admin')
+                    'login sysadmin: Error al momento de ingresar las credenciales del usuario')
 
-            double_auth_status = login_double_auth_sys_admin(
-                form_nickname, form_token_double_auth)
+                return redirect('login_sysadmin')
 
-            if double_auth_status is not True:
-                if increment_attemps_account_sysadmin(object_sys_admin) is not True:
-                    messages.error(
-                        request, 'Error al actualizar los intentos de inicio de sesión')
-                    logging.error(
-                        'login Sys Admin: Error al actualizar los intentos de inicio de sesión por parte del usuario')
-                    return (request, 'login_sys_admin')
-                # change token to it be single use even when athentication is successfully
-                new_otptoken = create_tokenotp_sys_admin()
-
-                if new_otptoken is None:
-                    messages.error(
-                        request, 'Ocurrió un error inesperado en el servidor, su sesión no se creará. Inténtelo de nuevo')
-                    logging.error('login Sys Admin: Error en el servidor')
-                    return redirect('login_sys_admin')
-
-                token_updated = update_tokenotp_sys_admin(
-                    form_nickname, new_otptoken)
-
-                if token_updated is not True:
-                    messages.error(
-                        request, 'Ocurrió un error inesperado en el servidor, su sesión no se creará. Inténtelo de nuevo')
-                    logging.error('login Sys Admin: Error en el servidor')
-                    return redirect('login_sys_admin')
-
-                messages.error(
-                    request, 'El token no es correcto o a expirado, solicite un nuevo token')
-                logging.error(
-                    'login Sys Admin: Error en el Token del usuario es incorrecto o a expirado')
-                return redirect('login_sys_admin')
+            # The basic auth is valid and token was sended correctly
 
             # Session start
-            restart_attemps_sysadmin(object_sys_admin)
-            delete_ipv4_client_sysadmin(object_sys_admin)
             request.session['logged'] = True
+            request.session['username'] = user.user_name
+            request.session['token_spected'] = True
+
             logging.info(
-                'login Sys Admin: Se termina de autenticar el usuario ')
-            return redirect('dashboard_sys_admin')
+                f'login admon global: Basic auth success to {user.user_name} from {user.ipv4_address}')
+            return redirect('2FAsysadmin')
         else:
-            messages.error(
-                request, 'Los datos proporcionados no contienen un formato válido, vuelva a intentarlo')
             logging.error(
-                'login Sys Admin: Error datos inválidos por parte del usuario')
-            return redirect('login_sys_admin')
+                f'login admin global: Basic auth incorrect')
+
+            context = {
+                'form': form_login
+            }
+            return render(request, 'login.html', context)
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 
-def login_double_auth_sys_admin(form_nickname: str, form_token_double_auth: str) -> bool:
-    token_alive = check_tokenotp_live_sys_admin(
-        form_nickname, form_token_double_auth)
+@dec_sysadmin.logged_required
+@csrf_protect
+@never_cache
+def login_double_auth_sysadmin(request: HttpRequest) -> HttpResponse:
+    if request.method == 'GET':
 
-    # token is wrong, OTP token changes to be single use
-    if token_alive is not True:
-        new_otptoken = create_tokenotp_sys_admin()
+        if request.session.get('token_spected') is not True:
+            username = request.session.get('username')
 
-        if new_otptoken is None:
-            return False
+            try:
+                user = models.Sysadmin.objects.get(
+                    user_name=username)
+            except:
+                logging.error('login sysadmin: Error no existe el usuario')
+                messages.error(request, 'Cuenta no encontrada')
+                return redirect('login_sysadmin')
 
-        token_updated = update_tokenotp_sys_admin(
-            form_nickname, new_otptoken)
+            #! No increment attempt, process fails
+            new_token = None
+            update_tokenotp(user, new_token)
+            increment_attemps_account(user)
 
-        if token_updated is not True:
-            return False
+            logout_sysadmin(request)
+            messages.info(request, 'Usted ha abandonado su sesión')
+            return redirect('login_sysadmin')
 
-        return False
+        form_double_auth = forms.Login2FA()
 
-    # auth is ok
-    return True
+        context = {
+            'form': form_double_auth
+        }
 
+        username = request.session.get('username')
 
-def logout_sys_admin(request: HttpRequest) -> HttpResponse:
-    logging.info(
-        'logout Sys Admin: Se hace petición por el método: ' + request.method)
-    request.session['logged'] = False
-    request.session.flush()
-    return redirect('login_sys_admin')
+        try:
+            user = models.Sysadmin.objects.get(
+                user_name=username)
+        except:
+            logout(request)
+            messages.error(request,
+                           'Error inesperado. Vuelva a inicar sesión')
+            return redirect('login_sysadmin')
 
+        if request_tokenotp(user) is not True:
+            logout(request)
+            new_token = None
+            update_tokenotp(user, new_token)
+            messages.error(request,
+                           'No se completó la solicitud del token. Por favor, vuelva a inicar sesión')
+            return redirect('login_sysadmin')
 
-# Section of login admon global
+        request.session['username'] = user.user_name
+        request.session['token_spected'] = True
 
-# Section of token OTP admon global
+        return render(request, 'login2FA.html', context)
 
-def request_token_sys_admin(request: HttpRequest) -> HttpResponse:
-    logging.info(
-        'solicitar_token Sys Admin: Se hace petición por el método: ' + request.method)
-    if request.method != 'POST':
-        return HttpResponseNotAllowed(['POST'])
+    elif request.method == 'POST':
+        form_2FA = forms.Login2FA(request.POST)
 
-    if request.content_type != 'application/json':
-        return HttpResponseBadRequest('Formato de solicitud incorrecto')
+        if form_2FA.is_valid():
 
-    data = json.loads(request.body)
-    form_nickname = data.get('nickname')
-    try:
-        models.Sysadmin.objects.get(nickname=form_nickname)
-    except:
-        print('Nombre de usario no encontrado')
-        message = 'El usuario no fue encontrado.\nIngrese correctamente su nombre de usuario en el campo nickname'
-        logging.error('solicitar_token Sys Admin: usuario no encontrado')
-        return JsonResponse({'message': message, 'message_type': 'error'})
+            session_username = request.session.get('username')
+            form_token = form_2FA.cleaned_data['token_double_auth']
 
-    new_token_double_auth = create_tokenotp_sys_admin()
-    if new_token_double_auth is None:
-        message = 'La solicitud no se pudo completar y el token no fue creado, inténtelo de nuevo'
-        logging.error('solicitar_token Sys Admmin: token no creado')
-        return JsonResponse({'message': message, 'message_type': 'error'})
+            try:
+                user = models.Sysadmin.objects.get(
+                    user_name=session_username)
+            except:
+                logout(request)
+                logging.error(
+                    f'Credenciales no encontradas para {session_username}')
+                messages.error(request,
+                               'No se encontraron las credenciales proporcionadas')
+                return redirect('login_sysadmin')
 
-    token_updated = update_tokenotp_sys_admin(
-        form_nickname, new_token_double_auth)
+            token_alive = check_tokenotp_valid(user, form_token)
 
-    if token_updated is not True:
-        message = 'Ocurrio un fallo inesperado al registrar su token, solicite un nuevo token'
-        logging.error(
-            'solicitar_token Sys Admmin: el token no registro adecuadamente')
-        return JsonResponse({'message': message, 'message_type': 'error'})
+            # if token is wrong, OTP token changes to be single use
+            if token_alive is not True:
 
-    token_sended = send_tokenotp_sys_admin(form_nickname)
-    if token_sended is not True:
-        message = 'Ocurrió un fallo inesperado al enviar el token, solicite un nuevo token'
-        logging.error(
-            'solicitar_token Sys Admmin: el token no se envío adecuadamente')
-        return JsonResponse({'message': message, 'message_type': 'error'})
+                new_token = None
+                token_updated = update_tokenotp(user, new_token)
+                if token_updated is not True:
+                    messages.error(
+                        request, 'Error interno, solicite un nuevo token')
+                    return redirect('login_sysadmin')
 
-    message = 'El token fue enviado con éxito, revise su telegram'
-    logging.info('solicitar_token Sys Admmin: el token se envio adecuadamente')
-    return JsonResponse({'message': message, 'message_type': 'success'})
+                increment_attemps_account(user)
+                logout(request)
+                messages.error(request,
+                               'El token es inválido. Ha expirado o no es el correcto, solicite un nuevo token')
+                return redirect('login_sysadmin')
 
+            new_token = None
+            update_tokenotp(user, new_token)
+            user.intentos = 0
+            user.timestamp_ultimo_intento = None
+            user.ipv4_address = None
+            user.save()
+            request.session['token_spected'] = False
+            return redirect('dashboard_sys_admin')
 
-def create_tokenotp_sys_admin() -> str:
-    new_token_double_auth = ''.join(secrets.choice(
-        string.ascii_letters + string.digits) for _ in range(24))
-    return new_token_double_auth
-
-
-def update_tokenotp_sys_admin(object_nickname: str, new_token_double_auth: str) -> bool:
-    try:
-        models.Sysadmin.objects.filter(nickaname=object_nickname).update(
-            token_double_auth=new_token_double_auth, timestamp_token_double_auth=datetime.now(timezone.utc))
-        return True
-    except:
-        return False
-
-
-def send_tokenotp_sys_admin(sys_admin_nickname: str) -> bool:
-    try:
-        sys_admin = models.Sysadmin.objects.get(
-            nickname=sys_admin_nickname)
-        token_bot = sys_admin.token_bot
-        chat_id = sys_admin.chat_id
-        token_double_auth = sys_admin.token_double_auth
-    except:
-        return False
-
-    try:
-        url = f'https://api.telegram.org/bot{token_bot}/sendMessage?chat_id={chat_id}&parse_mode=Markdown&text={token_double_auth}'
-        response = requests.post(url)
-        if response.status_code == 200:
-            sys_admin.timestamp_token_double_auth = datetime.now(
-                timezone.utc)
-            sys_admin.save()
-            return True
-        logging.info(
-            'mandar_token Sys Admmin: el token por mensaje se mando adecuadamente')
-    except:
-        sys_admin.timestamp_token_double_auth = None
-        sys_admin.token_double_auth = None
-        sys_admin.save()
-        return False
-    logging.error(
-        'mandar_token Sys Admmin: el token por mensaje NO se mando adecuadamente')
-
-
-def check_tokenotp_live_sys_admin(object_nickname: str, form_token_double_auth: str) -> bool:
-    try:
-        object_sys_admin = models.Sysadmin.objects.get(
-            user_name=object_nickname)
-
-    except:
-        return False
-
-    object_token_double_auth = object_sys_admin.token_double_auth
-    object_timestamp_token_double_auth = object_sys_admin.timestamp_token_double_auth
-    timestamp_now = datetime.now(timezone.utc)
-
-    if (object_token_double_auth == form_token_double_auth
-            and ((timestamp_now
-                  - object_timestamp_token_double_auth).total_seconds())
-            < TOKENOTP_LIVE):
-        return True
+        else:
+            request.session['token_spected'] = False
+            logout(request)
+            messages.error(
+                request, 'El desafío captcha no fue completado, se cancela el inicio de sesión')
+            return redirect('login_sysadmin')
     else:
-        return False
-
-
-def save_ip_client_sysadmin(ip: str, nickname: str) -> bool:
-    timestamp_now = datetime.now(timezone.utc)
-    try:
-        sys_admin = models.Sysadmin.objects.get(nickname=nickname)
-        if sys_admin.ipv4_address != ip:
-            sys_admin.ipv4_address = ip
-            sys_admin.timestamp_ultimo_intento = timestamp_now
-            sys_admin.intentos = MIN_ATTEMPS
-            sys_admin.save()
-        return True
-    except:
-        return False
-
-
-def increment_attemps_account_sysadmin(object_sys_admin: models.Sysadmin) -> bool:
-    # incrementa el contador de intentos y actualiza el timestamp
-    try:
-        update_attemps = object_sys_admin.intentos + 1
-        object_sys_admin.intentos = update_attemps
-        object_sys_admin.save()
-        return True
-    except:
-        return False
-
-
-def block_sys_admin(object_sys_admin: models.Sysadmin) -> bool:
-    # si ya pasaron más de 5 minutos, reinicia el contador y el timestamp, sino, truena la atenticación
-    # False seugnifica que la cuenta no se bloquea, True que la cuenta si se bloquea
-    timestamp_now = datetime.now(timezone.utc)
-    timestamp_attemps = object_sys_admin.timestamp_ultimo_intento
-
-    # if it is a new client
-    if timestamp_attemps is None:
-        object_sys_admin.timestamp_ultimo_intento = timestamp_now
-        object_sys_admin.intentos = MIN_ATTEMPS
-        object_sys_admin.save()
-        return False
-
-    if (((timestamp_now
-          - timestamp_attemps).total_seconds())
-            < LOCK_TIME_RANGE):
-        object_sys_admin.timestamp_ultimo_intento = timestamp_now
-        object_sys_admin.save()
-        return True
-    else:
-        object_sys_admin.intentos = MIN_ATTEMPS
-        object_sys_admin.timestamp_ultimo_intento = None
-        object_sys_admin.save()
-        return False
-
-
-def restart_attemps_sysadmin(object_sys_admin: models.Sysadmin) -> bool:
-    # settea el contador a 0 y borra el último timestamp de intentos
-    try:
-        object_sys_admin.intentos = MIN_ATTEMPS
-        object_sys_admin.timestamp_ultimo_intento = None
-        object_sys_admin.save()
-        return True
-    except:
-        return False
-
-
-def delete_ipv4_client_sysadmin(object_sys_admin: models.Sysadmin) -> bool:
-    try:
-        object_sys_admin.ipv4_address = None
-        object_sys_admin.save()
-        return True
-    except:
-        return False
+        return HttpResponseNotAllowed(['GET', 'POST'])

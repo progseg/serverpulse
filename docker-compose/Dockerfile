@@ -7,7 +7,7 @@ RUN apt full-upgrade -y
 RUN pip install gunicorn
 
 # create user exec
-RUN useradd -M -s /usr/bin/nologin -r serverpulse
+RUN useradd -M -s /usr/bin/nologin serverpulse
 
 # app port
 EXPOSE 8000
@@ -23,11 +23,12 @@ COPY ./requeriments.txt .
 RUN pip install -r requeriments.txt
 
 # change owner and permissions of volume
-RUN chown -R serverpulse:serverpulse /app
-RUN chmod -R 755 /app
+COPY ./setup_serverpulse.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/setup_serverpulse.sh
+
 
 # set service user
 USER serverpulse
 
 # run application
-CMD ["gunicorn", "serverPulse.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["/bin/sh", "-c", "/usr/local/bin/setup_serverpulse.sh && gunicorn serverPulse.wsgi:application --bind 0.0.0.0:8000"]
