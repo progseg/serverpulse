@@ -843,3 +843,2259 @@ AttributeError: module 'servers_monitor.models' has no attribute 'Servidor'
 10-Jun-23 01:26:44 - INFO - Singin: Se hace petición por el método: POST
 10-Jun-23 01:26:44 - ERROR - Singin: Los datos que ingreso el usuario no son correctos
 10-Jun-23 01:26:44 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:37:40 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:37:43 - INFO - Singin: Se hace petición por el método: POST
+10-Jun-23 01:37:43 - ERROR - Singin: Los datos que ingreso el usuario no son correctos
+10-Jun-23 01:37:43 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:37:54 - INFO - Singin: Se hace petición por el método: POST
+10-Jun-23 01:37:54 - ERROR - Singin: Los datos que ingreso el usuario no son correctos
+10-Jun-23 01:37:54 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:39:10 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 01:39:13 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 01:39:22 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 01:39:47 - INFO - login Sys Admin: Se hace petición por el método: POST
+10-Jun-23 01:39:47 - ERROR - login Sys Admin: Error datos inválidos por parte del usuario
+10-Jun-23 01:39:47 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 02:38:16 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 02:38:22 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 02:38:46 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 02:38:46 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 804, in singin_server
+    if form_singin_server.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 170, in errors
+    self.full_clean()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 393, in _clean_fields
+    value = getattr(self, 'clean_%s' % name)()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/forms.py", line 134, in clean_ipv4_address
+    if not expresion_regular_ip(ipv4_address):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 're.Pattern' object is not callable
+10-Jun-23 08:59:35 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:00:03 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:00:18 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:01:58 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 09:01:59 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 804, in singin_server
+    if form_singin_server.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 170, in errors
+    self.full_clean()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 393, in _clean_fields
+    value = getattr(self, 'clean_%s' % name)()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/forms.py", line 134, in clean_ipv4_address
+    if not expresion_regular_ip(ipv4_address):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 're.Pattern' object is not callable
+10-Jun-23 09:02:30 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:02:41 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 09:02:41 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 804, in singin_server
+    if form_singin_server.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 170, in errors
+    self.full_clean()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 393, in _clean_fields
+    value = getattr(self, 'clean_%s' % name)()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/forms.py", line 134, in clean_ipv4_address
+    if not expresion_regular_ip(ipv4_address):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 're.Pattern' object is not callable
+10-Jun-23 09:05:40 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+10-Jun-23 09:06:02 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:06:04 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:07:02 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 09:07:02 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 804, in singin_server
+    if form_singin_server.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 170, in errors
+    self.full_clean()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 393, in _clean_fields
+    value = getattr(self, 'clean_%s' % name)()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/forms.py", line 134, in clean_ipv4_address
+    if not expresion_regular_ip(ipv4_address):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 're.Pattern' object is not callable
+10-Jun-23 09:17:46 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+10-Jun-23 09:17:51 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:17:53 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:18:25 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 09:18:25 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 804, in singin_server
+    if form_singin_server.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 170, in errors
+    self.full_clean()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 393, in _clean_fields
+    value = getattr(self, 'clean_%s' % name)()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/forms.py", line 134, in clean_ipv4_address
+    if not expresion_regular_ip(ipv4_address):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 're.Pattern' object is not callable
+10-Jun-23 09:19:05 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+10-Jun-23 09:19:13 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:19:45 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 09:19:45 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 804, in singin_server
+    if form_singin_server.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 170, in errors
+    self.full_clean()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 393, in _clean_fields
+    value = getattr(self, 'clean_%s' % name)()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/forms.py", line 134, in clean_ipv4_address
+    if not expresion_regular_ip(ipv4_address):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 're.Pattern' object is not callable
+10-Jun-23 09:20:27 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+10-Jun-23 09:20:30 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:20:53 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 09:20:53 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 806, in singin_server
+    password = form_singin_server.cleaned_data['password'] = make_password(password)
+                                                                           ^^^^^^^^
+UnboundLocalError: cannot access local variable 'password' where it is not associated with a value
+10-Jun-23 09:27:28 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/views.py changed, reloading.
+10-Jun-23 09:27:33 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:27:33 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:28:03 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 09:28:03 - ERROR - Singin Servidor: Error en el servidor
+10-Jun-23 09:28:03 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:29:31 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:30:00 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:30:33 - INFO - Singin Servidor: Se hace petición por el método: POST
+10-Jun-23 09:30:33 - ERROR - Singin Servidor: Error en el servidor
+10-Jun-23 09:30:33 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 09:33:51 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 09:34:18 - INFO - login Sys Admin: Se hace petición por el método: POST
+10-Jun-23 09:34:18 - ERROR - login Sys Admin: Error datos inválidos por parte del usuario
+10-Jun-23 09:34:18 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 09:35:23 - ERROR - Internal Server Error: /admin/auth_app/admonglobal/add/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.NotNullViolation: el valor nulo en la columna «is_authorize» de la relación «auth_app_admonglobal» viola la restricción de no nulo
+DETAIL:  La fila que falla contiene (Leonel, macedo238, null, null, asdfdsf, 0, 2023-06-10 09:35:05-06, 2023-06-10 15:27:29-06, null, null).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/decorators/cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 1657, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 1540, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 1586, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 1099, in save_model
+    obj.save()
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 776, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 919, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/sql/compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 98, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 79, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/lib/python3/dist-packages/django/db/utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: el valor nulo en la columna «is_authorize» de la relación «auth_app_admonglobal» viola la restricción de no nulo
+DETAIL:  La fila que falla contiene (Leonel, macedo238, null, null, asdfdsf, 0, 2023-06-10 09:35:05-06, 2023-06-10 15:27:29-06, null, null).
+
+10-Jun-23 09:36:14 - ERROR - Internal Server Error: /admin/auth_app/admonglobal/add/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.NotNullViolation: el valor nulo en la columna «is_authorize» de la relación «auth_app_admonglobal» viola la restricción de no nulo
+DETAIL:  La fila que falla contiene (Leonel, macedo238P., null, null, dsafdsafas, 0, null, 2023-06-10 15:27:29-06, null, null).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/decorators/cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 1657, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 1540, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 1586, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 1099, in save_model
+    obj.save()
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 776, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 919, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/sql/compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 98, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 79, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/lib/python3/dist-packages/django/db/utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: el valor nulo en la columna «is_authorize» de la relación «auth_app_admonglobal» viola la restricción de no nulo
+DETAIL:  La fila que falla contiene (Leonel, macedo238P., null, null, dsafdsafas, 0, null, 2023-06-10 15:27:29-06, null, null).
+
+10-Jun-23 09:36:53 - WARNING - Forbidden (CSRF cookie not set.): /admin/auth_app/admonglobal/add/
+10-Jun-23 09:39:49 - ERROR - Internal Server Error: /admin/auth_app/admonglobal/add/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.NotNullViolation: el valor nulo en la columna «is_authorize» de la relación «auth_app_admonglobal» viola la restricción de no nulo
+DETAIL:  La fila que falla contiene (Macor, macedo238P., null, null, DFEWJKLD, 0, null, 2023-06-10 15:27:29-06, null, null).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/decorators/cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 1657, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 1540, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 1586, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+  File "/usr/lib/python3/dist-packages/django/contrib/admin/options.py", line 1099, in save_model
+    obj.save()
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 776, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 919, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/sql/compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 98, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 79, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/lib/python3/dist-packages/django/db/utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: el valor nulo en la columna «is_authorize» de la relación «auth_app_admonglobal» viola la restricción de no nulo
+DETAIL:  La fila que falla contiene (Macor, macedo238P., null, null, DFEWJKLD, 0, null, 2023-06-10 15:27:29-06, null, null).
+
+10-Jun-23 09:40:21 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 09:40:35 - WARNING - Not Found: /login
+10-Jun-23 09:41:30 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 09:44:59 - INFO - Singin: Se hace petición por el método: POST
+10-Jun-23 09:44:59 - ERROR - Singin: Los datos que ingreso el usuario no son correctos
+10-Jun-23 09:44:59 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 09:46:35 - INFO - Singin: Se hace petición por el método: POST
+10-Jun-23 09:46:35 - ERROR - Internal Server Error: /serverpulse/singin/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 46, in singin
+    password = form_singin.cleaned_data['password'] = make_password(password)
+                                                                    ^^^^^^^^
+UnboundLocalError: cannot access local variable 'password' where it is not associated with a value
+10-Jun-23 09:47:02 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/views.py changed, reloading.
+10-Jun-23 10:00:37 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 10:00:38 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 10:01:05 - INFO - Singin: Se hace petición por el método: POST
+10-Jun-23 10:01:05 - ERROR - Singin: Los datos que ingreso el usuario no son correctos
+10-Jun-23 10:01:05 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 10:01:47 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 10:02:35 - INFO - Singin: Se hace petición por el método: POST
+10-Jun-23 10:02:35 - INFO - Singin: El usuario ingreso adecuadamente en su sesión
+10-Jun-23 10:02:35 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:03:20 - INFO - login Sys Admin: Se hace petición por el método: POST
+10-Jun-23 10:03:20 - ERROR - login Sys Admin: Error datos inválidos por parte del usuario
+10-Jun-23 10:03:20 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:03:23 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 10:05:14 - INFO - login Admin Global: Se hace petición por el método: POST
+10-Jun-23 10:05:14 - ERROR - login Admin Global: Error al guardar la dirección IP del usuario
+10-Jun-23 10:05:14 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 10:06:31 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+10-Jun-23 10:06:34 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 10:06:37 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 10:08:25 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+10-Jun-23 10:08:26 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 10:11:47 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:13:00 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:13:33 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:13:34 - ERROR - Internal Server Error: /serverpulse/login_sys_admin
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 127, in render
+    compiled_parent = self.get_parent(context)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 124, in get_parent
+    return self.find_template(parent, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 103, in find_template
+    template, origin = context.template.engine.find_template(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/engine.py", line 129, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: base_.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 463, in login_sys_admin
+    return render(request, 'login_sys_admin.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 63, in render
+    reraise(exc, self.backend)
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 84, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: base_.html
+10-Jun-23 10:13:51 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:14:47 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:14:50 - INFO - login Sys Admin: Se hace petición por el método: POST
+10-Jun-23 10:14:50 - ERROR - login Sys Admin: Error datos inválidos por parte del usuario
+10-Jun-23 10:14:50 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:14:58 - INFO - login Sys Admin: Se hace petición por el método: POST
+10-Jun-23 10:14:58 - ERROR - login Sys Admin: Error datos inválidos por parte del usuario
+10-Jun-23 10:14:58 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:16:07 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:16:09 - INFO - login Sys Admin: Se hace petición por el método: POST
+10-Jun-23 10:16:09 - ERROR - login Sys Admin: Error datos inválidos por parte del usuario
+10-Jun-23 10:16:09 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:17:21 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 10:17:25 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 10:28:21 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+10-Jun-23 10:28:58 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:29:51 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+10-Jun-23 10:30:13 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:30:23 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 10:30:26 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 10:30:43 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:30:45 - INFO - login Sys Admin: Se hace petición por el método: POST
+10-Jun-23 10:30:45 - ERROR - login Sys Admin: Error datos inválidos por parte del usuario
+10-Jun-23 10:30:45 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:36:26 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+10-Jun-23 10:36:33 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+10-Jun-23 10:36:56 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:37:32 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:37:53 - INFO - login Sys Admin: Se hace petición por el método: POST
+10-Jun-23 10:37:53 - ERROR - login Sys Admin: Error datos inválidos por parte del usuario
+10-Jun-23 10:37:53 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:38:01 - INFO - login Sys Admin: Se hace petición por el método: POST
+10-Jun-23 10:38:01 - ERROR - login Sys Admin: Error datos inválidos por parte del usuario
+10-Jun-23 10:38:01 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:38:16 - INFO - login Sys Admin: Se hace petición por el método: POST
+10-Jun-23 10:38:16 - ERROR - login Sys Admin: Error datos inválidos por parte del usuario
+10-Jun-23 10:38:16 - INFO - login Sys Admin: Se hace petición por el método: GET
+10-Jun-23 10:40:32 - INFO - login Admin Global: Se hace petición por el método: GET
+10-Jun-23 10:40:34 - INFO - Singin: Se hace petición por el método: GET
+10-Jun-23 10:40:40 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 10:41:56 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 10:42:48 - INFO - Singin Servidor: Se hace petición por el método: GET
+10-Jun-23 10:46:16 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:42:56 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:42:56 - ERROR - Singin: Los datos que ingreso el usuario no son correctos
+11-Jun-23 12:42:56 - INFO - Singin: Se hace petición por el método: GET
+11-Jun-23 12:42:56 - WARNING - Not Found: /favicon.ico
+11-Jun-23 12:42:58 - INFO - login Admin Global: Se hace petición por el método: GET
+11-Jun-23 12:43:06 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:43:06 - ERROR - Singin: Los datos que ingreso el usuario no son correctos
+11-Jun-23 12:43:06 - INFO - Singin: Se hace petición por el método: GET
+11-Jun-23 12:43:21 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:43:21 - ERROR - Singin: Los datos que ingreso el usuario no son correctos
+11-Jun-23 12:43:21 - INFO - Singin: Se hace petición por el método: GET
+11-Jun-23 12:44:01 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:44:01 - ERROR - Singin: Los datos que ingreso el usuario no son correctos
+11-Jun-23 12:44:01 - INFO - Singin: Se hace petición por el método: GET
+11-Jun-23 12:45:17 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/views.py changed, reloading.
+11-Jun-23 12:45:23 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:45:23 - ERROR - Singin: Los datos que ingreso el usuario no son correctos
+11-Jun-23 12:45:23 - INFO - Singin: Se hace petición por el método: GET
+11-Jun-23 12:45:33 - INFO - login Sys Admin: Se hace petición por el método: GET
+11-Jun-23 12:49:31 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/views.py changed, reloading.
+11-Jun-23 12:49:36 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:49:36 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 805, in singin_server
+    return render(request, 'singin_server.html', {'form': form})
+                                                          ^^^^
+UnboundLocalError: cannot access local variable 'form' where it is not associated with a value
+11-Jun-23 12:49:59 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/views.py changed, reloading.
+11-Jun-23 12:50:01 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:50:01 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 802, in singin_server
+    return render(request, 'singin_server.html', {'form': form})
+                                                          ^^^^
+UnboundLocalError: cannot access local variable 'form' where it is not associated with a value
+11-Jun-23 12:50:51 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:50:51 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 802, in singin_server
+    return render(request, 'singin_server.html', {'form': form})
+                                                          ^^^^
+UnboundLocalError: cannot access local variable 'form' where it is not associated with a value
+11-Jun-23 12:50:52 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:50:52 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 802, in singin_server
+    return render(request, 'singin_server.html', {'form': form})
+                                                          ^^^^
+UnboundLocalError: cannot access local variable 'form' where it is not associated with a value
+11-Jun-23 12:51:29 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:51:29 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 802, in singin_server
+    return render(request, 'singin_server.html', {'form': form})
+                                                          ^^^^
+UnboundLocalError: cannot access local variable 'form' where it is not associated with a value
+11-Jun-23 12:52:21 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/views.py changed, reloading.
+11-Jun-23 12:52:54 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:52:54 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 803, in singin_server
+    return render(request, 'singin_server.html', {'form': form})
+                                                          ^^^^
+UnboundLocalError: cannot access local variable 'form' where it is not associated with a value
+11-Jun-23 12:53:22 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/views.py changed, reloading.
+11-Jun-23 12:53:25 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:53:25 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 803, in singin_server
+    return render(request, 'singin_server.html', {'form': form})
+                                                          ^^^^
+UnboundLocalError: cannot access local variable 'form' where it is not associated with a value
+11-Jun-23 12:54:33 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:54:33 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 803, in singin_server
+    return render(request, 'singin_server.html', {'form': form})
+                                                          ^^^^
+UnboundLocalError: cannot access local variable 'form' where it is not associated with a value
+11-Jun-23 12:54:52 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/views.py changed, reloading.
+11-Jun-23 12:54:56 - INFO - Singin Servidor: Se hace petición por el método: GET
+11-Jun-23 12:54:58 - INFO - Singin Servidor: Se hace petición por el método: POST
+11-Jun-23 12:55:00 - INFO - Singin Servidor: Se hace petición por el método: POST
+11-Jun-23 12:55:02 - INFO - Singin Servidor: Se hace petición por el método: POST
+11-Jun-23 12:56:52 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/views.py changed, reloading.
+11-Jun-23 12:57:08 - INFO - login Sys Admin: Se hace petición por el método: GET
+11-Jun-23 12:57:42 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 795, in singin_server
+    if form.is_valid():
+       ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 170, in errors
+    self.full_clean()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 393, in _clean_fields
+    value = getattr(self, 'clean_%s' % name)()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/forms.py", line 143, in clean_repeat_password
+    password = self.cleaned_data['password']
+               ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'password'
+11-Jun-23 12:59:50 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 12:59:55 - ERROR - Internal Server Error: /serverpulse/singin_server
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/views.py", line 796, in singin_server
+    form.save()
+    ^^^^^^^^^
+AttributeError: 'SinginServers' object has no attribute 'save'
+11-Jun-23 13:11:02 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 13:31:39 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/views.py changed, reloading.
+11-Jun-23 13:47:57 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/urls.py changed, reloading.
+11-Jun-23 13:48:02 - WARNING - Not Found: /serverpulse/singin_server
+11-Jun-23 13:48:09 - ERROR - Internal Server Error: /serverpulse/list_date
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/admon_global/views.py", line 32, in list_date
+    return render(request, template)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: list_date.html
+11-Jun-23 14:15:51 - INFO - /home/leonel/Vídeos/serverpulse/admon_global/views.py changed, reloading.
+11-Jun-23 14:28:37 - INFO - /home/leonel/Vídeos/serverpulse/admon_global/views.py changed, reloading.
+11-Jun-23 14:33:05 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 14:34:52 - INFO - /home/leonel/Vídeos/serverpulse/admon_global/views.py changed, reloading.
+11-Jun-23 14:35:03 - WARNING - Not Found: /serverpulse/
+11-Jun-23 14:35:12 - ERROR - Internal Server Error: /serverpulse/crear_server/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 71, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'global'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 82, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'global' is not a registered namespace
+11-Jun-23 14:37:10 - ERROR - Internal Server Error: /serverpulse/crear_server/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'singin_server' not found. 'singin_server' is not a valid view function or pattern name.
+11-Jun-23 14:37:47 - ERROR - Internal Server Error: /serverpulse/crear_server/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'list_date' not found. 'list_date' is not a valid view function or pattern name.
+11-Jun-23 15:22:35 - INFO - logout Admin Global: Se hace petición por el método: GET
+11-Jun-23 15:22:35 - INFO - login Admin Global: Se hace petición por el método: GET
+11-Jun-23 15:22:40 - INFO - login Sys Admin: Se hace petición por el método: GET
+11-Jun-23 15:31:03 - ERROR - Internal Server Error: /serverpulse/crear_admin/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+                                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+                     ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: BaseForm.__init__() got an unexpected keyword argument 'instance'
+11-Jun-23 15:31:30 - ERROR - Internal Server Error: /serverpulse/editar_admin/Macor/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 190, in get
+    return super().get(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+                                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+                     ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: BaseForm.__init__() got an unexpected keyword argument 'instance'
+11-Jun-23 15:31:36 - ERROR - Internal Server Error: /serverpulse/eliminar_admin/Macor/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: auth_app/sysadmin_confirm_delete.html
+11-Jun-23 15:52:09 - INFO - /home/leonel/Vídeos/serverpulse/admon_global/views.py changed, reloading.
+11-Jun-23 15:52:19 - ERROR - Internal Server Error: /serverpulse/eliminar_admin/Macor/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: auth_app/sysadmin_confirm_delete.html
+11-Jun-23 15:55:19 - ERROR - Internal Server Error: /serverpulse/eliminar_admin/Macor/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: auth_app/sysadmin_confirm_delete.html
+11-Jun-23 15:55:38 - ERROR - Internal Server Error: /serverpulse/eliminar_admin/Macor/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: auth_app/sysadmin_confirm_delete.html
+11-Jun-23 16:02:21 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 16:03:30 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 16:08:07 - ERROR - Internal Server Error: /serverpulse/eliminar_admin/Macor/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: auth_app/sysadmin_confirm_delete.html
+11-Jun-23 16:08:36 - ERROR - Internal Server Error: /serverpulse/eliminar_admin/Macor/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: auth_app/sysadmin_confirm_delete.html
+11-Jun-23 16:20:06 - ERROR - Internal Server Error: /serverpulse/eliminar_admin/Macor/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: auth_app/sysadmin_confirm_delete.html
+11-Jun-23 17:22:56 - ERROR - Internal Server Error: /serverpulse/eliminar_admin/Macor/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: auth_app/sysadmin_confirm_delete.html
+11-Jun-23 17:23:00 - WARNING - Not Found: /serverpulse/eliminar_admin/
+11-Jun-23 17:23:22 - ERROR - Internal Server Error: /serverpulse/crear_admin/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+                                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+                     ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: BaseForm.__init__() got an unexpected keyword argument 'instance'
+11-Jun-23 17:23:33 - WARNING - Not Found: /serverpulse/crear_sever
+11-Jun-23 17:24:09 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:24:28 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:25:02 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:25:52 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:26:22 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:26:32 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:26:42 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:27:17 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:27:27 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:27:33 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:28:23 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:31:33 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:32:58 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:34:10 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:34:35 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:55:51 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 17:56:03 - ERROR - Internal Server Error: /serverpulse/crear_server/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 141, in post
+    if form.is_valid():
+       ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 170, in errors
+    self.full_clean()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 393, in _clean_fields
+    value = getattr(self, 'clean_%s' % name)()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/forms.py", line 174, in clean_repeat_password
+    password = self.cleaned_data['password']
+               ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'password'
+11-Jun-23 17:56:57 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 18:00:40 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 18:00:44 - ERROR - Internal Server Error: /serverpulse/crear_server/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 141, in post
+    if form.is_valid():
+       ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 170, in errors
+    self.full_clean()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 393, in _clean_fields
+    value = getattr(self, 'clean_%s' % name)()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/forms.py", line 176, in clean_repeat_password
+    password = self.cleaned_data['password']
+               ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'password'
+11-Jun-23 18:03:54 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 18:03:59 - ERROR - Internal Server Error: /serverpulse/crear_server/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 141, in post
+    if form.is_valid():
+       ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 170, in errors
+    self.full_clean()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 393, in _clean_fields
+    value = getattr(self, 'clean_%s' % name)()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/forms.py", line 161, in clean_repeat_password
+    password = self.cleaned_data['password']
+               ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'password'
+11-Jun-23 18:04:31 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 18:04:38 - ERROR - Internal Server Error: /serverpulse/crear_server/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 141, in post
+    if form.is_valid():
+       ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 170, in errors
+    self.full_clean()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 393, in _clean_fields
+    value = getattr(self, 'clean_%s' % name)()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/forms.py", line 163, in clean_repeat_password
+    password = self.cleaned_data['password']
+               ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'password'
+11-Jun-23 18:07:33 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 18:08:56 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 18:09:00 - ERROR - Internal Server Error: /serverpulse/crear_server/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 141, in post
+    if form.is_valid():
+       ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 170, in errors
+    self.full_clean()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 393, in _clean_fields
+    value = getattr(self, 'clean_%s' % name)()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/forms.py", line 188, in clean_repeat_password
+    passwor = self.cleaned_data['password']
+              ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'password'
+11-Jun-23 18:09:15 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 18:10:59 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 18:12:06 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 18:34:37 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 18:34:55 - ERROR - Internal Server Error: /serverpulse/eliminar_server/3/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: auth_app/servidor_confirm_delete.html
+11-Jun-23 18:37:01 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 18:40:40 - ERROR - Internal Server Error: /serverpulse/crear_admin/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+                                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+                     ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: BaseForm.__init__() got an unexpected keyword argument 'instance'
+11-Jun-23 18:41:48 - ERROR - Internal Server Error: /serverpulse/eliminar_server/3/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: auth_app/servidor_confirm_delete.html
+11-Jun-23 18:43:03 - INFO - /home/leonel/Vídeos/serverpulse/admon_global/views.py changed, reloading.
+11-Jun-23 18:46:34 - ERROR - Internal Server Error: /serverpulse/eliminar_server/3/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: auth_app/servidor_confirm_delete.html
+11-Jun-23 18:46:40 - WARNING - Not Found: /serverpulse/eliminar_server/1/
+11-Jun-23 18:47:58 - WARNING - Not Found: /admm
+11-Jun-23 18:50:37 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 18:51:39 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 18:53:28 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+11-Jun-23 19:05:48 - INFO - /home/leonel/Vídeos/serverpulse/admon_global/views.py changed, reloading.
+11-Jun-23 19:11:36 - INFO - logout Admin Global: Se hace petición por el método: GET
+11-Jun-23 19:11:36 - INFO - login Admin Global: Se hace petición por el método: GET
+11-Jun-23 19:11:41 - INFO - login Admin Global: Se hace petición por el método: GET
+11-Jun-23 19:11:45 - INFO - login Sys Admin: Se hace petición por el método: GET
+11-Jun-23 19:11:54 - WARNING - Not Found: /serverpulse/monitoreo
+11-Jun-23 19:12:09 - INFO - Estado del servidor Monitoreo: Se hace petición por el método: GET
+11-Jun-23 19:12:10 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:11 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:12 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:13 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:14 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:15 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:16 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:17 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:18 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:19 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:20 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:21 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:22 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:23 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:24 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:25 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:26 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:27 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:28 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:29 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:30 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:31 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:32 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:33 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:34 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:35 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:36 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:37 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:38 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:39 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:40 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:41 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:42 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:43 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:44 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:45 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:46 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:47 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:48 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:49 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:50 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:51 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:52 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:53 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:54 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:55 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:56 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:57 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:58 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:12:59 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:00 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:01 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:02 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:03 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:04 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:05 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:06 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:07 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:08 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:09 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:10 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:11 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:12 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:13 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:14 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:15 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:16 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:17 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:18 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:19 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:20 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:21 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:22 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:23 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:24 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:25 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:26 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:27 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:28 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:29 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:30 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:31 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:32 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:13:33 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:14:33 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:33 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:34 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:34 - INFO - Estado del servidor Monitoreo: Se hace petición por el método: GET
+11-Jun-23 19:15:35 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:36 - INFO - Estado del servidor Monitoreo: Se hace petición por el método: GET
+11-Jun-23 19:15:37 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:38 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:39 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:40 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:41 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:42 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:43 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:44 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:45 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:46 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:47 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:48 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:49 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:50 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:51 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:52 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:53 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:54 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:55 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:56 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:57 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:58 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:15:59 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:00 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:01 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:02 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:03 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:04 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:05 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:06 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:07 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:08 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:09 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:10 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:11 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:12 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:13 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:14 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:15 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:16 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:17 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:18 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:19 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:20 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:21 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:22 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:23 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:24 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:25 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:26 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:27 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:28 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:29 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:30 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:31 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:32 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:33 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:34 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:35 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:36 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:37 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:38 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:39 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:40 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:41 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:42 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:43 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:44 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:45 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:46 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:47 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:48 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:49 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:50 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:51 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:16:52 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:17:05 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:17:06 - WARNING - Not Found: /recuperar_registros
+11-Jun-23 19:17:06 - INFO - Estado del servidor Monitoreo: Se hace petición por el método: GET
+11-Jun-23 19:17:06 - ERROR - Internal Server Error: /serverpulse/state_servidor
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/servers_monitor/views.py", line 36, in state_servidor
+    return render(request, template, d)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 315, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'monitor' not found. 'monitor' is not a valid view function or pattern name.
+11-Jun-23 19:17:26 - INFO - Estado del servidor Monitoreo: Se hace petición por el método: GET
+11-Jun-23 19:17:26 - ERROR - Internal Server Error: /serverpulse/state_servidor
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/servers_monitor/views.py", line 36, in state_servidor
+    return render(request, template, d)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 315, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'state_server' not found. 'state_server' is not a valid view function or pattern name.
+11-Jun-23 19:17:32 - INFO - Estado del servidor Monitoreo: Se hace petición por el método: GET
+11-Jun-23 19:17:32 - ERROR - Internal Server Error: /serverpulse/state_servidor
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/servers_monitor/views.py", line 36, in state_servidor
+    return render(request, template, d)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 315, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'state_servidor' with arguments '('',)' not found. 1 pattern(s) tried: ['serverpulse/state_servidor\\Z']
+11-Jun-23 19:17:55 - INFO - Estado del servidor Monitoreo: Se hace petición por el método: GET
+11-Jun-23 19:17:55 - ERROR - Internal Server Error: /serverpulse/state_servidor
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/servers_monitor/views.py", line 36, in state_servidor
+    return render(request, template, d)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 315, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'state_servidor' with arguments '('',)' not found. 1 pattern(s) tried: ['serverpulse/state_servidor\\Z']
+11-Jun-23 19:19:44 - INFO - Estado del servidor Monitoreo: Se hace petición por el método: GET
+11-Jun-23 19:19:44 - ERROR - Internal Server Error: /serverpulse/state_servidor
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/servers_monitor/views.py", line 36, in state_servidor
+    return render(request, template, d)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 315, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'state_servidor' with arguments '('',)' not found. 1 pattern(s) tried: ['serverpulse/state_servidor\\Z']
+11-Jun-23 19:27:02 - INFO - Estado del servidor Monitoreo: Se hace petición por el método: GET
+11-Jun-23 19:27:02 - ERROR - Internal Server Error: /serverpulse/state_servidor
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/servers_monitor/views.py", line 36, in state_servidor
+    return render(request, template, d)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 315, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'state_servidor' with arguments '('',)' not found. 1 pattern(s) tried: ['serverpulse/state_servidor\\Z']
+12-Jun-23 07:31:41 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+12-Jun-23 07:31:45 - ERROR - Internal Server Error: /serverpulse/crear_admin/
+Traceback (most recent call last):
+  File "/home/leonel/Vídeos/serverpulse/auth_app/forms.py", line 101, in clean
+    raise forms.ValidationError("Este nickname ya existe")
+django.core.exceptions.ValidationError: ['Este nickname ya existe']
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 141, in post
+    if form.is_valid():
+       ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 170, in errors
+    self.full_clean()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 373, in full_clean
+    self._clean_form()
+  File "/usr/lib/python3/dist-packages/django/forms/forms.py", line 400, in _clean_form
+    cleaned_data = self.clean()
+                   ^^^^^^^^^^^^
+  File "/home/leonel/Vídeos/serverpulse/auth_app/forms.py", line 153, in clean
+    self.add_error('password', 'nickname', 'chat_id', 'token_bot', e)
+TypeError: BaseForm.add_error() takes 3 positional arguments but 6 were given
+12-Jun-23 07:35:26 - INFO - /home/leonel/Vídeos/serverpulse/auth_app/forms.py changed, reloading.
+12-Jun-23 07:38:03 - ERROR - Internal Server Error: /serverpulse/eliminar_admin/Macor/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: auth_app/sysadmin_confirm_delete.html
+12-Jun-23 07:39:38 - ERROR - Internal Server Error: /serverpulse/eliminar_server/5/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: auth_app/servidor_confirm_delete.html
+12-Jun-23 07:43:20 - ERROR - Internal Server Error: /serverpulse/crear_admin/
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.NotNullViolation: el valor nulo en la columna «timestamp_ultimo_intento» de la relación «auth_app_sysadmin» viola la restricción de no nulo
+DETAIL:  La fila que falla contiene (Macor, Proyecto2023L, 1119171934, 5503897614:AAGhE_V47CQkbTggA5QVJ55Odyozgt0Rrd8, , 0, null, null, null, f).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 142, in post
+    return self.form_valid(form)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/views/generic/edit.py", line 125, in form_valid
+    self.object = form.save()
+                  ^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/forms/models.py", line 468, in save
+    self.instance.save()
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 776, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/base.py", line 919, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/models/sql/compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 98, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 79, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/lib/python3/dist-packages/django/db/utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/lib/python3/dist-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: el valor nulo en la columna «timestamp_ultimo_intento» de la relación «auth_app_sysadmin» viola la restricción de no nulo
+DETAIL:  La fila que falla contiene (Macor, Proyecto2023L, 1119171934, 5503897614:AAGhE_V47CQkbTggA5QVJ55Odyozgt0Rrd8, , 0, null, null, null, f).
+
+12-Jun-23 07:44:35 - INFO - login Sys Admin: Se hace petición por el método: GET
+12-Jun-23 07:44:40 - INFO - login Admin Global: Se hace petición por el método: GET
+12-Jun-23 07:51:45 - INFO - logout Admin Global: Se hace petición por el método: GET
+12-Jun-23 07:51:45 - INFO - login Admin Global: Se hace petición por el método: GET
+12-Jun-23 07:51:47 - INFO - Singin: Se hace petición por el método: GET

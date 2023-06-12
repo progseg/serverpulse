@@ -43,7 +43,7 @@ def singin(request: HttpRequest) -> HttpResponse:
         form_singin = forms.Singin(request.POST)
         if form_singin.is_valid():
             nickname = form_singin.cleaned_data['nickname']
-            password = form_singin.cleaned_data['password'] = make_password(password)
+            password = form_singin.cleaned_data['password']
             chat_id = form_singin.cleaned_data['chat_id']
             token_bot = form_singin.cleaned_data['token_bot']
 
@@ -787,48 +787,3 @@ def delete_ipv4_client_sysadmin(object_sys_admin: models.Sysadmin) -> bool:
     except:
         return False
 
-
-def singin_server(request: HttpRequest) -> HttpResponse:
-    logging.info(
-        'Singin Servidor: Se hace petición por el método: ' + request.method)
-    if request.method == 'GET':
-        form_singin_server = forms.SinginServers()
-
-        context = {
-            'form': form_singin_server
-        }
-        return render(request, 'singin_server.html', context)
-
-    elif request.method == 'POST':
-        form_singin_server = forms.SinginServers(request.POST)
-        if form_singin_server.is_valid():
-            ipv4_address = form_singin_server.cleaned_data['ipv4_address']
-            password = form_singin_server.cleaned_data['password'] = make_password(password)
-
-            Servidor = models.Servidor()
-
-            Servidor.ipv4_address = ipv4_address
-            Servidor.password = password
-
-            try:
-                Servidor.save()
-
-                messages.success(
-                    request, 'El servidor {ipv4_address} fue registrado con éxito')
-                logging.info(
-                    'Singin Servidor: El servidor ingreso adecuadamente en su sesión')
-                return redirect('dashboard_admon_global')
-            except:
-                messages.error(
-                    request, 'Ocurrió un error inesperado en el servidor')
-                logging.error(
-                    'Singin Servidor: Error en el servidor')
-                return redirect('singin_server')
-        else:
-            form_singin_server = forms.SinginServers()
-            messages.error(request, 'Los datos proporcionados no son válidos')
-            logging.error(
-                'Singin Servidor: Los datos que ingreso el usuario no son correctos')
-            return redirect('singin_server')
-    else:
-        return HttpResponseNotAllowed(['GET', 'POST'])

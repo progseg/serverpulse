@@ -27,5 +27,4 @@ urlpatterns = [
     path('login_sys_admin', views.login_sys_admin, name='login_sys_admin'),
     path('logout', views.logout, name='logout'),
     path('logout_sys_admin', views.logout_sys_admin, name='logout_sys_admin'),
-    path('singin_server', views.singin_server, name='singin_server')
 ]
