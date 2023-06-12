@@ -38,14 +38,18 @@ class AdmonGlobal(models.Model):
 class Sysadmin(models.Model):
     nickname = models.CharField(max_length=15, unique=True, primary_key=True)
     password = models.CharField(max_length=15, unique=True)
-    chat_id = models.CharField(max_length=10, unique=True)
-    token_bot = models.CharField(max_length=50, unique=True)
-    token_double_auth = models.CharField(max_length=24, unique=True)
+    chat_id = models.CharField(
+        max_length=10, unique=True, blank=True, null=True)
+    token_bot = models.CharField(
+        max_length=50, unique=True, blank=True, null=True)
+    token_double_auth = models.CharField(
+        max_length=24, unique=True, blank=True, null=True)
     intentos = models.IntegerField(
         default=0, validators=[MinValueValidator(0), MaxValueValidator(4)])
-    timestamp_ultimo_intento = models.DateTimeField()
-    timestamp_token_double_auth = models.DateTimeField()
-    ipv4_address = models.GenericIPAddressField(protocol='IPv4')
+    timestamp_ultimo_intento = models.DateTimeField(blank=True, null=True)
+    timestamp_token_double_auth = models.DateTimeField(blank=True, null=True)
+    ipv4_address = models.GenericIPAddressField(
+        protocol='IPv4', blank=True, null=True)
     autorize_account = models.BooleanField(default=False)
 
 

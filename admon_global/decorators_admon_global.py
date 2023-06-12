@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseServerError
 from django.shortcuts import redirect
 from functools import wraps
 from django.contrib import messages
+from django.utils.decorators import method_decorator
 
 
 def logged_required(view_func):
@@ -22,3 +23,10 @@ def logged_required(view_func):
 
         return response
     return wrapped_view
+"""
+def class_view_decorator(function_decorator):
+    def deco(View):
+        View.dispatch = method_decorator(function_decorator)(View.dispatch)
+        return View
+    return deco
+"""
