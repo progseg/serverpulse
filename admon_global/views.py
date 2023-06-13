@@ -33,7 +33,7 @@ class ListarAdministrador(ListView):
 class ActualizarAdministrador(UpdateView):
     model = models.Sysadmin
     form_class = forms.SinginAdmin
-    template_name = 'crear_admin.html'
+    template_name = 'editar_admin.html'
     success_url = reverse_lazy('listar_admin')
 
 
@@ -46,11 +46,8 @@ class CrearAdministrador(CreateView):
 
 class EliminarAdministrador(DeleteView):
     model = models.Sysadmin
-
-    def post(self, request, pk, *args, **kwargs):
-        object = models.Sysadmin.objects.get(nickname=pk)
-        object.delete()
-        return redirect("listar_admin")
+    template_name = 'eliminar_admin.html'
+    success_url = reverse_lazy('listar_admin')
 
 
 class CrearServer(CreateView):
@@ -78,11 +75,8 @@ class ActualizarServidor(UpdateView):
         context['servers'] = models.Servidor.objects.filter(status=True)
         return context
 
+
 class EliminarServidor(DeleteView):
     model = models.Servidor
-
-    def post(self, request, pk, *args, **kwargs):
-        object = models.Servidor.objects.get(id=pk)
-        object.estado = False
-        object.save() 
-        return redirect('listar_server')
+    template_name = 'eliminar_server.html'
+    success_url = reverse_lazy('listar_server')

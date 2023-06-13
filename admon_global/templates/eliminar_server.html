@@ -1,0 +1,11 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Eliminar servers{% endblock %}
+{% block encabezado %}Eliminar servers{% endblock %}
+{% block contenido %}
+<form method="POST">
+  {% csrf_token %}
+  <h2>¿Desea eliminar el Servidor {{ server.ipv4_address }}?</h2>
+    <button type = "submit" class="btn btn-danger">Eliminar</button>
+    <a href="{% url 'listar_server' %}" class="btn btn-primary">Cancelar</a>
+</form>
+{% endblock contenido %}
