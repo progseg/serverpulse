@@ -1,6 +1,6 @@
 {% extends 'base_admin.html' %}
-{% block titulo %}Lista administradores{% endblock %}
-{% block encabezado %}Lista administradores{% endblock %}
+{% block titulo %}Listado de Servidores{% endblock %}
+{% block encabezado %}Listado de Servidores{% endblock %}
 {% block contenido %}
 {% if servers %}
 <div class="card">
@@ -11,9 +11,8 @@
     <table class="table">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Dirección IP</th>
-          <th>Usuario ligado</th>
+          <th>Admin ligado</th>
           <th>Estado</th>
           <th>Opciones</th>
         </tr>
@@ -21,9 +20,8 @@
       <tbody>
         {% for server in servers %}
         <tr>
-          <td>{{ server.id }}</td>
           <td>{{ server.ipv4_address }}</td>
-          <td>{{ server.sysadmin.sysadmin }}</td>
+          <td>{{ server.sysadmin }}</td>
           <td>
             {% if server.status %}
               Activo

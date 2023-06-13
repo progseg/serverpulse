@@ -191,7 +191,7 @@ class SinginAdmin(forms.ModelForm):
         fields = ('nickname', 'chat_id', 'token_bot', 'password')
         label = {
             'nickname': 'nombre admin',
-            'password': 'Contraseña del servidor',
+            'password': 'Contraseña del servidor', 
             'chat_id': 'chat id de telegram',
             'token_bot': 'token bot de telegram',
         }
@@ -339,7 +339,6 @@ class SinginServer(forms.ModelForm):
                 }
             ),
         }
-        # Verificación de contraseña (10char,uppercase,lowecase,digits,special)
 
     def clean(self):
         cleaned_data = super().clean()
