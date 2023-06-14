@@ -12,7 +12,7 @@
   <h3 style="color:red">Ocurrieron errores al cargar datos</h3>
   <h4>Revise su conexión.</h4>
   {% else %}
-  Bienvenido <b> <span style="color:violet">{{ usuario.nickname }}</span> </b> 
+  Bienvenido <b> <span style="color:violet">{{ admin.user_name }}</span> </b> 
   <table class="table">
     <thead>
       <tr>
@@ -24,17 +24,13 @@
     </thead>
     <tbody>
       <tr>
-        <td id="ipv4_address">{{ servidor.srv_ip }}</td>
+        <td id="ipv4_address">{{ servidor.ipv4_address }}</td>
         <td id="cpu"> {{ servidor.cpu }}</td>
         <td id="disco">{{ servidor.disco }}</td>
         <td id="memoria">{{ servidor.ram }}</td>
       </tr>
     </tbody>
   </table>
-  <a class="btn btn-primary" href="{% url 'state_servidor' servidor.id_srv %}">Actualizar</a>
-  {% endif %}
-  <a class="btn btn-primary" href="{% url 'dashboard_sys_admin' %}">Volver</a>
-  <a class="btn btn-danger" href="{% url 'logout' %}">Cerrar sesión</a>
   {% if not error %}
   <script src="/static/js/monitor_server.js"></script>
   {% endif %}
@@ -47,7 +43,7 @@
     setInterval(function() {
         $.ajax({
             type: "GET",
-            url: "{% url 'monitoreo_ajax' servidor.id_srv %}",
+            url: "{% url 'recuperar_registros' servidor.id_srv %}",
             dataType: "json",
             headers: {'Authorization':'Token {{ servidor.token }}'},
             success : function (data) {

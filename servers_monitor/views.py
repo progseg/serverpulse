@@ -36,14 +36,6 @@ def state_servidor(request):
     return render(request, template, d)
 
 
-def monitor_cpu(request):
-    logging.info(
-        'monitor_cpu Monitoreo: Se hace petición por el método: ' + request.method)
-    template = 'monitoreo.html'
-    d = {'list': models.Servidor.objects.get}
-    pass
-
-
 def on_servidor(request):
     logging.info(
         'Servidor Activo Monitoreo: Se hace petición por el método: ' + request.method)
