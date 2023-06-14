@@ -18,10 +18,12 @@ services:
       - postgres
     environment:
       DB_HOST: postgres
-      DB_NAME: ${NAME_DATABASE}
-      DB_USER: ${USER_DATABASE}
-      DB_PASSWORD: ${PASSWORD_DATABASE}
+      NAME_DATABASE: ${NAME_DATABASE}
+      USER_DATABASE: ${USER_DATABASE}
+      PASSWORD_DATABASE: ${PASSWORD_DATABASE}
       SECRET_KEY: ${SECRET_KEY}
+      RECAPTCHA_PUBLIC_KEY: ${RECAPTCHA_PUBLIC_KEY}
+      RECAPTCHA_PRIVATE_KEY: ${RECAPTCHA_PRIVATE_KEY}
     volumes:
       - /home/dllg/Documentos/ProgramaciónSegura/nuevoProyFin/serverPulse:/app
     networks:

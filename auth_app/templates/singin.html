@@ -61,8 +61,9 @@
                     <div class="invalid-feedback">Escribe en el campo.</div>
                 </div>
             </fieldset>
-                
-                
+            
+            {% load captcha %}
+            {% captcha_render %}
             <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
             

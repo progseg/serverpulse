@@ -12,7 +12,7 @@ def logged_required(view_func):
         if not request.session.get('logged', False):
             messages.error(
                 request, 'Necesita autenticarse para acceder al punto deseado')
-            return redirect('login_sys_admin')
+            return redirect('login_admon_global')
 
         # Ejecuta la vista original
         response = view_func(request, *args, **kwargs)
