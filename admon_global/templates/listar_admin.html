@@ -16,10 +16,10 @@
       <tbody>
       {% for admin in admins %}
         <tr>
-          <td>{{ admin.nickname }}</td>
+          <td>{{ admin.user_name }}</td>
           <td>
-            <a href="{% url 'editar_admin' admin.nickname %}" class="btn btn-primary">Editar</a>
-            <a href="{% url 'eliminar_admin' admin.nickname %}" class="btn btn-danger">Eliminar</a>
+            <a href="{% url 'editar_admin' admin.user_name %}" class="btn btn-primary">Editar</a>
+            <a href="{% url 'eliminar_admin' admin.user_name %}" class="btn btn-danger">Eliminar</a>
           </td>
         </tr>
       {% endfor %}

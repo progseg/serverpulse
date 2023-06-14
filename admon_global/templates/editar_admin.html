@@ -5,9 +5,9 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 class="modal-title">Edición del SysAdmin: {{ object.nickname }}</h2>
+            <h2 class="modal-title">Edición del SysAdmin: {{ object.user_name }}</h2>
         </div>
-        <form action="{% url 'editar_admin' object.nickname %}" method="POST">
+        <form action="{% url 'editar_admin' object.user_name %}" method="POST">
             {% csrf_token %}
             <div class="modal-body">
                 {{ form.as_p }}

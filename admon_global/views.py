@@ -4,7 +4,8 @@ from django.http import HttpResponse, HttpRequest, HttpResponseNotAllowed
 from django.urls import reverse_lazy
 from . import decorators_admon_global
 from django.views.decorators.csrf import csrf_protect
-from auth_app import forms, models, views as auth_app
+from auth_app import models
+from . import forms
 from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
 # Create your views here.
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',

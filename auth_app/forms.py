@@ -2,7 +2,6 @@ import re
 from typing import Any, Dict
 from django import forms
 from .models import *
-from . import views
 from . import validators
 from django.contrib.auth.forms import AuthenticationForm
 from django.forms import ValidationError
@@ -84,15 +83,6 @@ class Singin(forms.Form):
     captcha = ReCaptchaField(
         widget=ReCaptchaV2Checkbox
     )
-
-    def save(self, commit=True):
-        # Se redefine la forma en que se guarda la contraseña
-        user = super().save(commit=False)
-        password_hash = views.hashear_password(self.cleaned_data['password'])
-        user.password = password_hash
-        if commit:
-            user.save()
-        return user
 
 
 class Login(forms.Form):
