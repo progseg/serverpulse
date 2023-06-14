@@ -1,0 +1,71 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Lista administradores{% endblock %}
+{% block encabezado %}Lista administradores{% endblock %}
+{% block contenido %}
+{% if servers %}
+<div class="card">
+  <div class="card-header">
+    <strong class="card-title">Listado de Servidores</strong>
+  </div>
+  <div class="table-stats order-table ov-h">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Dirección IP</th>
+          <th>Usuario ligado</th>
+          <th>Estado</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for server in servers %}
+        <tr>
+          <td>{{ server.id }}</td>
+          <td>{{ server.ipv4_address }}</td>
+          <td>{{ server.sysadmin.sysadmin }}</td>
+          <td>
+            {% if server.status %}
+              Activo
+            {% else %}
+              Inactivo
+            {% endif %}
+          <td>
+            <a href="{% url 'editar_server' server.id %}" class="btn btn-primary">Editar</a>
+            <a href="{% url 'eliminar_server' server.id %}" class="btn btn-danger">Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+<h1>No existen servidores registrados</h1>
+{% endif %}
+
+<div class="modal fade" id="creacion" role="dialog">
+
+</div>
+
+<div class="modal fade" id="edicion" role="dialog">
+
+</div>
+
+{% endblock contenido %}
+
+{% block extrajs %}
+<script type="text/javascript">
+  var $ = jQuery.noConflict();
+  function abrir_modal_edicion(url){
+    $('#edicion').load(url, function (){
+      $(this).modal('show');
+    });
+  }
+  function abrir_modal_creacion(url){
+    $('#creacion').load(url,functestadoion(){
+      $(this).modal('show');
+    });
+  }
+</script>
+{% endblock extrajs %}

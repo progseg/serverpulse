@@ -1,45 +1,68 @@
-{% extends 'base.html' %}{% load static %}{% block title %}Monitoreo de Servidores{% endblock %} 
-{% block head %}
-    <script src="{% static 'js/monitor_server.js' %}"></script>
-{% endblock %}
-
-
-  <!-- Nav -->
-  <div>
-    <ul class="nav justify-content-end">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'dashboard_sys_admin' %}"><span class="glyphicon glyphicon-log-in"></span> Inicio SysAdmin</a>
-        <a class="nav-link" href="{% url '#' %}"><span class="glyphicon glyphicon-log-in"></span>Monitoreo de Servidores</a>
-        <a class="nav-link" href="{% url 'logout_sys_admin' %}"><span class="glyphicon glyphicon-log-in"></span> Cerrar Sesión</a>
-      </li>
+{% extends 'base_sysadmin.html' %}
+{% block titulo %}Monitoreo de Servidores{% endblock %}
+{% block encabezado %}Monitoreo de Servidores{% endblock %}
+{% block contenido %}
+<section class="container">
+  <div class="page-header">
+    <h1>Servidores</h1>
   </div>
-
-<!-- Contenido del titulo -->
-{% block content %}
-<div class="container mt-3">
-  <figure class="text-center">
-    <blockquote class="blockquote">
-      <h2>Monitoreo de servidores</h2>
-      <footer class="blockquote-footer">Credenciales de cada servidor
-        monitorizado</footer>
-    </blockquote>
-  </figure>
-
-  <!-- Contenido del tabla de monitoreo -->
-  <table class="table table-dark table-striped">
+</section>
+<div class="container">
+  {% if error %}
+  <h3 style="color:red">Ocurrieron errores al cargar datos</h3>
+  <h4>Revise su conexión.</h4>
+  {% else %}
+  Bienvenido <b> <span style="color:violet">{{ usuario.nickname }}</span> </b> 
+  <table class="table">
     <thead>
       <tr>
-        <th>Hostname</th>
-        <th>Dirección IP</th>
-        <th>Estado</th>
-        <th>Procesador</th>
-        <th>Memoria</th>
-        <th>Disco</th>
+        <th>IP</th>
+        <th>CPU (%)</th>
+        <th>Disco (%)</th>
+        <th>RAM (%)</th>
       </tr>
     </thead>
-
-    <tbody id="cambiar"></tbody>
+    <tbody>
+      <tr>
+        <td id="ipv4_address">{{ servidor.srv_ip }}</td>
+        <td id="cpu"> {{ servidor.cpu }}</td>
+        <td id="disco">{{ servidor.disco }}</td>
+        <td id="memoria">{{ servidor.ram }}</td>
+      </tr>
+    </tbody>
   </table>
+  <a class="btn btn-primary" href="{% url 'state_servidor' servidor.id_srv %}">Actualizar</a>
+  {% endif %}
+  <a class="btn btn-primary" href="{% url 'dashboard_sys_admin' %}">Volver</a>
+  <a class="btn btn-danger" href="{% url 'logout' %}">Cerrar sesión</a>
+  {% if not error %}
+  <script src="/static/js/monitor_server.js"></script>
+  {% endif %}
 </div>
+{% endblock %}
 
+{% block extrajs %}
+{% if not error %}
+<script>
+    setInterval(function() {
+        $.ajax({
+            type: "GET",
+            url: "{% url 'monitoreo_ajax' servidor.id_srv %}",
+            dataType: "json",
+            headers: {'Authorization':'Token {{ servidor.token }}'},
+            success : function (data) {
+                      debugger;
+                      $('#cpu').text( data.data.cpu);
+                      $('#disco').text( data.data.disco);
+                      $('#memoria').text( data.data.ram);
+                    },
+             error : function (error){
+                console.log(error);
+             }
+
+                 });
+
+    }, 15000)
+</script>
+{% endif %}
 {% endblock %}

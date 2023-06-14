@@ -1,0 +1,36 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Lista administradores{% endblock %}
+{% block encabezado %}Lista administradores{% endblock %}
+{% block contenido %}
+{% if admins %}
+<article class="container">
+  <div class="table-responsive">
+    <table class="table table table-blue">
+      <thead>
+        <tr>
+          <th>Nickname del Admin</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+      {% for admin in admins %}
+        <tr>
+          <td>{{ admin.nickname }}</td>
+          <td>
+            <a href="{% url 'editar_admin' admin.nickname %}" class="btn btn-primary">Editar</a>
+            <a href="{% url 'eliminar_admin' admin.nickname %}" class="btn btn-danger">Eliminar</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <div class="container-fluid"></div>
+  </nav>
+{% else %}
+  <h1>No existen administradores registrados</h1>
+{% endif %}
+{% endblock %}

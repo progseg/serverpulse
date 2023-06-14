@@ -14,6 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='admonglobal',
             name='timestamp_token_double_auth',
-            field=models.DateTimeField(default=datetime.datetime(2023, 6, 6, 17, 30, 4, 723450, tzinfo=datetime.timezone.utc)),
+            field=models.DateTimeField(default=datetime.datetime(
+                2023, 6, 6, 17, 30, 4, 723450, tzinfo=datetime.timezone.utc)),
         ),
     ]

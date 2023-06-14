@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import logging
 from django.http import HttpResponse, HttpRequest, HttpResponseNotAllowed, JsonResponse
-from . import models
+from auth_app import forms, models, views as auth_app
 
 # Create your views here.
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
@@ -76,6 +76,20 @@ def off_servidor(request):
             server.status = "Apagado"
             server.save()
     return HttpResponse("Apagado")
+
+
+def comparar_ip(request):
+    t = 'monitoreo.html'
+    d = {'list': models.Servidor.objects.all()}
+    solicitud = get_client_ip(request)
+    for servidor in models.Servidor.objects.all():
+        if solicitud == servidor.Direccion:
+            servidor.status = "Encendido"
+            servidor.save()
+        else:
+            servidor.status = "Indeterminado"
+            servidor.save()
+    return render(request, t, d)
 
 
 def recuperar_registros(request):

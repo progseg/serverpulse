@@ -1,0 +1,12 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Confirmación de Eliminación{% endblock %}
+{% block encabezado %}Confirmación de Eliminación{% endblock %}
+{% block contenido %}
+
+<form method="post">
+  {% csrf_token %}
+  <p><strong>¿Desea eliminar el registro {{ object.ipv4_address }}?</strong></p>
+  <button type="submit" class="btn btn-danger">Confirmar</button>
+</form>
+
+{% endblock contenido %}

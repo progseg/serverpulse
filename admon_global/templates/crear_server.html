@@ -1,0 +1,45 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Crear administradores{% endblock %}
+{% block encabezado %}Crear administradores{% endblock %}
+{% block contenido %}
+
+<form method="POST">
+  {% csrf_token %}
+  {% if error %}
+    <h2>{{ error }}</h2>
+  {% else %}
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Creacion de Servidor</h2>
+      </div>
+      <form action="{% url 'crear_server' %}" method="POST">
+        {% csrf_token %}
+        <div class="modal-body">
+          {{ form.as_p }}
+        </div>
+        <div class="modal-footer">
+          <a href="{% url 'listar_server' %}" class="btn btn-danger">Cancelar</a>
+          <button class="btn btn-primary" type="submit">Confirmar</button>
+        </div>
+      </form>
+    </div>
+</div>
+{% endif %}
+{% if form.errors %}
+{% for field in form %}
+    {% for error in field.errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endfor %}
+{% for error in form.non_field_errors %}
+    <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+    </div>
+{% endfor %}
+{% endif %}
+</form>
+
+{% endblock contenido %}
