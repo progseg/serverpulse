@@ -5,7 +5,7 @@
 <form method="POST">
   {% csrf_token %}
   <p><strong>Advertencia: Se eliminaran todos los servidores asociados al Sys Admin</strong></p>
-  <h2>¿Desea eliminar el SysAdmin {{ admin.nickname }}?</h2>
+  <h2>¿Desea eliminar el SysAdmin {{ admin.user_name }}?</h2>
     <button type = "submit" class="btn btn-danger">Eliminar</button>
     <a href="{% url 'listar_admin' %}" class="btn btn-primary">Cancelar</a>
 </form>
