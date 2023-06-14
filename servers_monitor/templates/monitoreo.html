@@ -1,6 +1,9 @@
 {% extends 'base_sysadmin.html' %}
 {% block titulo %}Monitoreo de Servidores{% endblock %}
 {% block encabezado %}Monitoreo de Servidores{% endblock %}
+{% block scripts %}
+<script src="/static/js/monitor_server.js"></script>
+{% endblock %}
 {% block contenido %}
 <section class="container">
   <div class="page-header">
@@ -29,36 +32,8 @@
         <td id="disco">{{ servidor.disco }}</td>
         <td id="memoria">{{ servidor.ram }}</td>
       </tr>
-    </tbody>
+      <tbody id="cambiar"></tbody>
   </table>
-  {% if not error %}
-  <script src="/static/js/monitor_server.js"></script>
-  {% endif %}
-</div>
 {% endblock %}
 
-{% block extrajs %}
-{% if not error %}
-<script>
-    setInterval(function() {
-        $.ajax({
-            type: "GET",
-            url: "{% url 'recuperar_registros' servidor.id_srv %}",
-            dataType: "json",
-            headers: {'Authorization':'Token {{ servidor.token }}'},
-            success : function (data) {
-                      debugger;
-                      $('#cpu').text( data.data.cpu);
-                      $('#disco').text( data.data.disco);
-                      $('#memoria').text( data.data.ram);
-                    },
-             error : function (error){
-                console.log(error);
-             }
-
-                 });
-
-    }, 15000)
-</script>
-{% endif %}
-{% endblock %}
+ 
