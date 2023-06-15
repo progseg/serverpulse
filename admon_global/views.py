@@ -1,17 +1,13 @@
-from django.forms.models import BaseModelForm
 from django.shortcuts import get_object_or_404, redirect, render
 import logging
 from django.http import HttpResponse, HttpRequest, HttpResponseNotAllowed
 from django.urls import reverse_lazy
-from django.views import View
 from . import decorators_admon_global
 from django.views.decorators.csrf import csrf_protect
 from auth_app import models
 from . import forms
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from django.utils.html import escape
-import secrets
-import string
 from django.contrib import messages
 import bcrypt
 

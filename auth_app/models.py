@@ -77,6 +77,12 @@ class AdmonGlobal(models.Model):
         related_name='admonglobal'
     )
 
+    def delete(self, *args, **kwargs):
+        if self.salt:
+            self.salt.delete()
+        
+        super().delete(*args, **kwargs)
+
 
 class Sysadmin(models.Model):
     uuid = models.UUIDField(
@@ -135,6 +141,12 @@ class Sysadmin(models.Model):
         on_delete=models.CASCADE,
         related_name='sysadmin'
     )
+
+    def delete(self, *args, **kwargs):
+        if self.salt:
+            self.salt.delete()
+        
+        super().delete(*args, **kwargs)
 
 
 class Servidor(models.Model):

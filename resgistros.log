@@ -931,3 +931,5 @@ Traceback (most recent call last):
   File "/app/admon_global/views.py", line 106, in update_sysadmin
     messages.success(request, f'{form.user_name} actualizado')
 AttributeError: 'UpdateSysadmin' object has no attribute 'user_name'
+15-Jun-23 09:40:00 - WARNING - Not Found: /favicon.ico
+15-Jun-23 10:21:10 - WARNING - Not Found: /favicon.ico
