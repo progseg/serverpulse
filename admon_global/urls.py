@@ -28,14 +28,14 @@ urlpatterns = [
          name='listar_admin'),
     path('editar_admin/<uuid:uuid>/',
          update_sysadmin, name='editar_admin'),
-    path('eliminar_admin/<str:pk>/',
+    path('eliminar_admin/<uuid:uuid>/',
          EliminarAdministrador.as_view(), name='eliminar_admin'),
     # Configuración Server
     path('listar_server/', ListarServidor.as_view(),
          name='listar_server'),
-    path('crear_server/', CrearServer.as_view(), name='crear_server'),
-    path('editar_server/<int:pk>/',
+    path('crear_server/', crear_server, name='crear_server'),
+    path('editar_server/<uuid:uuid>/',
          ActualizarServidor.as_view(), name='editar_server'),
-    path('eliminar_server/<int:pk>/',
+    path('eliminar_server/<uuid:uuid>/',
          EliminarServidor.as_view(), name='eliminar_server')
 ]

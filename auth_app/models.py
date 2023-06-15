@@ -161,17 +161,11 @@ class Servidor(models.Model):
         unique=True,
         primary_key=True,
     )
-    sysadmin = models.ForeignKey(
-        Sysadmin,
-        on_delete=models.CASCADE,
-        to_field= 'uuid',
-        related_name= 'servidores'
-    )
     ipv4_address = models.GenericIPAddressField(
         protocol='IPv4',
         unique=True
     )
-    password = models.CharField(
+    passwd = models.CharField(
         max_length=PASSWD_MAX_LEN,
         unique=True
     )
@@ -181,5 +175,24 @@ class Servidor(models.Model):
             MinValueValidator(0),
             MaxValueValidator(2)
         ],
-    choices=ON_WORK_CHOISES,
+        choices=ON_WORK_CHOISES,
     )
+    sysadmin = models.ForeignKey(
+        Sysadmin,
+        related_name='servidores',
+        on_delete=models.PROTECT,
+        blank= True,
+        null= True,
+        default= None
+    )
+    salt = models.OneToOneField(
+        Salt,
+        on_delete=models.CASCADE,
+        related_name='servidores'
+    )
+
+    def delete(self, *args, **kwargs):
+        if self.salt:
+            self.salt.delete()
+        
+        super().delete(*args, **kwargs)

@@ -184,7 +184,21 @@ class UpdateSysadmin(forms.Form):
         return self.instance
     
 
-class SinginServer(forms.ModelForm):
+class SinginServer(forms.Form):
+    def clean(self):
+        cleaned_data = super().clean()
+
+        passwd = cleaned_data.get('passwd')
+        repeat_passwd = cleaned_data.get('repeat_passwd')
+
+        if (passwd is None
+                or repeat_passwd is None):
+            self.add_error('repeat_passwd', 'Las contraseñas no pueden estar vacias')
+        if (passwd != repeat_passwd):
+            self.add_error('repeat_passwd', 'Las contraseñas no coinciden')
+        
+        return cleaned_data
+
     ipv4_address = forms.CharField(
         label='Dirección IP del Servidor',
         required=True,

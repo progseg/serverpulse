@@ -2,6 +2,13 @@
 {% block titulo %}Listado de Servidores{% endblock %}
 {% block encabezado %}Listado de Servidores{% endblock %}
 {% block contenido %}
+{% if messages %}
+<ul class='messages'>
+{% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+{% endfor %}
+</ul>
+{% endif %}
 {% if servers %}
 <div class="card">
   <div class="card-header">
@@ -21,7 +28,7 @@
         {% for server in servers %}
         <tr>
           <td>{{ server.ipv4_address }}</td>
-          <td>{{ server.sysadmin }}</td>
+          <td>{{ server.sysadmin.user_name }}</td>
           <td>
             {% if server.status %}
               Activo
@@ -29,8 +36,8 @@
               Inactivo
             {% endif %}
           <td>
-            <a href="{% url 'editar_server' server.id %}" class="btn btn-primary">Editar</a>
-            <a href="{% url 'eliminar_server' server.id %}" class="btn btn-danger">Eliminar</a>
+            <a href="{% url 'editar_server' server.uuid %}" class="btn btn-primary">Editar</a>
+            <a href="{% url 'eliminar_server' server.uuid %}" class="btn btn-danger">Eliminar</a>
           </td>
         </tr>
         {% endfor %}

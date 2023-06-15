@@ -169,13 +169,71 @@ class EliminarAdministrador(DeleteView):
     model = models.Sysadmin
     template_name = 'eliminar_admin.html'
     success_url = reverse_lazy('listar_admin')
+    slug_field = 'uuid'
+    slug_url_kwarg = 'uuid'
 
 
-class CrearServer(CreateView):
-    model = models.Servidor
-    form_class = forms.SinginServer
-    template_name = 'crear_server.html'
-    success_url = reverse_lazy('listar_server')
+def crear_server(request):
+    if request.method == 'GET':
+        form = forms.SinginServer()
+        sysadmins = models.Sysadmin.objects.all()
+
+        if not sysadmins:
+            messages.error(request, 'Antes de registrar un servidor, debe crear un sysadmin')
+            return redirect('listar_server')
+
+        context = {
+            'form': form,
+            'sysadmins': sysadmins
+        }
+
+        return render(request, 'crear_server.html', context)
+    
+    elif request.method == 'POST':
+        form = forms.SinginServer(request.POST)
+        if form.is_valid():
+
+            cleaned_data = form.cleaned_data
+            cleaned_data = clean_specials(cleaned_data)
+
+            salt = gen_salt()
+            try:
+                hashed_passwd = derivate_passwd(salt, cleaned_data['passwd'])
+            except Exception as e:
+                messages.error(request, f'Error: {e}')
+                return redirect('crear_admin')
+
+            new_salt = models.Salt(
+                salt_value = salt
+            )
+            new_salt.save()
+
+            sysadmin_uuid = cleaned_data['sysadmin']
+            sysadmin_instance = get_object_or_404(models.Sysadmin, uuid = sysadmin_uuid)
+
+            new_server = models.Servidor(
+                ipv4_address=cleaned_data['ipv4_address'],
+                passwd = hashed_passwd,
+                sysadmin = sysadmin_instance,
+                salt = new_salt
+            )
+            new_server.save()
+
+            messages.success(request, 'El servidor ha sido registrado con éxito')
+            return redirect('listar_server')
+        else:
+            sysadmins = models.Sysadmin.objects.all()
+
+            if not sysadmins:
+                messages.error(request, 'Antes de registrar un servidor, debe crear un sysadmin')
+                return redirect('listar_server')
+            context = {
+                'form': form,
+                'sysadmins': sysadmins
+            }
+            return render(request, 'crear_server.html', context)
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST'])
 
 
 class ListarServidor(ListView):
@@ -201,3 +259,5 @@ class EliminarServidor(DeleteView):
     model = models.Servidor
     template_name = 'eliminar_server.html'
     success_url = reverse_lazy('listar_server')
+    slug_field = 'uuid'
+    slug_url_kwarg = 'uuid'
