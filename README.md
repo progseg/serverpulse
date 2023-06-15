@@ -25,17 +25,17 @@
   - :accept: hacer script para inicilizar el ambiente de depuración con seguridad
   - :accept: subir evidencias a Github
 
-- :red_circle: almacenamiento de información sensible
+- :accept: almacenamiento de información sensible
 
-  - :red_circle: registro de usuarios con políticas de contraseñas (10char,uppercase,lowecase,digits,special)
-  - :red_circle: hashing de contraseñas con salt y algoritmo seguro
-  - :red_circle: validaciones de entradas externas (Recuerda que pedir token manda datos al backend)
+  - :accept: registro de usuarios con políticas de contraseñas (10char,uppercase,lowecase,digits,special)
+  - :accept: hashing de contraseñas con salt y algoritmo seguro
+  - :accept: validaciones de entradas externas
 
 - :yellow_circle: manejo seguro de sesiones web y cookies
   - :accept: configurar sesiones seguras: logout
   - :accept: configurar sesiones seguras: settings
   - :accept: configurar sesiones seguras: csrf
-  - :yellow_circle: la cookie de sesión se maneja de forma segura (La protección sobre HTTPS y javascript queda pendiente, la de js porque el modo de pedir el token necesita acceder al CSRF)
+  - :yellow_circle: la cookie de sesión se maneja de forma segura (Habilitar HTTP y javascript en producción)
 
 ### Ordinario - martes 6 de junio del 2023
 
@@ -54,6 +54,6 @@
   - :accept: has uso de docker images y docker-compose para automatizar el despliegue
   - :accept: implementa seguridad (el contenedor no usa root)
 
-- :red_circle: seguridad en el canal de comunicación
-  - :yellow_circle: agregar soporte de HTTPS al ambiente de producción (hosting con Azure y let's encrypt)
+- :yellow_circle: seguridad en el canal de comunicación
+  - :accept: agregar soporte de HTTPS al ambiente de producción (hosting con Azure y let's encrypt)
   - :red_circle: agregar soporte de HTTPS al ambiente de producción (certificados autofirmados en entorno local)
