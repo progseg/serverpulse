@@ -6,23 +6,14 @@ from django.contrib.contenttypes.models import ContentType
 
 
 USERNAME_MAX_LEN = 20
-PASSWD_MAX_LEN = 24
+PASSWD_MAX_LEN = 128
 LEN_TOKEN_BOT = 46
 LEN_CHATID = 10
 LEN_TOKEN2FA = 24
-LEN_SALT = 24
+LEN_SALT = 128
 
 
 class Salt(models.Model):
-    content_type = models.ForeignKey(
-        ContentType,
-        on_delete=models.CASCADE
-    )
-    object_id = models.PositiveBigIntegerField()
-    content_object = GenericForeignKey(
-        'content_type',
-        'object_id'
-    )
     salt_value = models.CharField(
         max_length=LEN_SALT
     )

@@ -1,27 +1,19 @@
-from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from django.http.response import HttpResponseNotAllowed, HttpResponseBadRequest
+from django.http.response import HttpResponseNotAllowed
 from django.contrib import messages
 import secrets
-from datetime import datetime, timezone
+from datetime import timezone
 import string
 from . import forms
 from . import models
 from django.db.models import Model
-import json
 import requests
 import logging
-from django.http import HttpResponseBadRequest, HttpResponseNotAllowed, JsonResponse
-from django.contrib.auth.hashers import make_password, check_password
-from admon_global import views as views_admon_global
-from sysadmin import views as views_sysadmin
 from admon_global import decorators_admon_global as dec_admong
 from sysadmin import decorators_sys_admin as dec_sysadmin
 from django.views.decorators.csrf import csrf_protect
 from django.utils import timezone
-from django.views.decorators.cache import never_cache
-from captcha.fields import ReCaptchaField
 # Create your views here.
 
 
@@ -33,68 +25,6 @@ TOKENOTP_LIVE = 180.0  # 3 min
 MAX_ATTEMPS = 5
 MIN_ATTEMPS = 0
 LOCK_TIME_RANGE = 300.0  # 5 min
-
-
-def singin(request: HttpRequest) -> HttpResponse:
-    logging.info(
-        'Singin: Se hace petición por el método: ' + request.method)
-    if request.method == 'GET':
-        form_singin = forms.Singin()
-
-        context = {
-            'form': form_singin
-        }
-        return render(request, 'singin.html', context)
-
-    elif request.method == 'POST':
-        form_singin = forms.Singin(request.POST)
-        if form_singin.is_valid():
-            nickname = form_singin.cleaned_data['nickname']
-            password = form_singin.cleaned_data['password'] = make_password(
-                password)
-            chat_id = form_singin.cleaned_data['chat_id']
-            token_bot = form_singin.cleaned_data['token_bot']
-
-            Sysadmin = models.Sysadmin()
-
-            Sysadmin.nickname = nickname
-            Sysadmin.password = password
-            Sysadmin.chat_id = chat_id
-            Sysadmin.token_bot = token_bot
-
-            Sysadmin.token_double_auth = ''.join(secrets.choice(
-                string.ascii_letters + string.digits) for _ in range(8))
-            Sysadmin.timestamp_ultimo_intento = datetime.now()
-            Sysadmin.timestamp_token_double_auth = datetime.now()
-            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-            if x_forwarded_for:
-                ip = x_forwarded_for.split(',')[0]
-            else:
-                ip = request.META.get('REMOTE_ADDR')
-            Sysadmin.ipv4_address = ip
-
-            try:
-                Sysadmin.save()
-
-                messages.success(
-                    request, f'El usuario {nickname} fue registrado con éxito')
-                logging.info(
-                    'Singin: El usuario ingreso adecuadamente en su sesión')
-                return redirect('login_sys_admin')
-            except:
-                messages.error(
-                    request, 'Ocurrió un error inesperado en el servidor')
-                logging.error(
-                    'Singin: Error en el servidor')
-                return redirect('singin')
-        else:
-            form_singin = forms.Singin()
-            messages.error(request, 'Los datos proporcionados no son válidos')
-            logging.error(
-                'Singin: Los datos que ingreso el usuario no son correctos')
-            return redirect('singin')
-    else:
-        return HttpResponseNotAllowed(['GET', 'POST'])
 
 # General functions
 
@@ -401,6 +331,7 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
             # Session start
             request.session['logged'] = True
             request.session['username'] = user.user_name
+            request.session['role'] = 'global'
             request.session['token_spected'] = True
 
             logging.info(
@@ -420,7 +351,6 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
 
 @dec_admong.logged_required
 @csrf_protect
-@never_cache
 def login_double_auth_admon_global(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
 
@@ -627,6 +557,7 @@ def login_sysadmin(request: HttpRequest) -> HttpResponse:
 
             # Session start
             request.session['logged'] = True
+            request.session['role'] = 'sysadmin'
             request.session['username'] = user.user_name
             request.session['token_spected'] = True
 
@@ -647,7 +578,6 @@ def login_sysadmin(request: HttpRequest) -> HttpResponse:
 
 @dec_sysadmin.logged_required
 @csrf_protect
-@never_cache
 def login_double_auth_sysadmin(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
 

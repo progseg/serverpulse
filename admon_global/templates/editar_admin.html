@@ -2,12 +2,19 @@
 {% block titulo %}Editar administradores{% endblock %}
 {% block encabezado %}Editar administradores{% endblock %}
 {% block contenido %}
+{% if messages %}
+<ul class='messages'>
+{% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+{% endfor %}
+</ul>
+{% endif %}
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 class="modal-title">Edición del SysAdmin: {{ object.user_name }}</h2>
+            <h2 class="modal-title">Edición del SysAdmin: {{ sysadmin.user_name }}</h2>
         </div>
-        <form action="{% url 'editar_admin' object.user_name %}" method="POST">
+        <form action="{% url 'editar_admin' uuid=sysadmin.uuid %}" method="POST">
             {% csrf_token %}
             <div class="modal-body">
                 {{ form.as_p }}

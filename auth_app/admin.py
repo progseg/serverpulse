@@ -16,4 +16,9 @@ class SysadminAdmin(admin.ModelAdmin):
 @admin.register(Servidor)
 class ServidorAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Salt)
+class Salt(admin.ModelAdmin):
+    pass
 # Register your models here.

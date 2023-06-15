@@ -18,8 +18,6 @@ from . import views
 
 
 urlpatterns = [
-    path('singin/', views.singin, name='singin'),
-
     path('login_admon_global', views.login_admon_global, name='login_admon_global'),
     path('2FAadmonglobal', views.login_double_auth_admon_global,
          name='2FAadmonglobal'),

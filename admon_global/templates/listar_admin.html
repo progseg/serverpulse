@@ -2,6 +2,13 @@
 {% block titulo %}Lista administradores{% endblock %}
 {% block encabezado %}Lista administradores{% endblock %}
 {% block contenido %}
+{% if messages %}
+<ul class='messages'>
+{% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+{% endfor %}
+</ul>
+{% endif %}
 {% if admins %}
 <article class="container">
   <div class="table-responsive">
@@ -18,8 +25,8 @@
         <tr>
           <td>{{ admin.user_name }}</td>
           <td>
-            <a href="{% url 'editar_admin' admin.user_name %}" class="btn btn-primary">Editar</a>
-            <a href="{% url 'eliminar_admin' admin.user_name %}" class="btn btn-danger">Eliminar</a>
+            <a href="{% url 'editar_admin' admin.uuid %}" class="btn btn-primary">Editar</a>
+            <a href="{% url 'eliminar_admin' admin.uuid %}" class="btn btn-danger">Eliminar</a>
           </td>
         </tr>
       {% endfor %}

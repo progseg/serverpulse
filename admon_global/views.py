@@ -1,18 +1,20 @@
-from django.shortcuts import redirect, render
+from django.forms.models import BaseModelForm
+from django.shortcuts import get_object_or_404, redirect, render
 import logging
 from django.http import HttpResponse, HttpRequest, HttpResponseNotAllowed
 from django.urls import reverse_lazy
+from django.views import View
 from . import decorators_admon_global
 from django.views.decorators.csrf import csrf_protect
 from auth_app import models
 from . import forms
-from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView, FormView
+from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from django.utils.html import escape
-import hashlib
 import secrets
 import string
-import binascii
 from django.contrib import messages
+import bcrypt
+
 
 # Create your views here.
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
@@ -29,25 +31,19 @@ def clean_specials(clean_data):
 
 
 def gen_salt():
-    salt = ''.join(secrets.choice(string.ascii_letters + string.digits, k = 24))
-    return salt
+    salt = bcrypt.gensalt()
+    return salt.decode()
 
 
 def derivate_passwd(salt, passwd):
-    iterations = 500
-    memory = 512
-    parallelism = 2
-    key_lenght = 48
+    salt_bytes = salt.encode()
+    passwd_bytes = passwd.encode()
 
-    key = hashlib.argon2i(
-        passwd.encode(),
-        salt.encode(),
-        iterations=iterations,
-        memory_cost=memory,
-        parallelism=parallelism,
-        dklen=key_lenght
-    )
-    return binascii.hexlify(key).decode()
+    try:
+        hashed_passwd = bcrypt.hashpw(passwd_bytes, salt_bytes)
+        return hashed_passwd.decode()
+    except Exception as e:
+        raise e
 
 
 @decorators_admon_global.logged_required
@@ -68,14 +64,66 @@ class ListarAdministrador(ListView):
     queryset = models.Sysadmin.objects.all()
 
 
-class ActualizarAdministrador(UpdateView):
-    model = models.Sysadmin
-    form_class = forms.SinginAdmin
-    template_name = 'editar_admin.html'
-    success_url = reverse_lazy('listar_admin')
+def update_sysadmin(request, uuid):
+    sysadmin = get_object_or_404(models.Sysadmin, uuid=uuid)
+
+    if request.method == 'GET':
+        form = forms.UpdateSysadmin(instance=sysadmin)
+
+        form.fields['user_name'].initial = sysadmin.user_name
+        form.fields['chat_id'].initial = sysadmin.chat_id
+        form.fields['token_bot'].initial = sysadmin.token_bot
+
+        context = {
+            'form': form,
+            'uuid': uuid,
+            'sysadmin': sysadmin
+        }
+        return render(request, 'editar_admin.html', context)
+    
+    if request.method == 'POST':
+        form = forms.UpdateSysadmin(request.POST, instance=sysadmin)
+        if form.is_valid():
+
+            cleaned_data = form.cleaned_data
+            cleaned_data = clean_specials(cleaned_data)
+
+            if cleaned_data.get('passwd'):
+                new_salt = gen_salt()
+                try:
+                    hashed_passwd = derivate_passwd(new_salt, cleaned_data['passwd'])
+                except Exception as e:
+                    messages.error(request, f'Error: {e}')
+                    return redirect('crear_admin')
+                salt = sysadmin.salt
+                salt.salt_value = new_salt
+                salt.save()
+                sysadmin.passwd = hashed_passwd
+            if cleaned_data.get('user_name'):
+                sysadmin.user_name = cleaned_data.get('user_name')
+
+            if cleaned_data.get('chat_id'):
+                sysadmin.chat_id = cleaned_data.get('chat_id')
+
+            if cleaned_data.get('token_bot'):
+                sysadmin.token_bot = cleaned_data.get('token_bot')
+
+            sysadmin.save()
+            messages.success(request, f'{sysadmin.user_name} actualizado')
+            return redirect('listar_admin')
+        else:
+            context = {
+                'uuid': uuid,
+                'sysadmin': sysadmin,
+                'form': form
+            }
+            return render(request, 'editar_admin.html', context)
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST'])
 
 
-def CrearAdministrador(request):
+
+def crear_administrador(request):
     if request.method == 'GET':
         form = forms.SinginAdmin()
         context = {
@@ -85,35 +133,34 @@ def CrearAdministrador(request):
     elif request.method == 'POST':
         form = forms.SinginAdmin(request.POST)
         if form.is_valid():
-            data = form.cleaned_data
-
-            cleaned_data = clean_specials(data)
-            user_name=cleaned_data['user_name'],
-
-            messages.success(request, f'Validaciones correctas {user_name}')
-            return redirect('crear_admin')
+            cleaned_data = form.cleaned_data
+            cleaned_data = clean_specials(cleaned_data)
 
             salt = gen_salt()
-            hashed_passwd = derivate_passwd(salt, cleaned_data['passwd'])
+            try:
+                hashed_passwd = derivate_passwd(salt, cleaned_data['passwd'])
+            except Exception as e:
+                messages.error(request, f'Error: {e}')
+                return redirect('crear_admin')
+
+            new_salt = models.Salt(
+                salt_value = salt
+            )
+            new_salt.save()
 
             new_sysadmin = models.Sysadmin(
                 user_name=cleaned_data['user_name'],
                 passwd = hashed_passwd,
                 chat_id = cleaned_data['chat_id'],
                 token_bot = cleaned_data['token_bot'],
+                salt = new_salt
             )
             new_sysadmin.save()
-            new_salt = models.Salt(
-                content_object = new_sysadmin,
-                salt_value = salt
-            )
-            new_salt.save()
 
-            messages.success(request, 'El sysadmin se registró con éxito')
+
+            messages.success(request, f'El sysadmin se registró con éxito')
             return redirect('listar_admin')
         else:
-            # El formulario no es válido, maneja los errores
-            # ...
             context = {
                 'form': form
             }

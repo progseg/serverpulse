@@ -18,13 +18,12 @@ from django.urls import path
 from django.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
-from auth_app.views import singin
-
+from auth_app.views import login_sysadmin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', singin, name='anywhare'),
+    path('', login_sysadmin, name='anywhare'),
     path('serverpulse/', include('auth_app.urls')),
     path('serverpulse/', include('admon_global.urls')),
     path('serverpulse/', include('sysadmin.urls')),

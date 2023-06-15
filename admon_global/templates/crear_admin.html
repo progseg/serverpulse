@@ -22,8 +22,8 @@
                         <div class="col-12 col-md-9">
                             {{ field }}
                             {% for error in field.errors %}
-                            <div class='alert alert-danger'>
-                                    <strong>{{ error|escape }}</strong>
+                            <div class='is-invalid'>
+                                    <strong class='badge bg-danger'>{{ error|escape }}</strong>
                                 </div>
                                 {% endfor %}
                         </div>

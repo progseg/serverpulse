@@ -11,8 +11,14 @@ def logged_required(view_func):
         # Comprueba si el usuario está autenticado
         if not request.session.get('logged', False):
             messages.error(
-                request, 'Necesita autenticarse para acceder al punto deseado')
-            return redirect('login_admon_global')
+                request, 'Necesita autenticarse para acceder al punto deseado'
+            )
+            return redirect('login_sysadmin')
+        if request.session.get('role', 'global'):
+            messages.error(
+                request, 'No tiene permisos para acceder a este sitio'
+            )
+            return redirect('login_sysadmin')
 
         # Ejecuta la vista original
         response = view_func(request, *args, **kwargs)
