@@ -5,9 +5,9 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 class="modal-title">Edición de Servidor: {{ object.ipv4_address }}</h2>
+            <h2 class="modal-title">Edición de Servidor: {{ servidor.ipv4_address }}</h2>
         </div>
-        <form action="{% url 'editar_server' object.id %}" method="POST">
+        <form action="{% url 'editar_server' uuid=servidor.uuid %}" method="POST">
             {% csrf_token %}
             <div class="modal-body">
                 {{ form.as_p }}

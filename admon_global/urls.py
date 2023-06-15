@@ -35,7 +35,7 @@ urlpatterns = [
          name='listar_server'),
     path('crear_server/', crear_server, name='crear_server'),
     path('editar_server/<uuid:uuid>/',
-         ActualizarServidor.as_view(), name='editar_server'),
+         update_servidor, name='editar_server'),
     path('eliminar_server/<uuid:uuid>/',
          EliminarServidor.as_view(), name='eliminar_server')
 ]

@@ -30,10 +30,12 @@
           <td>{{ server.ipv4_address }}</td>
           <td>{{ server.sysadmin.user_name }}</td>
           <td>
-            {% if server.status %}
+            {% if server.status == 0 %}
+              Indeterminado
+            {% elif server.status == 1 %}
               Activo
-            {% else %}
-              Inactivo
+            {% elif server.status == 2 %}
+              Apagado
             {% endif %}
           <td>
             <a href="{% url 'editar_server' server.uuid %}" class="btn btn-primary">Editar</a>

@@ -90,7 +90,7 @@ def update_sysadmin(request, uuid):
                     hashed_passwd = derivate_passwd(new_salt, cleaned_data['passwd'])
                 except Exception as e:
                     messages.error(request, f'Error: {e}')
-                    return redirect('crear_admin')
+                    return redirect('editar_admin')
                 salt = sysadmin.salt
                 salt.salt_value = new_salt
                 salt.save()
@@ -243,16 +243,56 @@ class ListarServidor(ListView):
     queryset = models.Servidor.objects.all()
 
 
-class ActualizarServidor(UpdateView):
-    model = models.Servidor
-    form_class = forms.SinginServer
-    template_name = 'editar_server.html'
-    success_url = reverse_lazy('listar_server')
+def update_servidor(request, uuid):
+    servidor = get_object_or_404(models.Servidor, uuid=uuid)
+    
+    if request.method == 'GET':
+        form = forms.UpdateServer(instance=servidor)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['servers'] = models.Servidor.objects.filter(status=True)
-        return context
+        form.fields['ipv4_address'].initial = servidor.ipv4_address
+
+        context = {
+            'form': form,
+            'uuid': uuid,
+            'servidor': servidor
+        }
+        return render(request, 'editar_server.html', context)
+    
+    if request.method == 'POST':
+        form = forms.UpdateServer(request.POST, instance=servidor)
+        if form.is_valid():
+
+            cleaned_data = form.cleaned_data
+            cleaned_data = clean_specials(cleaned_data)
+
+            if cleaned_data.get('passwd'):
+                new_salt = gen_salt()
+                try:
+                    hashed_passwd = derivate_passwd(new_salt, cleaned_data['passwd'])
+                except Exception as e:
+                    messages.error(request, f'Error: {e}')
+                    return redirect('crear_server')
+                salt = servidor.salt
+                salt.salt_value = new_salt
+                salt.save()
+                servidor.passwd = hashed_passwd
+
+            if cleaned_data.get('ipv4_address'):
+                servidor.ipv4_address = cleaned_data.get('ipv4_address')
+
+            servidor.save()
+            messages.success(request, f'{servidor.ipv4_address} actualizado')
+            return redirect('listar_server')
+        else:
+            context = {
+                'uuid': uuid,
+                'servidor': servidor,
+                'form': form
+            }
+            return render(request, 'editar_server.html', context)
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST'])
+
 
 
 class EliminarServidor(DeleteView):
