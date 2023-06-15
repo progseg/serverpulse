@@ -6,11 +6,48 @@ from . import decorators_admon_global
 from django.views.decorators.csrf import csrf_protect
 from auth_app import models
 from . import forms
-from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
+from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView, FormView
+from django.utils.html import escape
+import hashlib
+import secrets
+import string
+import binascii
+from django.contrib import messages
+
 # Create your views here.
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
                     datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO,
                     filename='resgistroInicioAG.log', filemode='a')
+
+
+
+def clean_specials(clean_data):
+    escaped_data = {}
+    for field_name, field_value in clean_data.items():
+        escaped_data[field_name] = escape(field_value)
+    return escaped_data
+
+
+def gen_salt():
+    salt = ''.join(secrets.choice(string.ascii_letters + string.digits, k = 24))
+    return salt
+
+
+def derivate_passwd(salt, passwd):
+    iterations = 500
+    memory = 512
+    parallelism = 2
+    key_lenght = 48
+
+    key = hashlib.argon2i(
+        passwd.encode(),
+        salt.encode(),
+        iterations=iterations,
+        memory_cost=memory,
+        parallelism=parallelism,
+        dklen=key_lenght
+    )
+    return binascii.hexlify(key).decode()
 
 
 @decorators_admon_global.logged_required
@@ -38,11 +75,51 @@ class ActualizarAdministrador(UpdateView):
     success_url = reverse_lazy('listar_admin')
 
 
-class CrearAdministrador(CreateView):
-    model = models.Sysadmin
-    form_class = forms.SinginAdmin
-    template_name = 'crear_admin.html'
-    success_url = reverse_lazy('listar_admin')
+def CrearAdministrador(request):
+    if request.method == 'GET':
+        form = forms.SinginAdmin()
+        context = {
+            'form': form
+        }
+        return render(request, 'crear_admin.html', context)
+    elif request.method == 'POST':
+        form = forms.SinginAdmin(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+
+            cleaned_data = clean_specials(data)
+            user_name=cleaned_data['user_name'],
+
+            messages.success(request, f'Validaciones correctas {user_name}')
+            return redirect('crear_admin')
+
+            salt = gen_salt()
+            hashed_passwd = derivate_passwd(salt, cleaned_data['passwd'])
+
+            new_sysadmin = models.Sysadmin(
+                user_name=cleaned_data['user_name'],
+                passwd = hashed_passwd,
+                chat_id = cleaned_data['chat_id'],
+                token_bot = cleaned_data['token_bot'],
+            )
+            new_sysadmin.save()
+            new_salt = models.Salt(
+                content_object = new_sysadmin,
+                salt_value = salt
+            )
+            new_salt.save()
+
+            messages.success(request, 'El sysadmin se registró con éxito')
+            return redirect('listar_admin')
+        else:
+            # El formulario no es válido, maneja los errores
+            # ...
+            context = {
+                'form': form
+            }
+            return render(request, 'crear_admin.html', context)
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST'])
 
 
 class EliminarAdministrador(DeleteView):

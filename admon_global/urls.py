@@ -22,7 +22,7 @@ urlpatterns = [
     path('dashboard_admon_global', dashboard_admon_global,
          name='dashboard_admon_global'),
     # Configuración SysAdmin
-    path('crear_admin/', CrearAdministrador.as_view(),
+    path('crear_admin/', CrearAdministrador,
          name='crear_admin'),
     path('listar_admin/', ListarAdministrador.as_view(),
          name='listar_admin'),

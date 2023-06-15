@@ -1,6 +1,6 @@
 from django import forms
-from . import validators
-from auth_app.models import Servidor, Sysadmin
+from django.core import validators
+from auth_app.validators import *
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
 
@@ -16,14 +16,29 @@ LEN_CHATID = 10
 LEN_TOKEN2FA = 24
 
 class SinginAdmin(forms.Form):
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        passwd = cleaned_data.get('passwd')
+        repeat_passwd = cleaned_data.get('repeat_passwd')
+
+        if (passwd is None
+                or repeat_passwd is None):
+            self.add_error('repeat_passwd', 'Las contraseñas no pueden estar vacias')
+        if (passwd != repeat_passwd):
+            self.add_error('repeat_passwd', 'Las contraseñas no coinciden')
+        
+        return cleaned_data
+
     user_name = forms.CharField(
         label='Nombre Sys Admin ',
         max_length=USERNAME_MAX_LEN,
         min_length=USERNAME_MIN_LEN,
         required=True,
         validators=[
-            validators.validate_username,
-            validators.contains_spaces,
+            contains_spaces,
+            validate_username,
         ]
     )
     passwd = forms.CharField(
@@ -33,11 +48,11 @@ class SinginAdmin(forms.Form):
         required=True,
         widget=forms.PasswordInput,
         validators=[
-            validators.contains_digits,
-            validators.contains_lowecase,
-            validators.contains_uppercase,
-            validators.contais_special,
-            validators.contains_spaces,
+            contains_digits,
+            contains_lowecase,
+            contains_uppercase,
+            contais_special,
+            contains_spaces,
         ]
     )
     repeat_passwd = forms.CharField(
@@ -47,11 +62,11 @@ class SinginAdmin(forms.Form):
         required=True,
         widget=forms.PasswordInput,
         validators=[
-            validators.contains_digits,
-            validators.contains_lowecase,
-            validators.contains_uppercase,
-            validators.contais_special,
-            validators.contains_spaces,
+            contains_digits,
+            contains_lowecase,
+            contains_uppercase,
+            contais_special,
+            contains_spaces,
         ]
     )
     chat_id = forms.CharField(
@@ -60,8 +75,8 @@ class SinginAdmin(forms.Form):
         min_length=LEN_CHATID,
         required=True,
         validators=[
-            validators.only_digits,
-            validators.contains_spaces,
+            only_digits,
+            contains_spaces,
         ]
     )
     token_bot = forms.CharField(
@@ -70,8 +85,8 @@ class SinginAdmin(forms.Form):
         min_length=LEN_TOKEN_BOT,
         required=True,
         validators=[
-            validators.telegram_bot_token,
-            validators.contains_spaces,
+            telegram_bot_token,
+            contains_spaces,
         ]
     )
     captcha = ReCaptchaField(
@@ -79,12 +94,12 @@ class SinginAdmin(forms.Form):
     )
 
 
-class SinginServer(forms.Form):
+class SinginServer(forms.ModelForm):
     ipv4_address = forms.CharField(
         label='Dirección IP del Servidor',
         required=True,
         validators=[
-            validators.validate_ipv46_address,
+            validators.validate_ipv4_address,
         ]
     )
     sysadmin = forms.CharField(
@@ -99,11 +114,11 @@ class SinginServer(forms.Form):
         required=True,
         widget=forms.PasswordInput,
         validators=[
-            validators.contains_digits,
-            validators.contains_lowecase,
-            validators.contains_uppercase,
-            validators.contais_special,
-            validators.contains_spaces,
+            contains_digits,
+            contains_lowecase,
+            contains_uppercase,
+            contais_special,
+            contains_spaces,
         ]
     )
     repeat_passwd = forms.CharField(
@@ -113,11 +128,11 @@ class SinginServer(forms.Form):
         required=True,
         widget=forms.PasswordInput,
         validators=[
-            validators.contains_digits,
-            validators.contains_lowecase,
-            validators.contains_uppercase,
-            validators.contais_special,
-            validators.contains_spaces,
+            contains_digits,
+            contains_lowecase,
+            contains_uppercase,
+            contais_special,
+            contains_spaces
         ]
     )
     captcha = ReCaptchaField(

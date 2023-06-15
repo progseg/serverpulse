@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from uuid import uuid4
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 
 USERNAME_MAX_LEN = 20
@@ -8,27 +10,44 @@ PASSWD_MAX_LEN = 24
 LEN_TOKEN_BOT = 46
 LEN_CHATID = 10
 LEN_TOKEN2FA = 24
+LEN_SALT = 24
+
+
+class Salt(models.Model):
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE
+    )
+    object_id = models.PositiveBigIntegerField()
+    content_object = GenericForeignKey(
+        'content_type',
+        'object_id'
+    )
+    salt_value = models.CharField(
+        max_length=LEN_SALT
+    )
 
 
 class AdmonGlobal(models.Model):
-
-    # Basic auth info
+    uuid = models.UUIDField(
+        default=uuid4,
+        editable=False,
+        unique=True,
+        primary_key=True
+    )
     user_name = models.CharField(
         max_length=USERNAME_MAX_LEN,
         unique=True,
-        primary_key=True
     )
     passwd = models.CharField(
         max_length=PASSWD_MAX_LEN
     )
-    # Telegram basic info
     chat_id = models.CharField(
         max_length=LEN_CHATID,
         unique=True,
         blank=True,
         null=True
     )
-    # Tokens
     token_bot = models.CharField(
         max_length=LEN_TOKEN_BOT,
         unique=True,
@@ -41,7 +60,6 @@ class AdmonGlobal(models.Model):
         null=True,
         blank=True
     )
-    # Intentos
     intentos = models.IntegerField(
         default=0,
         validators=[
@@ -49,7 +67,6 @@ class AdmonGlobal(models.Model):
             MaxValueValidator(4)
         ]
     )
-    # Timestamps
     timestamp_ultimo_intento = models.DateTimeField(
         blank=True,
         null=True
@@ -58,19 +75,28 @@ class AdmonGlobal(models.Model):
         blank=True,
         null=True
     )
-    # IPv4
     ipv4_address = models.GenericIPAddressField(
         protocol='IPv4',
         blank=True,
         null=True
     )
+    salt = models.OneToOneField(
+        Salt,
+        on_delete=models.CASCADE,
+        related_name='admonglobal'
+    )
 
 
 class Sysadmin(models.Model):
-    user_name = models.CharField(
-        max_length=USERNAME_MAX_LEN,
+    uuid = models.UUIDField(
+        default=uuid4,
+        editable=False,
         unique=True,
         primary_key=True
+    )
+    user_name = models.CharField(
+        max_length=USERNAME_MAX_LEN,
+        unique=True
     )
     passwd = models.CharField(
         max_length=PASSWD_MAX_LEN
@@ -113,10 +139,10 @@ class Sysadmin(models.Model):
         blank=True,
         null=True
     )
-    uuid = models.UUIDField(
-        default=uuid4,
-        editable=False,
-        unique=True
+    salt = models.OneToOneField(
+        Salt,
+        on_delete=models.CASCADE,
+        related_name='sysadmin'
     )
 
 
@@ -126,16 +152,24 @@ class Servidor(models.Model):
         (1, 'Activo'),
         (2, 'Apagado')
     ]
+    uuid = models.UUIDField(
+        default=uuid4,
+        editable=False,
+        unique=True,
+        primary_key=True,
+    )
     sysadmin = models.ForeignKey(
         Sysadmin,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        to_field= 'uuid',
+        related_name= 'servidores'
     )
     ipv4_address = models.GenericIPAddressField(
         protocol='IPv4',
         unique=True
     )
     password = models.CharField(
-        max_length=15,
+        max_length=PASSWD_MAX_LEN,
         unique=True
     )
     status = models.IntegerField(
@@ -145,9 +179,4 @@ class Servidor(models.Model):
             MaxValueValidator(2)
         ],
     choices=ON_WORK_CHOISES,
-    )
-    uuid = models.UUIDField(
-        default=uuid4,
-        editable=False,
-        unique=True
     )

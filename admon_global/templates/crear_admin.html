@@ -2,60 +2,36 @@
 {% block titulo %}Crear administradores{% endblock %}
 {% block encabezado %}Crear administradores{% endblock %}
 {% block contenido %}
-
-<form method="POST">
-  {% csrf_token %}
-  {% if error %}
-    <h2>{{ error }}</h2>
-  {% else %}
-      <div class="card">
-          <div class="card-header">
-              <strong>Formulario de Registro</strong>
-          </div>
-          <div class="card-body card-block">
-              <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal">
-                  <div class="row form-group">
-                      <div class="col col-md-3">{{ form.user_name.label }}</div>
-                      <div class="col-12 col-md-9">{{ form.user_name }}</div>
-                  </div>
-                  <div class="row form-group">
-                      <div class="col col-md-3">{{ form.passwd.label }}</div>
-                      <div class="col-12 col-md-9">{{ form.passwd }}</div>
-                  </div>
-                  <div class="row form-group">
-                      <div class="col col-md-3">{{ form.repeat_passwd.label }}</div>
-                      <div class="col-12 col-md-9">{{ form.repeat_passwd }}</div>
-                  </div>
-                  <div class="row form-group">
-                      <div class="col col-md-3">{{ form.chat_id.label }}</div>
-                      <div class="col-12 col-md-9">{{ form.chat_id }}</div>
-                  </div>
-                  <div class="row form-group">
-                      <div class="col col-md-3">{{ form.token_bot.label }}</div>
-                      <div class="col-12 col-md-9">{{ form.token_bot }}</div>
-                  </div>
-                  <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Registrar</button>
-                      <a href="{% url 'listar_admin' %}" class="btn btn-danger">Cancelar</a>
-                  </div>
-              </form>
-          </div>
-      </div>
-  {% endif %}
-    {% if form.errors %}
-    {% for field in form %}
-        {% for error in field.errors %}
-            <div class="alert alert-danger">
-                <strong>{{ error|escape }}</strong>
-            </div>
-        {% endfor %}
-    {% endfor %}
-    {% for error in form.non_field_errors %}
-        <div class="alert alert-danger">
-            <strong>{{ error|escape }}</strong>
+{% if messages %}
+<ul class='messages'>
+{% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+    <div class="card">
+        <div class="card-header">
+            <strong>Formulario de Registro</strong>
         </div>
-    {% endfor %}
-    {% endif %}
-</form>
-
+        <div class="card-body card-block">
+            <form action="#" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="row form-group">
+                        <div class="col col-md-3">{{ field.label }}</div>
+                        <div class="col-12 col-md-9">
+                            {{ field }}
+                            {% for error in field.errors %}
+                            <div class='alert alert-danger'>
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                                {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <a href="{% url 'listar_admin' %}" class="btn btn-danger">Cancelar</a>
+                    <button class="btn btn-primary" type="submit">Confirmar</button>
+            </form>
+        </div>
+    </div>
 {% endblock contenido %}
