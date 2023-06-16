@@ -14,6 +14,9 @@ from admon_global import decorators_admon_global as dec_admong
 from sysadmin import decorators_sys_admin as dec_sysadmin
 from django.views.decorators.csrf import csrf_protect
 from django.utils import timezone
+import bcrypt
+from django.utils.html import escape
+from . import decorators
 # Create your views here.
 
 
@@ -29,6 +32,24 @@ LOCK_TIME_RANGE = 300.0  # 5 min
 # General functions
 
 # Section of token OTP
+
+
+def clean_specials(clean_data):
+    escaped_data = {}
+    for field_name, field_value in clean_data.items():
+        escaped_data[field_name] = escape(field_value)
+    return escaped_data
+
+
+def derivate_passwd(salt, passwd):
+    salt_bytes = salt.encode()
+    passwd_bytes = passwd.encode()
+
+    try:
+        hashed_passwd = bcrypt.hashpw(passwd_bytes, salt_bytes)
+        return hashed_passwd.decode()
+    except Exception as e:
+        raise e
 
 
 def request_tokenotp(user: Model) -> bool:
@@ -300,8 +321,12 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
                     return redirect('login_admon_global')
 
             # Basic auth username and password
+
+            salt = user.salt
+
+            passwd_hashed = derivate_passwd(salt, form_passwd)
             if (user.user_name == form_user_name and
-                    user.passwd == form_passwd):
+                    user.passwd == passwd_hashed):
                 user_authenticated = True
             else:
                 # if user fails basic auth, token is cancel
@@ -349,7 +374,7 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 
-@dec_admong.logged_required
+@decorators.logged_required
 @csrf_protect
 def login_double_auth_admon_global(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
@@ -448,6 +473,7 @@ def login_double_auth_admon_global(request: HttpRequest) -> HttpResponse:
             user.ipv4_address = None
             user.save()
             request.session['token_spected'] = False
+            request.session['role'] = 'global'
             return redirect('dashboard_admon_global')
 
         else:
@@ -576,7 +602,7 @@ def login_sysadmin(request: HttpRequest) -> HttpResponse:
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 
-@dec_sysadmin.logged_required
+@decorators.logged_required
 @csrf_protect
 def login_double_auth_sysadmin(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
@@ -685,3 +711,4 @@ def login_double_auth_sysadmin(request: HttpRequest) -> HttpResponse:
             return redirect('login_sysadmin')
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
+

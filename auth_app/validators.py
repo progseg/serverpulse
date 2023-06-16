@@ -9,8 +9,6 @@ import re
 
 
 # common validators
-# \S Caracteres que no son espacios
-# \s Caracteres que son espacios en blanco
 def contains_spaces(value):
     if re.search(r' ', value):
         raise ValidationError('El campo no puede contener espacios en blanco')

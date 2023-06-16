@@ -9,7 +9,7 @@ logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
                     filename='resgistroInicioAG.log', filemode='a')
 
 
-@decorators_sys_admin.logged_required
+@decorators_sys_admin.logged_sysadmin_required
 @csrf_protect
 def dashboard_sys_admin(request: HttpRequest) -> HttpResponse:
     logging.info(

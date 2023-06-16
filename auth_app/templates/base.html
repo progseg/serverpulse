@@ -27,19 +27,6 @@
       <!-- Contenido del encabezado -->
       {% endblock %}
     </header>
-
-    {% block navigation %}
-    <nav>
-      <ul>
-        <a class="nav-link" href="{% url 'logout' %}"
-          ><span class="glyphicon glyphicon-log-in"></span> Cerrar Sesión</a
-        >
-        <li><a href="{% url 'login_sysadmin' %}">Inciar sesión</a></li>
-        <li><a href="{% url 'singin' %}">Registrarse</a></li>
-      </ul>
-    </nav>
-    {% endblock %}
-
     <main>
       {% block content %}
       <!-- Contenido principal de la página -->

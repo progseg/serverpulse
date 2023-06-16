@@ -43,7 +43,7 @@ def derivate_passwd(salt, passwd):
         raise e
 
 
-@decorators_admon_global.logged_required
+@decorators_admon_global.logged_global_required
 @csrf_protect
 def dashboard_admon_global(request: HttpRequest) -> HttpResponse:
     logging.info(
@@ -319,6 +319,7 @@ class EliminarServidor(DeleteView):
     slug_field = 'uuid'
     slug_url_kwarg = 'uuid'
 
+
 def change_relation(request, uuid):
     servidor = get_object_or_404(models.Servidor, uuid=uuid)
     sysadmins = models.Sysadmin.objects.all()
@@ -347,3 +348,4 @@ def change_relation(request, uuid):
             return render(request, 'editar_relacion.html', context)
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
+
