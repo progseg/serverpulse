@@ -12,7 +12,7 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 class="modal-title">Edición del SysAdmin: {{ sysadmin.user_name }}</h2>
+            <h2 class="modal-title">Edición del SysAdmin {{ sysadmin.user_name }}</h2>
         </div>
         <form action="{% url 'editar_admin' uuid=sysadmin.uuid %}" method="POST">
             {% csrf_token %}

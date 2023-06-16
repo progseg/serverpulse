@@ -1,5 +1,21 @@
 # serverpulse
 
+## Funcionalidades
+
+### Administrador global:
+- :accept: Registra, actualiza y elimina servidores de la infraestructura
+- :accept: Registrar, actualizar y eliminar administradores de servidores
+- :accept: Asociar servidores a administradores (un servidor sólo puede ser administrado por un administrador)
+
+### Administradores de servidor:
+- :yellow_circle: Iniciar sesión (sus credenciales son provistas por el administrador global por fuera del sistema, así como cualquier otra información de seguridad que necesite el administrador) [Implementar comparación de hashes]
+- Monitorizar servidor: por cada servidor asociado el administrador puede ver:
+  + Porcentaje de uso de procesador
+  + Porcentaje de uso de memoria
+  + Porcentaje de uso de disco
+  + Puntos extra: mandar una notificación por fuera del sistema (a telegram por ejemplo) si algún servidor cae
+- Conectarse al servidor: a través de la misma interfaz web (no usar ssh por fuera) se puede abrir una terminal hacía el servidor
+
 ## Prácticas
 
 ### Parcial - jueves 1 de junio del 2023

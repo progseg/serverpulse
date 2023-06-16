@@ -17,6 +17,7 @@
         <tr>
           <th>Nickname del Admin</th>
           <th>Opciones</th>
+          <th></th>
         </tr>
       </thead>
   
@@ -26,6 +27,8 @@
           <td>{{ admin.user_name }}</td>
           <td>
             <a href="{% url 'editar_admin' admin.uuid %}" class="btn btn-primary">Editar</a>
+          </td>
+          <td>
             <a href="{% url 'eliminar_admin' admin.uuid %}" class="btn btn-danger">Eliminar</a>
           </td>
         </tr>

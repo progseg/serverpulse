@@ -1,0 +1,41 @@
+{% extends 'base_admin.html' %}
+{% block titulo %}Editar Relación{% endblock %}
+{% block encabezado %}Editar Relación de servidor con Sysadmin{% endblock %}
+{% block contenido %}
+    <form method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            {% if field.name == 'sysadmin' %}
+                <div class="row form-group">
+                    <div class="col col-md-3">{{ field.label }}</div>
+                    <div class="col-12 col-md-9">
+                        <select name="{{ field.name }}">
+                            {% for sysadmin in sysadmins %}
+                                <option value="{{ sysadmin.uuid }}">{{ sysadmin.user_name }}</option>
+                            {% endfor %}
+                        </select>
+                        {% for error in field.errors %}
+                            <div class='is-invalid'>
+                                <strong class='badge bg-danger'>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="row form-group">
+                    <div class="col col-md-3">{{ field.label }}</div>
+                    <div class="col-12 col-md-9">
+                        {{ field }}
+                        {% for error in field.errors %}
+                        <div class='is-invalid'>
+                            <strong class='badge bg-danger'>{{ error|escape }}</strong>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <a href="{% url 'listar_admin' %}" class="btn btn-danger">Cancelar</a>
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </form>
+{% endblock contenido %}

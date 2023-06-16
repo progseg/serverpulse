@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, redirect, render
 import logging
 from django.http import HttpResponse, HttpRequest, HttpResponseNotAllowed
@@ -94,6 +95,7 @@ def update_sysadmin(request, uuid):
                 salt = sysadmin.salt
                 salt.salt_value = new_salt
                 salt.save()
+
                 sysadmin.passwd = hashed_passwd
             if cleaned_data.get('user_name'):
                 sysadmin.user_name = cleaned_data.get('user_name')
@@ -103,10 +105,16 @@ def update_sysadmin(request, uuid):
 
             if cleaned_data.get('token_bot'):
                 sysadmin.token_bot = cleaned_data.get('token_bot')
+            
+            try:
+                sysadmin.save()
+                messages.success(request, f'{sysadmin.user_name} actualizado')
+                return redirect('listar_admin')
+            except IntegrityError:
+                messages.error(request, 'El nombre de usuario, Chat ID o token de bot ya existen')
+                return redirect('editar_admin', uuid=uuid)
 
-            sysadmin.save()
-            messages.success(request, f'{sysadmin.user_name} actualizado')
-            return redirect('listar_admin')
+                
         else:
             context = {
                 'uuid': uuid,
@@ -116,7 +124,6 @@ def update_sysadmin(request, uuid):
             return render(request, 'editar_admin.html', context)
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
-
 
 
 def crear_administrador(request):
@@ -151,11 +158,14 @@ def crear_administrador(request):
                 token_bot = cleaned_data['token_bot'],
                 salt = new_salt
             )
-            new_sysadmin.save()
+            try:
+                new_sysadmin.save()
+                messages.success(request, 'El sysadmin se registró con éxito')
+                return redirect('listar_admin')
+            except IntegrityError:
+                messages.error(request, 'El nombre de usuario, el Chat ID o el token de bot ya existen')
+                return redirect('crear_admin')
 
-
-            messages.success(request, f'El sysadmin se registró con éxito')
-            return redirect('listar_admin')
         else:
             context = {
                 'form': form
@@ -217,10 +227,14 @@ def crear_server(request):
                 sysadmin = sysadmin_instance,
                 salt = new_salt
             )
-            new_server.save()
 
-            messages.success(request, 'El servidor ha sido registrado con éxito')
-            return redirect('listar_server')
+            try:
+                new_server.save()
+                messages.success(request, 'El servidor ha sido registrado con éxito')
+                return redirect('listar_server')
+            except  IntegrityError:
+                messages.error(request, 'El nombre de usuario, el Chat ID o el token de bot ya existen')
+                return redirect('crear_server')
         else:
             sysadmins = models.Sysadmin.objects.all()
 
@@ -274,15 +288,19 @@ def update_servidor(request, uuid):
                     return redirect('crear_server')
                 salt = servidor.salt
                 salt.salt_value = new_salt
-                salt.save()
                 servidor.passwd = hashed_passwd
+                salt.save()
 
             if cleaned_data.get('ipv4_address'):
                 servidor.ipv4_address = cleaned_data.get('ipv4_address')
 
-            servidor.save()
-            messages.success(request, f'{servidor.ipv4_address} actualizado')
-            return redirect('listar_server')
+            try:
+                servidor.save()
+                messages.success(request, f'{servidor.ipv4_address} actualizado')
+                return redirect('listar_server')
+            except IntegrityError:
+                messages.error(request, 'La dirección IPv4 ya está en uso')
+                return redirect('editar_server', uuid=uuid)
         else:
             context = {
                 'uuid': uuid,
@@ -294,10 +312,38 @@ def update_servidor(request, uuid):
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 
-
 class EliminarServidor(DeleteView):
     model = models.Servidor
     template_name = 'eliminar_server.html'
     success_url = reverse_lazy('listar_server')
     slug_field = 'uuid'
     slug_url_kwarg = 'uuid'
+
+def change_relation(request, uuid):
+    servidor = get_object_or_404(models.Servidor, uuid=uuid)
+    sysadmins = models.Sysadmin.objects.all()
+
+    if request.method == 'GET':
+        form = forms.RelationSysadminServer(instance=servidor)
+
+        context = {
+            'form': form,
+            'sysadmins': sysadmins
+        }
+        return render(request, 'editar_relacion.html', context)
+    
+    elif request.method == 'POST':
+        form = forms.RelationSysadminServer(request.POST, instance=servidor)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Relación actualizada')
+            return redirect('listar_server')
+        else:
+            context= {
+                'form': form,
+                'uuid': uuid
+            }
+            return render(request, 'editar_relacion.html', context)
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST'])

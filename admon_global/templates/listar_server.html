@@ -22,6 +22,7 @@
           <th>Admin ligado</th>
           <th>Estado</th>
           <th>Opciones</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -38,7 +39,10 @@
               Apagado
             {% endif %}
           <td>
-            <a href="{% url 'editar_server' server.uuid %}" class="btn btn-primary">Editar</a>
+            <a href="{% url 'editar_server' server.uuid %}" class="btn btn-primary">Editar servidor</a>
+            <a href="{% url 'change_relation' server.uuid %}" class="btn btn-primary">Editar Relación</a>            
+          </td>
+          <td>
             <a href="{% url 'eliminar_server' server.uuid %}" class="btn btn-danger">Eliminar</a>
           </td>
         </tr>

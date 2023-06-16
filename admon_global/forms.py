@@ -3,6 +3,7 @@ from django.core import validators
 from auth_app.validators import *
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
+from auth_app import models
 
 USERNAME_MAX_LEN = 20
 USERNAME_MIN_LEN = 4
@@ -309,3 +310,11 @@ class UpdateServer(forms.Form):
         self.instance.token_bot = self.cleaned_data['token_bot']
         self.instance.save()
         return self.instance
+
+
+class RelationSysadminServer(forms.ModelForm):
+    sysadmin = forms.ModelChoiceField(queryset=models.Sysadmin.objects.all())
+
+    class Meta:
+        model = models.Servidor
+        fields = ['sysadmin']

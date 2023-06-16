@@ -18,24 +18,56 @@ from .views import *
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    # Inicio
-    path('dashboard_admon_global', dashboard_admon_global,
-         name='dashboard_admon_global'),
+    path(
+        'dashboard_admon_global',
+        dashboard_admon_global,
+        name='dashboard_admon_global'
+     ),
     # Configuración SysAdmin
-    path('crear_admin/', crear_administrador,
-         name='crear_admin'),
-    path('listar_admin/', ListarAdministrador.as_view(),
-         name='listar_admin'),
-    path('editar_admin/<uuid:uuid>/',
-         update_sysadmin, name='editar_admin'),
-    path('eliminar_admin/<uuid:uuid>/',
-         EliminarAdministrador.as_view(), name='eliminar_admin'),
+    path(
+        'crear_admin/',
+        crear_administrador,
+        name='crear_admin'
+     ),
+    path(
+        'listar_admin/',
+        ListarAdministrador.as_view(),
+         name='listar_admin'
+     ),
+    path(
+        'editar_admin/<uuid:uuid>/',
+         update_sysadmin,
+         name='editar_admin'
+     ),
+    path(
+        'eliminar_admin/<uuid:uuid>/',
+         EliminarAdministrador.as_view(),
+         name='eliminar_admin'
+     ),
     # Configuración Server
-    path('listar_server/', ListarServidor.as_view(),
-         name='listar_server'),
-    path('crear_server/', crear_server, name='crear_server'),
-    path('editar_server/<uuid:uuid>/',
-         update_servidor, name='editar_server'),
-    path('eliminar_server/<uuid:uuid>/',
-         EliminarServidor.as_view(), name='eliminar_server')
+    path(
+        'listar_server/',
+        ListarServidor.as_view(),
+         name='listar_server'
+     ),
+    path(
+        'crear_server/',
+        crear_server,
+        name='crear_server'
+     ),
+    path(
+        'editar_server/<uuid:uuid>/',
+         update_servidor,
+         name='editar_server'
+     ),
+    path(
+        'eliminar_server/<uuid:uuid>/',
+         EliminarServidor.as_view(),
+         name='eliminar_server'
+     ),
+    path(
+         'changerelation/<uuid:uuid>/',
+         change_relation, 
+         name='change_relation'
+     ),
 ]
