@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import logging
-from django.http import HttpResponse, HttpRequest, HttpResponseNotAllowed, JsonResponse
-from auth_app import forms, models, views as auth_app
+from django.http import HttpResponse, HttpRequest, JsonResponse
+from auth_app import models
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
@@ -10,7 +10,18 @@ logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
                     filename='resgistroInicioAG.log', filemode='a')
 
 
-def get_client_ip(request):
+def get_client_ip(request: HttpRequest) -> HttpResponse:
+    """
+    Esta función recupera la dirección IP del cliente de la 
+    solicitud HTTP. Primero verifica el HTTP_X_FORWARDED_FOR
+    encabezado y, si no está presente, recurre al REMOTE_ADDR
+    atributo en los metadatos de la solicitud.
+    Args:
+        request (HttpRequest): 
+
+    Returns:
+        HttpResponse: 
+    """
     logging.info(
         'get_client_ip Monitoreo: Se hace petición por el método: ' + request.method)
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -22,13 +33,36 @@ def get_client_ip(request):
 
 
 @csrf_exempt
-def estado_servidor(request):
+def estado_servidor(request: HttpRequest) -> HttpResponse:
+    """
+    Maneja la solicitud del estado del servidor y genera una
+    plantilla llamada "monitoreo.html". Recupera todos los 
+    objetos del servidor de la base de datos y los pasa 
+    como una variable de contexto.
+    Args:
+        request (HttpRequest): 
+
+    Returns:
+        HttpResponse: 
+    """
     template = 'monitoreo.html'
     objeto = {'list': models.Servidor.objects.all()}
     return render(request, template, objeto)
 
 
-def listar_servidores(request):
+def listar_servidores(request: HttpRequest) -> HttpResponse:
+    """
+    Esta función compara la dirección IP del cliente con las 
+    direcciones IP de todos los objetos del servidor. Si se 
+    encuentra una coincidencia, el estado del servidor se 
+    establece en "Encendido", y si no, se establecer el 
+    estado del servidor en "Indeterminado".
+    Args:
+        request (HttpRequest): 
+
+    Returns:
+        HttpResponse: 
+    """
     direccion = get_client_ip(request)
     for server in models.Servidor.objects.all():
         if direccion == server.ipv4_address:
@@ -40,12 +74,29 @@ def listar_servidores(request):
 
 
 def estado_indeterminado_servidor(server):
+    """
+    Esta función establece el estado del 
+    servidor en "Indeterminado" si aún no 
+    está configurado en "Apagado" (apagado).
+    Args:
+        server: Tipo de estado
+    """
     if server.status != "Apagado":
         server.status = "Indeterminado"
         server.save()
 
 
-def estado_apagado_servidor(request):
+def estado_apagado_servidor(request: HttpRequest) -> HttpResponse:
+    """
+    Esta función establece el estado del servidor en "Apagado" si 
+    la dirección IP del cliente coincide con la dirección IP de 
+    cualquier servidor.
+    Args:
+        request (HttpRequest): 
+
+    Returns:
+        HttpResponse: 
+    """
     direccion = get_client_ip(request)
     for server in models.Servidor.objects.all():
         if direccion == server.ipv4_address:
@@ -54,7 +105,18 @@ def estado_apagado_servidor(request):
     return HttpResponse("Apagado")
 
 
-def comparar_direccion_ip(request):
+def comparar_direccion_ip(request: HttpRequest) -> HttpResponse:
+    """
+    Esta función compara la dirección IP del cliente con las 
+    direcciones IP de todos los objetos del servidor. Si se 
+    encuentra una coincidencia, el estado del servidor se establece
+    en "Activo", y si no, se establece en "Indeterminado".
+    Args:
+        request (HttpRequest): 
+
+    Returns:
+        HttpResponse: 
+    """
     template = 'monitoreo.html'
     objeto = {'list': models.Servidor.objects.all()}
     solicitud = get_client_ip(request)
@@ -68,7 +130,17 @@ def comparar_direccion_ip(request):
     return render(request, template, objeto)
 
 
-def recuperar_registros(request):
+def recuperar_registros(request: HttpRequest) -> HttpResponse:
+    """
+    Esta función recupera todos los objetos del servidor de la 
+    base de datos y los serializa en una respuesta JSON mediante 
+    la función serializar_registros.
+    Args:
+        request (HttpRequest): _description_
+
+    Returns:
+        HttpResponse: _description_
+    """
     logging.info(
         'recupertar_registros AJAX Monitoreo: Se hace petición por el método: ' + request.method)
     servs = models.Servidor.objects.all()
@@ -78,6 +150,19 @@ def recuperar_registros(request):
 
 @csrf_exempt
 def serializar_registros(servs):
+    """
+    Esta función serializa una lista de 
+    objetos de servidor en una lista de 
+    diccionarios, donde cada diccionario 
+    contiene la dirección IP y el estado 
+    del servidor.
+    Args:
+        servs(list): Contiene los objetos como
+                     dirección ip y el estado
+
+    Returns:
+        data: 
+    """
     result = []
     for register in servs:
         result.append({'Direccion': register.ipv4_address,
@@ -86,7 +171,18 @@ def serializar_registros(servs):
 
 
 @csrf_exempt
-def monitor_data(request):
+def monitor_data(request: HttpRequest) -> HttpResponse:
+    """
+    Esta función maneja una solicitud POST que contiene 
+    el uso de la CPU, procesador y uso del disco. 
+    Si el método de solicitud no es POST, devuelve una 
+    respuesta HTTP "Método no permitido".
+    Args:
+        request (HttpRequest): 
+
+    Returns:
+        HttpResponse: 
+    """
     if request.method == 'POST':
         cpu_usage = request.POST.get('cpu_usage')
         processor_details = request.POST.get('processor_details')
