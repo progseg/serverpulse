@@ -47,11 +47,11 @@
   - :accept: hashing de contraseñas con salt y algoritmo seguro
   - :accept: validaciones de entradas externas
 
-- :yellow_circle: manejo seguro de sesiones web y cookies
+- :accept: manejo seguro de sesiones web y cookies
   - :accept: configurar sesiones seguras: logout
   - :accept: configurar sesiones seguras: settings
   - :accept: configurar sesiones seguras: csrf
-  - :yellow_circle: la cookie de sesión se maneja de forma segura (Habilitar HTTP y javascript en producción)
+  - :accept: la cookie de sesión se maneja de forma segura (Habilitar HTTP y javascript en producción)
 
 ### Ordinario - martes 6 de junio del 2023
 
@@ -70,6 +70,6 @@
   - :accept: has uso de docker images y docker-compose para automatizar el despliegue
   - :accept: implementa seguridad (el contenedor no usa root)
 
-- :yellow_circle: seguridad en el canal de comunicación
-  - :accept: agregar soporte de HTTPS al ambiente de producción (hosting con Azure y let's encrypt)
-  - :red_circle: agregar soporte de HTTPS al ambiente de producción (certificados autofirmados en entorno local)
+- :accept: seguridad en el canal de comunicación
+  - :yellow_circle: agregar soporte de HTTPS al ambiente de producción (hosting con Azure y let's encrypt)
+  - :accept: agregar soporte de HTTPS al ambiente de producción (certificados autofirmados en entorno local)

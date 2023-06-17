@@ -155,16 +155,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #  Security settings
 # Sessions and cookies
 
+# CSRF settings
+CSRF_TRUSTED_ORIGINS=['nginx', 'https://127.0.0.1']
+#CSRF_COOKIE_DOMAIN='localhost'
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = "Strict"
+CSRF_COOKIE_HTTPONLY = True
+
 # Sessions storages based in DB
 SESSIONS_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_DB_TABLE = 'django_sessions'
 
 # True only in production, Session cookies only sended over HTTPS
-SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = True
 
 # If value is True, sessions cannot be accesed via Javascript
 # False only in development enviroment
-SESSION_COOKIE_HTTPONLY = False
+SESSION_COOKIE_HTTPONLY = True
 
 # Only in production. this value can be changed to restrict the cookie session only in specified domain ("example.com")
 SESSION_COOKIE_DOMAIN = None
@@ -173,7 +180,7 @@ SESSION_COOKIE_DOMAIN = None
 SESSION_COOKIE_SAMESITE = "Strict"
 
 # This setting means that browsers ensure that cookie is only sended under HTTPS, use this setting combined with SESSION_COOKIE_SECURE
-SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = True
 
 # The cookie session will be destroy when the browser is close
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True

@@ -32,8 +32,8 @@ services:
   nginx:
     image: nginx:stable-bullseye
     ports:
-      - 80:80
-      #- 443:443
+      #- 80:80 # development enviroment
+      - 443:443 # production enviroment
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./certs:/etc/nginx/certs
@@ -43,8 +43,6 @@ services:
     networks:
       - serverpulse_net
 
-volumes:
-  postgres_data:
 networks:
   serverpulse_net:
     driver: bridge

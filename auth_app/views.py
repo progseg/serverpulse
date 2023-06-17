@@ -364,7 +364,7 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
                     logging.error(
                         'login Admin Global: Error al momento de actualizar intentos al momento de iniciar sesión')
 
-                    return (request, 'login_admon_global')
+                    return redirect('login_admon_global')
                 messages.error(
                     request, 'Las credenciales proporcionadas no son válidas, inténtelo de nuevo')
 
@@ -596,7 +596,7 @@ def login_sysadmin(request: HttpRequest) -> HttpResponse:
                     logging.error(
                         'login sysadmin: Error al momento de actualizar intentos al momento de iniciar sesión')
 
-                    return (request, 'login_sysadmin')
+                    return redirect('login_sysadmin')
                 messages.error(
                     request, 'Las credenciales proporcionadas no son válidas, inténtelo de nuevo')
 

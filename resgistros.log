@@ -158,3 +158,71 @@
 17-Jun-23 01:19:25 - INFO - login sysadmin: Se hace petición por el método: GET
 17-Jun-23 01:19:29 - INFO - login sysadmin: Se hace petición por el método: GET
 17-Jun-23 01:19:38 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 11:27:34 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 11:27:48 - WARNING - Not Found: /favicon.ico
+17-Jun-23 11:29:33 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 11:29:52 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 11:29:58 - WARNING - Not Found: /favicon.ico
+17-Jun-23 11:32:33 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 11:32:45 - WARNING - Forbidden (Origin checking failed - https://127.0.0.1 does not match any trusted origins.): /serverpulse/login_admon_global
+17-Jun-23 11:34:26 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 11:34:54 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 11:36:05 - WARNING - Forbidden (Origin checking failed - https://127.0.0.1 does not match any trusted origins.): /serverpulse/login_admon_global
+17-Jun-23 11:37:26 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 11:37:59 - WARNING - Forbidden (Origin checking failed - https://127.0.0.1 does not match any trusted origins.): /serverpulse/login_sysadmin
+17-Jun-23 11:38:24 - WARNING - Forbidden (Origin checking failed - https://127.0.0.1 does not match any trusted origins.): /serverpulse/login_sysadmin
+17-Jun-23 11:38:26 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 11:43:32 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 11:43:41 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 11:44:09 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 11:48:49 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 11:49:34 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 11:49:52 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 11:50:02 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 11:50:18 - WARNING - Forbidden (Origin checking failed - https://127.0.0.1 does not match any trusted origins.): /serverpulse/login_admon_global
+17-Jun-23 11:52:09 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 11:52:20 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:07:55 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:07:56 - WARNING - Not Found: /favicon.ico
+17-Jun-23 12:08:08 - WARNING - Forbidden (Origin checking failed - https://127.0.0.1 does not match any trusted origins.): /serverpulse/login_admon_global
+17-Jun-23 12:17:53 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:18:03 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:18:21 - WARNING - Forbidden (Origin checking failed - https://127.0.0.1 does not match any trusted origins.): /serverpulse/login_admon_global
+17-Jun-23 12:22:24 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:22:30 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:22:45 - INFO - login admon global: Basic auth success to global from None
+17-Jun-23 12:22:45 - INFO - mandar token: Se hace petición de token
+17-Jun-23 12:22:46 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 12:23:16 - INFO - dashboard Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:23:16 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 12:23:18 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 12:23:23 - INFO - logout Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:23:23 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:23:29 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 12:23:42 - INFO - login admon global: Basic auth success to sysadmin from None
+17-Jun-23 12:23:42 - INFO - mandar token: Se hace petición de token
+17-Jun-23 12:23:42 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 12:23:54 - INFO - dashboard Sys Admin: Se hace petición por el método: GET
+17-Jun-23 12:23:54 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 12:23:54 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 12:23:56 - INFO - logout Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:23:56 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:26:24 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:26:30 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:26:43 - INFO - login admon global: Basic auth success to global from None
+17-Jun-23 12:26:43 - INFO - mandar token: Se hace petición de token
+17-Jun-23 12:26:46 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 12:27:07 - INFO - dashboard Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:27:07 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 12:27:07 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 12:27:08 - INFO - logout Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:27:09 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:29:24 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:29:45 - INFO - login admon global: Basic auth success to global from None
+17-Jun-23 12:29:46 - INFO - mandar token: Se hace petición de token
+17-Jun-23 12:29:47 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 12:30:14 - INFO - dashboard Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:30:14 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 12:30:14 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 12:30:27 - INFO - logout Admin Global: Se hace petición por el método: GET
+17-Jun-23 12:30:27 - INFO - login Admin Global: Se hace petición por el método: GET
