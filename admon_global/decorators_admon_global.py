@@ -13,7 +13,7 @@ def logged_global_required(view_func):
                 request, 'Necesita autenticarse para acceder al punto deseado'
             )
             return redirect('login_sysadmin')
-        if request.session.get('role', 'global'):
+        if request.session.get('role') != 'global':
             messages.error(
                 request, 'No tiene permisos para acceder a este sitio'
             )

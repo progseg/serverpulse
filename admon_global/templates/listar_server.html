@@ -20,7 +20,6 @@
         <tr>
           <th>Dirección IP</th>
           <th>Admin ligado</th>
-          <th>Estado</th>
           <th>Opciones</th>
           <th></th>
         </tr>
@@ -30,14 +29,6 @@
         <tr>
           <td>{{ server.ipv4_address }}</td>
           <td>{{ server.sysadmin.user_name }}</td>
-          <td>
-            {% if server.status == 0 %}
-              Indeterminado
-            {% elif server.status == 1 %}
-              Activo
-            {% elif server.status == 2 %}
-              Apagado
-            {% endif %}
           <td>
             <a href="{% url 'editar_server' server.uuid %}" class="btn btn-primary">Editar servidor</a>
             <a href="{% url 'change_relation' server.uuid %}" class="btn btn-primary">Editar Relación</a>            

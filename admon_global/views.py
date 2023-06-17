@@ -7,6 +7,7 @@ from . import decorators_admon_global
 from django.views.decorators.csrf import csrf_protect
 from auth_app import models
 from . import forms
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from django.utils.html import escape
 from django.contrib import messages
@@ -54,6 +55,8 @@ def dashboard_admon_global(request: HttpRequest) -> HttpResponse:
         return HttpResponseNotAllowed[('GET')]
 
 
+@method_decorator(decorators_admon_global.logged_global_required, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
 class ListarAdministrador(ListView):
     model = models.Sysadmin
     template_name = 'listar_admin.html'
@@ -61,6 +64,8 @@ class ListarAdministrador(ListView):
     queryset = models.Sysadmin.objects.all()
 
 
+@decorators_admon_global.logged_global_required
+@csrf_protect
 def update_sysadmin(request, uuid):
     sysadmin = get_object_or_404(models.Sysadmin, uuid=uuid)
 
@@ -126,6 +131,8 @@ def update_sysadmin(request, uuid):
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 
+@decorators_admon_global.logged_global_required
+@csrf_protect
 def crear_administrador(request):
     if request.method == 'GET':
         form = forms.SinginAdmin()
@@ -175,6 +182,8 @@ def crear_administrador(request):
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 
+@method_decorator(decorators_admon_global.logged_global_required, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
 class EliminarAdministrador(DeleteView):
     model = models.Sysadmin
     template_name = 'eliminar_admin.html'
@@ -197,6 +206,8 @@ class EliminarAdministrador(DeleteView):
         return super().post(request, *args, **kwargs)
 
 
+@decorators_admon_global.logged_global_required
+@csrf_protect
 def crear_server(request):
     if request.method == 'GET':
         form = forms.SinginServer()
@@ -264,6 +275,8 @@ def crear_server(request):
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 
+@method_decorator(decorators_admon_global.logged_global_required, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
 class ListarServidor(ListView):
     model = models.Servidor
     template_name = 'listar_server.html'
@@ -271,6 +284,8 @@ class ListarServidor(ListView):
     queryset = models.Servidor.objects.all()
 
 
+@decorators_admon_global.logged_global_required
+@csrf_protect
 def update_servidor(request, uuid):
     servidor = get_object_or_404(models.Servidor, uuid=uuid)
     
@@ -326,6 +341,8 @@ def update_servidor(request, uuid):
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 
+@method_decorator(decorators_admon_global.logged_global_required, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
 class EliminarServidor(DeleteView):
     model = models.Servidor
     template_name = 'eliminar_server.html'
@@ -334,6 +351,8 @@ class EliminarServidor(DeleteView):
     slug_url_kwarg = 'uuid'
 
 
+@decorators_admon_global.logged_global_required
+@csrf_protect
 def change_relation(request, uuid):
     servidor = get_object_or_404(models.Servidor, uuid=uuid)
     sysadmins = models.Sysadmin.objects.all()

@@ -7,7 +7,7 @@ from django.contrib import messages
 def logged_sysadmin_required(view_func):
     @wraps(view_func)
     def wrapped_view(request, *args, **kwargs):
-        if request.session.get('role', 'sysadmin'):
+        if request.session.get('role') != 'sysadmin':
             messages.error(request, 'No tiene permisos para acceder a este sitio')
             return redirect('login_sysadmin')
         
