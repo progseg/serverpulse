@@ -8,7 +8,7 @@
 - :accept: Asociar servidores a administradores (un servidor sólo puede ser administrado por un administrador)
 
 ### Administradores de servidor:
-- :yellow_circle: Iniciar sesión (sus credenciales son provistas por el administrador global por fuera del sistema, así como cualquier otra información de seguridad que necesite el administrador) [Implementar comparación de hashes]
+- :accept: Iniciar sesión (sus credenciales son provistas por el administrador global por fuera del sistema, así como cualquier otra información de seguridad que necesite el administrador)
 - Monitorizar servidor: por cada servidor asociado el administrador puede ver:
   + Porcentaje de uso de procesador
   + Porcentaje de uso de memoria
