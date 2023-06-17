@@ -121,23 +121,14 @@ class AdmonGlobal(models.Model):
         super().delete(*args, **kwargs)
 
     def save(self, *args, **kwargs):
-        logging.info('Entró a save')
         salt = gen_salt()
-        logging.info(f'salt={salt}')
         hashed_passwd= derivate_passwd(salt, self.passwd)
-        logging.info(f'hashed_passwd={hashed_passwd}')
         try:
             salt_model = Salt.objects.create(salt_value = salt)
         except Exception as e:
-            logging.error(f'create Salt Instance = {e}')
-        logging.info(f'salt_model={salt_model}')
+            logging.error(f'fails create Salt Instance = {e}')
         self.salt = salt_model
-        logging.info(f'self.salt = {self.salt}')
         self.passwd = hashed_passwd
-        logging.info(f'self.passwd={self.passwd}')
-        logging.info(f'self.uuid={self.uuid}')
-        logging.info(f'self.chat_id={self.chat_id}')
-        logging.info(f'self.token_bot={self.token_bot}')
         super().save(*args, **kwargs)
 
 
@@ -196,12 +187,17 @@ class Sysadmin(models.Model):
     salt = models.OneToOneField(
         Salt,
         on_delete=models.CASCADE,
-        related_name='sysadmin'
+        related_name='sysadmin',
+        blank= True,
+        null= True
     )
 
     def delete(self, *args, **kwargs):
         if self.salt:
-            self.salt.delete()
+            salt = self.salt
+            self.salt = None
+            self.save()
+            salt.delete()
         
         super().delete(*args, **kwargs)
 

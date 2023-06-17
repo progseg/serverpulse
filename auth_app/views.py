@@ -17,6 +17,7 @@ from django.utils import timezone
 import bcrypt
 from django.utils.html import escape
 from . import decorators
+from django.views.decorators.cache import never_cache
 # Create your views here.
 
 
@@ -70,7 +71,7 @@ def request_tokenotp(user: Model) -> bool:
             'mandar token: El token no se registro adecuadamente')
         return False
 
-    token_sended = send_tokenotp(user)
+    token_sended = send_tokenotp(user, new_token_double_auth)
     if token_sended is not True:
         logging.error(
             'mandar token: El token no se mando adecuadamente')
@@ -88,24 +89,34 @@ def create_tokenotp() -> str:
 
 
 def update_tokenotp(user: Model, new_token_double_auth: str) -> bool:
-    user.token_double_auth = new_token_double_auth
-    if new_token_double_auth is None:
-        user.timestamp_token_double_auth = None
     try:
-        user.save()
-        return True
-    except Exception as e:
+        user.__class__.objects.filter(uuid=user.uuid).update(
+            token_double_auth = new_token_double_auth,
+        )
+    except:
         logging.error(
             f'No se pudo actualizar el token en la base de datos: {e}')
         return False
+    
+    if new_token_double_auth is None:
+        try:
+            user.__class__.objects.filter(uuid=user.uuid).update(
+                timestamp_token_double_auth = None,
+            )
+            return True
+        except Exception as e:
+            logging.error(
+                f'No se pudo actualizar el token en la base de datos: {e}')
+            return False
+    return True
 
 
-def send_tokenotp(user: Model) -> bool:
+def send_tokenotp(user: Model, new_token_double_auth) -> bool:
 
     username = user.user_name
     token_bot = user.token_bot
     chat_id = user.chat_id
-    token_double_auth = user.token_double_auth
+    token_double_auth = new_token_double_auth
 
     try:
         url = f'https://api.telegram.org/bot{token_bot}/sendMessage?chat_id={chat_id}&parse_mode=Markdown&text={token_double_auth}'
@@ -113,21 +124,24 @@ def send_tokenotp(user: Model) -> bool:
     except Exception as e:
         logging.error(
             f'El mensaje a telegram para {username} no se completó: {e}')
-        user.timestamp_token_double_auth = None
-        user.token_double_auth = None
-        user.save()
+        user.__class__.objects.filter(uuid=user.uuid).update(
+            timestamp_token_double_auth = None,
+            token_double_auth = None
+        )
         return False
 
     if response.status_code == 200:
-        user.timestamp_token_double_auth = timezone.now()
-        user.save()
+        user.__class__.objects.filter(uuid=user.uuid).update(
+            timestamp_token_double_auth = timezone.now()
+        )
         return True
     else:
         logging.error(
             f'El mensaje a telegram para {username} no se completó: {response.status_code}')
-        user.timestamp_token_double_auth = None
-        user.token_double_auth = None
-        user.save()
+        user.__class__.objects.filter(uuid=user.uuid).update(
+            timestamp_token_double_auth = None,
+            token_double_auth = None
+        )
         return False
 
 
@@ -162,10 +176,11 @@ def save_ip_client(user: Model, ip: str) -> bool:
     timestamp_now = timezone.now()
 
     if user.ipv4_address != ip:
-        user.ipv4_address = ip
-        user.timestamp_ultimo_intento = timestamp_now
-        user.intentos = MIN_ATTEMPS
-        user.save()
+        user.__class__.objects.filter(uuid=user.uuid).update(
+            ipv4_address = ip,
+            timestamp_ultimo_intento = timestamp_now,
+            intentos = MIN_ATTEMPS
+        )
         return True
     else:
         return True
@@ -173,8 +188,9 @@ def save_ip_client(user: Model, ip: str) -> bool:
 
 def delete_ipv4_client(user: Model) -> bool:
     try:
-        user.ipv4_address = None
-        user.save()
+        user.__class__.objects.filter(uuid=user.uuid).update(
+            ipv4_address = None
+        )
         return True
     except:
         return False
@@ -193,10 +209,11 @@ def increment_attemps_account(user: Model) -> bool:
     update_attemps = user.intentos + 1
     update_timestamp_attemps = timezone.now()
 
-    user.intentos = update_attemps
-    user.timestamp_ultimo_intento = update_timestamp_attemps
     try:
-        user.save()
+        user.__class__.objects.filter(uuid=user.uuid).update(
+            intentos = update_attemps,
+            timestamp_ultimo_intento = update_timestamp_attemps
+        )
         return True
     except:
         return False
@@ -210,30 +227,34 @@ def block_user(user: Model) -> bool:
 
     # if user is a new client
     if timestamp_last_attemp is None:
-        user.timestamp_ultimo_intento = timestamp_now
-        user.intentos = MIN_ATTEMPS
-        user.save()
+        user.__class__.objects.filter(uuid=user.uuid).update(
+                timestamp_ultimo_intento = timestamp_now,
+                intentos = MIN_ATTEMPS
+        )
         return False
 
     if (((timestamp_now
           - timestamp_last_attemp).total_seconds())
             < LOCK_TIME_RANGE):
-        user.timestamp_ultimo_intento = timestamp_now
-        user.save()
+        user.__class__.objects.filter(uuid=user.uuid).update(
+            timestamp_ultimo_intento = timestamp_now
+        )
         return True
     else:
         # if blocking time is over, attemps will be restart
-        user.intentos = MIN_ATTEMPS
-        user.timestamp_ultimo_intento = None
-        user.save()
+        user.__class__.objects.filter(uuid=user.uuid).update(
+            intentos = MIN_ATTEMPS,
+            timestamp_ultimo_intento = None
+        )
         return False
 
 
 def restart_attemps(user: Model) -> bool:
     try:
-        user.intentos = MIN_ATTEMPS
-        user.timestamp_ultimo_intento = None
-        user.save()
+        user.__class__.objects.filter(uuid=user.uuid).update(
+            intentos = MIN_ATTEMPS,
+            timestamp_ultimo_intento = None
+        )
         return True
     except:
         return False
@@ -255,6 +276,7 @@ def logout_sysadmin(request: HttpRequest) -> HttpResponse:
 
 
 # Section of login admon global
+@never_cache
 def login_admon_global(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
         logging.info(
@@ -268,7 +290,7 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
                 user = models.AdmonGlobal.objects.get(
                     user_name=username)
             except:
-                logout(request)
+                request.session.flush()
                 logging.error('login Admin Global: Error no existe el usuario')
                 messages.error(request, 'Cuenta no encontrada')
                 return redirect('login_admon_global')
@@ -277,7 +299,7 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
             update_tokenotp(user, new_token)
             increment_attemps_account(user)
 
-            logout(request)
+            request.session.flush()
             messages.info(request, 'Usted ha abandonado su sesión')
             return redirect('login_admon_global')
 
@@ -322,7 +344,7 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
 
             # Basic auth username and password
 
-            salt = user.salt
+            salt = user.salt.salt_value
 
             passwd_hashed = derivate_passwd(salt, form_passwd)
             if (user.user_name == form_user_name and
@@ -356,7 +378,6 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
             # Session start
             request.session['logged'] = True
             request.session['username'] = user.user_name
-            request.session['role'] = 'global'
             request.session['token_spected'] = True
 
             logging.info(
@@ -376,6 +397,7 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
 
 @decorators.logged_required
 @csrf_protect
+@never_cache
 def login_double_auth_admon_global(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
 
@@ -390,12 +412,11 @@ def login_double_auth_admon_global(request: HttpRequest) -> HttpResponse:
                 messages.error(request, 'Cuenta no encontrada')
                 return redirect('login_admon_global')
 
-            #! No increment attempt, process fails
             new_token = None
             update_tokenotp(user, new_token)
             increment_attemps_account(user)
 
-            logout(request)
+            request.session.flush()
             messages.info(request, 'Usted ha abandonado su sesión')
             return redirect('login_admon_global')
 
@@ -411,13 +432,13 @@ def login_double_auth_admon_global(request: HttpRequest) -> HttpResponse:
             user = models.AdmonGlobal.objects.get(
                 user_name=username)
         except:
-            logout(request)
+            request.session.flush()
             messages.error(request,
                            'Error inesperado. Vuelva a inicar sesión')
             return redirect('login_adom_global')
 
         if request_tokenotp(user) is not True:
-            logout(request)
+            request.session.flush()
             new_token = None
             update_tokenotp(user, new_token)
             messages.error(request,
@@ -441,7 +462,7 @@ def login_double_auth_admon_global(request: HttpRequest) -> HttpResponse:
                 user = models.AdmonGlobal.objects.get(
                     user_name=session_username)
             except:
-                logout(request)
+                request.session.flush()
                 logging.error(
                     f'Credenciales no encontradas para {session_username}')
                 messages.error(request,
@@ -461,24 +482,26 @@ def login_double_auth_admon_global(request: HttpRequest) -> HttpResponse:
                     return redirect('login_admon_global')
 
                 increment_attemps_account(user)
-                logout(request)
+                request.session.flush()
                 messages.error(request,
                                'El token es inválido. Ha expirado o no es el correcto, solicite un nuevo token')
                 return redirect('login_admon_global')
 
             new_token = None
             update_tokenotp(user, new_token)
-            user.intentos = 0
-            user.timestamp_ultimo_intento = None
-            user.ipv4_address = None
-            user.save()
+
+            user.__class__.objects.filter(uuid=user.uuid).update(
+                intentos = 0,
+                timestamp_ultimo_intento = None,
+                ipv4_address = None
+            )
             request.session['token_spected'] = False
             request.session['role'] = 'global'
             return redirect('dashboard_admon_global')
 
         else:
             request.session['token_spected'] = False
-            logout(request)
+            request.session.flush()
             messages.error(
                 request, 'El desafío captcha no fue completado, se cancela el inicio de sesión')
             return redirect('login_admon_global')
@@ -487,6 +510,7 @@ def login_double_auth_admon_global(request: HttpRequest) -> HttpResponse:
 
 
 # Section of Sysadmin
+@never_cache
 def login_sysadmin(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
         logging.info(
@@ -500,7 +524,7 @@ def login_sysadmin(request: HttpRequest) -> HttpResponse:
                 user = models.Sysadmin.objects.get(
                     user_name=username)
             except:
-                logout(request)
+                request.session.flush()
                 logging.error('login sysadmin: Error no existe el usuario')
                 messages.error(request, 'Cuenta no encontrada')
                 return redirect('login_sysadmin')
@@ -509,7 +533,7 @@ def login_sysadmin(request: HttpRequest) -> HttpResponse:
             update_tokenotp(user, new_token)
             increment_attemps_account(user)
 
-            logout(request)
+            request.session.flush()
             messages.info(request, 'Usted ha abandonado su sesión')
             return redirect('login_sysadmin')
 
@@ -553,8 +577,10 @@ def login_sysadmin(request: HttpRequest) -> HttpResponse:
                     return redirect('login_sysadmin')
 
             # Basic auth username and password
+            salt = user.salt.salt_value
+            passwd_hashed = derivate_passwd(salt, form_passwd)
             if (user.user_name == form_user_name and
-                    user.passwd == form_passwd):
+                    user.passwd == passwd_hashed):
                 user_authenticated = True
             else:
                 # if user fails basic auth, token is cancel
@@ -583,7 +609,6 @@ def login_sysadmin(request: HttpRequest) -> HttpResponse:
 
             # Session start
             request.session['logged'] = True
-            request.session['role'] = 'sysadmin'
             request.session['username'] = user.user_name
             request.session['token_spected'] = True
 
@@ -604,6 +629,7 @@ def login_sysadmin(request: HttpRequest) -> HttpResponse:
 
 @decorators.logged_required
 @csrf_protect
+@never_cache
 def login_double_auth_sysadmin(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
 
@@ -618,12 +644,11 @@ def login_double_auth_sysadmin(request: HttpRequest) -> HttpResponse:
                 messages.error(request, 'Cuenta no encontrada')
                 return redirect('login_sysadmin')
 
-            #! No increment attempt, process fails
             new_token = None
             update_tokenotp(user, new_token)
             increment_attemps_account(user)
 
-            logout_sysadmin(request)
+            request.session.flush()
             messages.info(request, 'Usted ha abandonado su sesión')
             return redirect('login_sysadmin')
 
@@ -639,13 +664,13 @@ def login_double_auth_sysadmin(request: HttpRequest) -> HttpResponse:
             user = models.Sysadmin.objects.get(
                 user_name=username)
         except:
-            logout(request)
+            request.session.flush()
             messages.error(request,
                            'Error inesperado. Vuelva a inicar sesión')
             return redirect('login_sysadmin')
 
         if request_tokenotp(user) is not True:
-            logout(request)
+            request.session.flush()
             new_token = None
             update_tokenotp(user, new_token)
             messages.error(request,
@@ -669,7 +694,7 @@ def login_double_auth_sysadmin(request: HttpRequest) -> HttpResponse:
                 user = models.Sysadmin.objects.get(
                     user_name=session_username)
             except:
-                logout(request)
+                request.session.flush()
                 logging.error(
                     f'Credenciales no encontradas para {session_username}')
                 messages.error(request,
@@ -689,18 +714,20 @@ def login_double_auth_sysadmin(request: HttpRequest) -> HttpResponse:
                     return redirect('login_sysadmin')
 
                 increment_attemps_account(user)
-                logout(request)
+                request.session.flush()
                 messages.error(request,
                                'El token es inválido. Ha expirado o no es el correcto, solicite un nuevo token')
                 return redirect('login_sysadmin')
 
             new_token = None
             update_tokenotp(user, new_token)
-            user.intentos = 0
-            user.timestamp_ultimo_intento = None
-            user.ipv4_address = None
-            user.save()
+            user.__class__.objects.filter(uuid=user.uuid).update(
+                intentos = 0,
+                timestamp_ultimo_intento = None,
+                ipv4_address = None
+            )
             request.session['token_spected'] = False
+            request.session['role'] = 'sysadmin'
             return redirect('dashboard_sys_admin')
 
         else:

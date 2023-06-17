@@ -181,6 +181,20 @@ class EliminarAdministrador(DeleteView):
     success_url = reverse_lazy('listar_admin')
     slug_field = 'uuid'
     slug_url_kwarg = 'uuid'
+    
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        related_servers = models.Servidor.objects.filter(sysadmin=self.object)
+        if related_servers.exists():
+            messages.error(
+                request,
+                f"No se puede eliminar el Sysadmin '{self.object.user_name}' "
+                f"porque está relacionado con los siguientes servidores: "
+                f"{', '.join(str(server.ipv4_address) for server in related_servers)}. "
+                "Por favor, cambie la relación con los servidores antes de eliminarlo."
+            )
+            return redirect('listar_admin')
+        return super().post(request, *args, **kwargs)
 
 
 def crear_server(request):

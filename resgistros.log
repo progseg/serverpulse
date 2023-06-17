@@ -1,236 +1,113 @@
-16-Jun-23 00:58:21 - INFO - Entró a save
-16-Jun-23 01:07:44 - INFO - Entró a save
-16-Jun-23 01:07:44 - INFO - salt=$2b$12$MFNmDc2KUQPLhYzXdx3Cqe
-16-Jun-23 01:07:45 - INFO - hashed_passwd=$2b$12$MFNmDc2KUQPLhYzXdx3CqeJQPIONA5eEGXjuX7HP/g7i/S0r2i2de
-16-Jun-23 01:07:45 - INFO - salt_model=Salt object (17)
-16-Jun-23 01:07:45 - INFO - self.salt = Salt object (17)
-16-Jun-23 01:07:45 - INFO - self.passwd=$2b$12$MFNmDc2KUQPLhYzXdx3CqeJQPIONA5eEGXjuX7HP/g7i/S0r2i2de
-16-Jun-23 01:07:45 - INFO - self.uuid=81b5c008-b19f-4cb4-8e5a-e6882d84e222
-16-Jun-23 01:16:08 - INFO - Entró a save
-16-Jun-23 01:16:08 - INFO - salt=$2b$12$MbnlpIa5qVJx1AgoEleUz.
-16-Jun-23 01:16:08 - INFO - hashed_passwd=$2b$12$MbnlpIa5qVJx1AgoEleUz.rExd0NZ2zOo3egbUwnGPrD8FxC6JOty
-16-Jun-23 01:16:08 - INFO - salt_model=Salt object (18)
-16-Jun-23 01:16:08 - INFO - self.salt = Salt object (18)
-16-Jun-23 01:16:08 - INFO - self.passwd=$2b$12$MbnlpIa5qVJx1AgoEleUz.rExd0NZ2zOo3egbUwnGPrD8FxC6JOty
-16-Jun-23 01:16:08 - INFO - self.uuid=2e549344-e97a-41bb-9a65-579d4ee156ae
-16-Jun-23 01:16:08 - INFO - self.chat_id=1056868474
-16-Jun-23 01:16:08 - INFO - self.token_bot=6067760941:AAE5cNI6VwJJ4OVPOGS75Qra_GUpn-VMrA4
-16-Jun-23 01:23:58 - ERROR - Internal Server Error: /admin/auth_app/salt/18/change/
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/options.py", line 668, in get_field
-    return self.fields_map[field_name]
-KeyError: 's'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/django/contrib/admin/utils.py", line 333, in label_for_field
-    field = _get_non_gfk_field(model._meta, name)
-  File "/usr/local/lib/python3.10/site-packages/django/contrib/admin/utils.py", line 302, in _get_non_gfk_field
-    field = opts.get_field(name)
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/options.py", line 670, in get_field
-    raise FieldDoesNotExist(
-django.core.exceptions.FieldDoesNotExist: Salt has no field named 's'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
-    response = get_response(request)
-  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
-    response = response.render()
-  File "/usr/local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
-    self.content = self.rendered_content
-  File "/usr/local/lib/python3.10/site-packages/django/template/response.py", line 92, in rendered_content
-    return template.render(context, self._request)
-  File "/usr/local/lib/python3.10/site-packages/django/template/backends/django.py", line 62, in render
-    return self.template.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 175, in render
-    return self._render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
-    return self.nodelist.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/loader_tags.py", line 157, in render
-    return compiled_parent._render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
-    return self.nodelist.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/loader_tags.py", line 157, in render
-    return compiled_parent._render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
-    return self.nodelist.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/loader_tags.py", line 63, in render
-    result = block.nodelist.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/loader_tags.py", line 63, in render
-    result = block.nodelist.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/defaulttags.py", line 238, in render
-    nodelist.append(node.render_annotated(context))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/loader_tags.py", line 208, in render
-    return template.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 177, in render
-    return self._render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
-    return self.nodelist.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/defaulttags.py", line 238, in render
-    nodelist.append(node.render_annotated(context))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/defaulttags.py", line 193, in render
-    values = list(values)
-  File "/usr/local/lib/python3.10/site-packages/django/contrib/admin/helpers.py", line 152, in __iter__
-    yield AdminReadonlyField(
-  File "/usr/local/lib/python3.10/site-packages/django/contrib/admin/helpers.py", line 211, in __init__
-    label = label_for_field(field, form._meta.model, model_admin, form=form)
-  File "/usr/local/lib/python3.10/site-packages/django/contrib/admin/utils.py", line 361, in label_for_field
-    raise AttributeError(message)
-AttributeError: Unable to lookup 's' on Salt or Salt or SaltForm
-16-Jun-23 01:26:48 - ERROR - Internal Server Error: /admin/auth_app/salt/18/change/
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/options.py", line 668, in get_field
-    return self.fields_map[field_name]
-KeyError: 's'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/django/contrib/admin/utils.py", line 333, in label_for_field
-    field = _get_non_gfk_field(model._meta, name)
-  File "/usr/local/lib/python3.10/site-packages/django/contrib/admin/utils.py", line 302, in _get_non_gfk_field
-    field = opts.get_field(name)
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/options.py", line 670, in get_field
-    raise FieldDoesNotExist(
-django.core.exceptions.FieldDoesNotExist: Salt has no field named 's'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
-    response = get_response(request)
-  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
-    response = response.render()
-  File "/usr/local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
-    self.content = self.rendered_content
-  File "/usr/local/lib/python3.10/site-packages/django/template/response.py", line 92, in rendered_content
-    return template.render(context, self._request)
-  File "/usr/local/lib/python3.10/site-packages/django/template/backends/django.py", line 62, in render
-    return self.template.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 175, in render
-    return self._render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
-    return self.nodelist.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/loader_tags.py", line 157, in render
-    return compiled_parent._render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
-    return self.nodelist.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/loader_tags.py", line 157, in render
-    return compiled_parent._render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
-    return self.nodelist.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/loader_tags.py", line 63, in render
-    result = block.nodelist.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/loader_tags.py", line 63, in render
-    result = block.nodelist.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/defaulttags.py", line 238, in render
-    nodelist.append(node.render_annotated(context))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/loader_tags.py", line 208, in render
-    return template.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 177, in render
-    return self._render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
-    return self.nodelist.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/defaulttags.py", line 238, in render
-    nodelist.append(node.render_annotated(context))
-  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
-    return self.render(context)
-  File "/usr/local/lib/python3.10/site-packages/django/template/defaulttags.py", line 193, in render
-    values = list(values)
-  File "/usr/local/lib/python3.10/site-packages/django/contrib/admin/helpers.py", line 152, in __iter__
-    yield AdminReadonlyField(
-  File "/usr/local/lib/python3.10/site-packages/django/contrib/admin/helpers.py", line 211, in __init__
-    label = label_for_field(field, form._meta.model, model_admin, form=form)
-  File "/usr/local/lib/python3.10/site-packages/django/contrib/admin/utils.py", line 361, in label_for_field
-    raise AttributeError(message)
-AttributeError: Unable to lookup 's' on Salt or Passwd_salt or SaltForm
-16-Jun-23 01:35:45 - INFO - Entró a save
-16-Jun-23 01:35:45 - INFO - salt=$2b$12$8MJcZHJXAjRukJpewEKFme
-16-Jun-23 01:35:46 - INFO - hashed_passwd=$2b$12$8MJcZHJXAjRukJpewEKFmeKFmWxgqy.Hk1KxVA52.KISj76yDeTh6
-16-Jun-23 01:35:46 - INFO - salt_model=Salt object (20)
-16-Jun-23 01:35:46 - INFO - self.salt = Salt object (20)
-16-Jun-23 01:35:46 - INFO - self.passwd=$2b$12$8MJcZHJXAjRukJpewEKFmeKFmWxgqy.Hk1KxVA52.KISj76yDeTh6
-16-Jun-23 01:35:46 - INFO - self.uuid=a01b85d4-7b5d-452d-8df4-1614452fc80a
-16-Jun-23 01:35:46 - INFO - self.chat_id=1056868474
-16-Jun-23 01:35:46 - INFO - self.token_bot=6067760941:AAE5cNI6VwJJ4OVPOGS75Qra_GUpn-VMrA4
+16-Jun-23 23:29:05 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:29:34 - INFO - form user: sysadmin == user.user_name: sysadmin; form_passwd: $2b$12$tG2LOXuwH5ksQMfE37y9Yee1DUwnyMVYUuZD9qZ09eguLLVq4UJSy == user.passwd: $2b$12$tG2LOXuwH5ksQMfE37y9Yee1DUwnyMVYUuZD9qZ09eguLLVq4UJSy
+16-Jun-23 23:29:34 - INFO - login admon global: Basic auth success to sysadmin from 172.18.0.1
+16-Jun-23 23:29:34 - INFO - mandar token: Se hace petición de token
+16-Jun-23 23:29:34 - INFO - mandar token: El token se mando adecuadamente
+16-Jun-23 23:29:44 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:29:44 - INFO - logout Admin Global: Se hace petición por el método: GET
+16-Jun-23 23:29:44 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:30:13 - INFO - form user: sysadmin == user.user_name: sysadmin; form_passwd: $2b$12$tG2LOXuwH5ksQMfE37y9Yee1DUwnyMVYUuZD9qZ09eguLLVq4UJSy == user.passwd: $2b$12$tG2LOXuwH5ksQMfE37y9Yee1DUwnyMVYUuZD9qZ09eguLLVq4UJSy
+16-Jun-23 23:30:13 - INFO - login admon global: Basic auth success to sysadmin from None
+16-Jun-23 23:30:13 - INFO - mandar token: Se hace petición de token
+16-Jun-23 23:30:14 - INFO - mandar token: El token se mando adecuadamente
+16-Jun-23 23:30:23 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:30:23 - INFO - logout Admin Global: Se hace petición por el método: GET
+16-Jun-23 23:30:23 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:30:31 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:31:00 - INFO - form user: sysadmin == user.user_name: sysadmin; form_passwd: $2b$12$tG2LOXuwH5ksQMfE37y9Yee1DUwnyMVYUuZD9qZ09eguLLVq4UJSy == user.passwd: $2b$12$tG2LOXuwH5ksQMfE37y9Yee1DUwnyMVYUuZD9qZ09eguLLVq4UJSy
+16-Jun-23 23:31:00 - INFO - login admon global: Basic auth success to sysadmin from 172.18.0.1
+16-Jun-23 23:31:00 - INFO - mandar token: Se hace petición de token
+16-Jun-23 23:31:02 - INFO - mandar token: El token se mando adecuadamente
+16-Jun-23 23:35:35 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:36 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:36 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:36 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:36 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:36 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:36 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:36 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:36 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:36 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:36 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:42 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:42 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:42 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:42 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:42 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:42 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:42 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:42 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:42 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:42 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:35:42 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:36:40 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:36:40 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:36:40 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:36:40 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:36:40 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:36:40 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:36:40 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:36:40 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:36:40 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:36:40 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:36:40 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:37:19 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:37:20 - INFO - login Admin Global: Se hace petición por el método: GET
+16-Jun-23 23:37:20 - INFO - logout Admin Global: Se hace petición por el método: GET
+16-Jun-23 23:37:20 - ERROR - login Admin Global: Error no existe el usuario
+16-Jun-23 23:37:20 - INFO - login Admin Global: Se hace petición por el método: GET
+16-Jun-23 23:37:28 - INFO - login Admin Global: Se hace petición por el método: GET
+16-Jun-23 23:37:35 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:42:46 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:42:56 - INFO - form user: sysadmin == user.user_name: sysadmin; form_passwd: $2b$12$tG2LOXuwH5ksQMfE37y9Yee1DUwnyMVYUuZD9qZ09eguLLVq4UJSy == user.passwd: $2b$12$tG2LOXuwH5ksQMfE37y9Yee1DUwnyMVYUuZD9qZ09eguLLVq4UJSy
+16-Jun-23 23:42:56 - INFO - login admon global: Basic auth success to sysadmin from 172.18.0.1
+16-Jun-23 23:42:57 - INFO - mandar token: Se hace petición de token
+16-Jun-23 23:42:57 - INFO - mandar token: El token se mando adecuadamente
+16-Jun-23 23:46:53 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:46:53 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:47:08 - INFO - form user: sysadmin == user.user_name: sysadmin; form_passwd: $2b$12$tG2LOXuwH5ksQMfE37y9Yee1DUwnyMVYUuZD9qZ09eguLLVq4UJSy == user.passwd: $2b$12$tG2LOXuwH5ksQMfE37y9Yee1DUwnyMVYUuZD9qZ09eguLLVq4UJSy
+16-Jun-23 23:47:08 - INFO - login admon global: Basic auth success to sysadmin from 172.18.0.1
+16-Jun-23 23:47:08 - INFO - mandar token: Se hace petición de token
+16-Jun-23 23:47:10 - INFO - mandar token: El token se mando adecuadamente
+16-Jun-23 23:47:30 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:47:30 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:48:33 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:51:37 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:52:29 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:52:53 - INFO - form user: sysadmin == user.user_name: sysadmin; form_passwd: $2b$12$tG2LOXuwH5ksQMfE37y9Yee1DUwnyMVYUuZD9qZ09eguLLVq4UJSy == user.passwd: $2b$12$tG2LOXuwH5ksQMfE37y9Yee1DUwnyMVYUuZD9qZ09eguLLVq4UJSy
+16-Jun-23 23:52:53 - INFO - login admon global: Basic auth success to sysadmin from 172.18.0.1
+16-Jun-23 23:52:53 - INFO - mandar token: Se hace petición de token
+16-Jun-23 23:52:55 - INFO - mandar token: El token se mando adecuadamente
+16-Jun-23 23:53:28 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:53:28 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:58:22 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:58:38 - INFO - form user: sysadmin == user.user_name: sysadmin; form_passwd: $2b$12$tG2LOXuwH5ksQMfE37y9Yee1DUwnyMVYUuZD9qZ09eguLLVq4UJSy == user.passwd: $2b$12$tG2LOXuwH5ksQMfE37y9Yee1DUwnyMVYUuZD9qZ09eguLLVq4UJSy
+16-Jun-23 23:58:38 - INFO - login admon global: Basic auth success to sysadmin from 172.18.0.1
+16-Jun-23 23:58:38 - INFO - mandar token: Se hace petición de token
+16-Jun-23 23:58:39 - INFO - mandar token: El token se mando adecuadamente
+16-Jun-23 23:58:51 - INFO - login sysadmin: Se hace petición por el método: GET
+16-Jun-23 23:58:52 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 00:28:13 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 00:28:27 - INFO - login admon global: Basic auth success to global from None
+17-Jun-23 00:28:27 - INFO - mandar token: Se hace petición de token
+17-Jun-23 00:28:28 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 00:29:21 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 00:29:21 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 00:29:33 - INFO - login admon global: Basic auth success to global from 172.18.0.1
+17-Jun-23 00:29:33 - INFO - mandar token: Se hace petición de token
+17-Jun-23 00:29:34 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 00:29:35 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 00:29:35 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 00:29:40 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 00:30:37 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 00:30:49 - INFO - login admon global: Basic auth success to global from 172.18.0.1
+17-Jun-23 00:30:49 - INFO - mandar token: Se hace petición de token
+17-Jun-23 00:30:50 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 00:30:55 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 00:30:55 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 00:31:28 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 00:32:20 - INFO - login admon global: Basic auth success to sysadmin from 172.18.0.1
+17-Jun-23 00:32:20 - INFO - mandar token: Se hace petición de token
+17-Jun-23 00:32:21 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 00:32:27 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 00:32:27 - INFO - login sysadmin: Se hace petición por el método: GET
