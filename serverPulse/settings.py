@@ -166,8 +166,8 @@ CSRF_COOKIE_HTTPONLY = True
 SESSIONS_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_DB_TABLE = 'django_sessions'
 
-# True only in production, Session cookies only sended over HTTPS
-SESSION_COOKIE_SECURE = True
+# set time in seconds. Time to live cookie session
+SESSION_COOKIE_AGE = 3600 # equals 1 hour
 
 # If value is True, sessions cannot be accesed via Javascript
 # False only in development enviroment

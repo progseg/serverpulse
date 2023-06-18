@@ -18,25 +18,19 @@
     ></script>
     {% endblock%}
     <title>{% block title %}Título de la página{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
     {% block head %}{% endblock %}
   </head>
   <body>
-    <header>
-      {% block header %}
+    <header class="container-fluid text-center bg-primary pt-5 pb-3 mt-3
+    mb-3 rounded text-white">
+      <h1>{% block header %}
       <!-- Contenido del encabezado -->
-      {% endblock %}
+      {% endblock %}</h1>
     </header>
-    <main>
+    <main class='container'>
       {% block content %}
       <!-- Contenido principal de la página -->
       {% endblock %}
     </main>
-
-    <footer>
-      {% block footer %}
-      <!-- Contenido del pie de página -->
-      {% endblock %}
-    </footer>
   </body>
 </html>

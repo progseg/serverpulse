@@ -226,3 +226,216 @@
 17-Jun-23 12:30:14 - WARNING - Not Found: /static/js/style.css
 17-Jun-23 12:30:27 - INFO - logout Admin Global: Se hace petición por el método: GET
 17-Jun-23 12:30:27 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 17:59:02 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 17:59:54 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:00:22 - INFO - login admon global: Basic auth success to sysadmin from None
+17-Jun-23 18:00:22 - INFO - mandar token: Se hace petición de token
+17-Jun-23 18:00:24 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 18:01:24 - INFO - mandar token: Se hace petición de token
+17-Jun-23 18:01:27 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 18:03:17 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:03:36 - INFO - login admon global: Basic auth success to sysadmin from 172.18.0.1
+17-Jun-23 18:03:36 - INFO - mandar token: Se hace petición de token
+17-Jun-23 18:03:37 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 18:03:55 - ERROR - Internal Server Error: /serverpulse/2FAsysadmin
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/utils/deprecation.py", line 138, in __call__
+    response = self.process_response(request, response)
+  File "/usr/local/lib/python3.10/site-packages/django/contrib/sessions/middleware.py", line 59, in process_response
+    request.session.save()
+  File "/usr/local/lib/python3.10/site-packages/django/contrib/sessions/backends/db.py", line 82, in save
+    obj = self.create_model_instance(data)
+  File "/usr/local/lib/python3.10/site-packages/django/contrib/sessions/backends/db.py", line 69, in create_model_instance
+    session_data=self.encode(data),
+  File "/usr/local/lib/python3.10/site-packages/django/contrib/sessions/backends/base.py", line 94, in encode
+    return signing.dumps(
+  File "/usr/local/lib/python3.10/site-packages/django/core/signing.py", line 150, in dumps
+    return TimestampSigner(key, salt=salt).sign_object(
+  File "/usr/local/lib/python3.10/site-packages/django/core/signing.py", line 228, in sign_object
+    data = serializer().dumps(obj)
+  File "/usr/local/lib/python3.10/site-packages/django/core/signing.py", line 125, in dumps
+    return json.dumps(obj, separators=(",", ":")).encode("latin-1")
+  File "/usr/local/lib/python3.10/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "/usr/local/lib/python3.10/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/usr/local/lib/python3.10/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/usr/local/lib/python3.10/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type UUID is not JSON serializable
+17-Jun-23 18:05:19 - INFO - mandar token: Se hace petición de token
+17-Jun-23 18:05:30 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 18:05:47 - INFO - dashboard Sys Admin: Se hace petición por el método: GET
+17-Jun-23 18:05:47 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 18:05:52 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 18:05:57 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:06:25 - INFO - login admon global: Basic auth success to sysadmin from None
+17-Jun-23 18:06:25 - INFO - mandar token: Se hace petición de token
+17-Jun-23 18:06:27 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 18:06:47 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:07:08 - INFO - login admon global: Basic auth success to sysadmin from 172.18.0.1
+17-Jun-23 18:07:08 - INFO - mandar token: Se hace petición de token
+17-Jun-23 18:07:14 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 18:07:33 - INFO - dashboard Sys Admin: Se hace petición por el método: GET
+17-Jun-23 18:07:34 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 18:07:34 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 18:11:57 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:11:57 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:13:07 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:14:06 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:14:34 - INFO - login admon global: Basic auth success to sysadmin from None
+17-Jun-23 18:14:35 - INFO - mandar token: Se hace petición de token
+17-Jun-23 18:14:38 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 18:15:05 - INFO - dashboard Sys Admin: Se hace petición por el método: GET
+17-Jun-23 18:15:05 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 18:15:05 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 18:16:23 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:16:23 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:16:37 - INFO - login admon global: Basic auth success to sysadmin from None
+17-Jun-23 18:16:37 - INFO - mandar token: Se hace petición de token
+17-Jun-23 18:16:38 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 18:17:07 - INFO - dashboard Sys Admin: Se hace petición por el método: GET
+17-Jun-23 18:17:07 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 18:20:23 - INFO - logout Admin Global: Se hace petición por el método: GET
+17-Jun-23 18:20:23 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 18:20:29 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:21:20 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:22:09 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:23:06 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:23:25 - INFO - login admon global: Basic auth success to sysadmin from None
+17-Jun-23 18:23:25 - INFO - mandar token: Se hace petición de token
+17-Jun-23 18:23:31 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 18:23:51 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:24:44 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:24:48 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 18:25:13 - INFO - login admon global: Basic auth success to sysadmin from 172.18.0.1
+17-Jun-23 18:25:13 - INFO - mandar token: Se hace petición de token
+17-Jun-23 18:25:16 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 18:25:56 - INFO - dashboard Sys Admin: Se hace petición por el método: GET
+17-Jun-23 18:25:56 - ERROR - Internal Server Error: /serverpulse/dashboard_sys_admin
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/sysadmin/decorators_sys_admin.py", line 14, in wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/utils/decorators.py", line 133, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/app/sysadmin/views.py", line 19, in dashboard_sys_admin
+    return render(request, 'dashboard_sysadmin.html')
+  File "/usr/local/lib/python3.10/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/usr/local/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/usr/local/lib/python3.10/site-packages/django/template/backends/django.py", line 62, in render
+    return self.template.render(context)
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/usr/local/lib/python3.10/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/usr/local/lib/python3.10/site-packages/django/template/defaulttags.py", line 472, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/usr/local/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/urls/resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'state_servidor' not found. 'state_servidor' is not a valid view function or pattern name.
+17-Jun-23 18:26:34 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 19:15:05 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 19:15:35 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 19:17:36 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 19:17:58 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 19:20:25 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 19:37:10 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 19:41:14 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 19:43:31 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 19:44:14 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 19:49:09 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 19:49:54 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 19:50:42 - INFO - login Admin Global: Se hace petición por el método: GET
+17-Jun-23 19:51:11 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 19:53:34 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 20:07:02 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 20:07:25 - INFO - login admon global: Basic auth success to sysadmin from None
+17-Jun-23 20:07:25 - INFO - mandar token: Se hace petición de token
+17-Jun-23 20:07:29 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 20:07:46 - INFO - dashboard Sys Admin: Se hace petición por el método: GET
+17-Jun-23 20:07:46 - ERROR - Internal Server Error: /serverpulse/dashboard_sys_admin
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/sysadmin/decorators_sys_admin.py", line 14, in wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/utils/decorators.py", line 133, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/app/sysadmin/views.py", line 19, in dashboard_sys_admin
+    return render(request, 'dashboard_sysadmin.html')
+  File "/usr/local/lib/python3.10/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/usr/local/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/usr/local/lib/python3.10/site-packages/django/template/backends/django.py", line 62, in render
+    return self.template.render(context)
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/usr/local/lib/python3.10/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/usr/local/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/usr/local/lib/python3.10/site-packages/django/template/defaulttags.py", line 472, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/usr/local/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/urls/resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'logout_sys_admin' not found. 'logout_sys_admin' is not a valid view function or pattern name.
+17-Jun-23 20:23:31 - INFO - dashboard Sys Admin: Se hace petición por el método: GET
+17-Jun-23 20:23:31 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 20:23:31 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 20:23:40 - INFO - dashboard Sys Admin: Se hace petición por el método: GET
+17-Jun-23 20:23:41 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 20:23:57 - INFO - logout sysadmin: Se hace petición por el método: GET
+17-Jun-23 20:23:57 - INFO - login sysadmin: Se hace petición por el método: GET
+17-Jun-23 20:24:34 - INFO - login admon global: Basic auth success to sysadmin from None
+17-Jun-23 20:24:34 - INFO - mandar token: Se hace petición de token
+17-Jun-23 20:24:36 - INFO - mandar token: El token se mando adecuadamente
+17-Jun-23 20:24:56 - INFO - dashboard Sys Admin: Se hace petición por el método: GET
+17-Jun-23 20:24:57 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 20:24:57 - WARNING - Not Found: /static/js/style.css
+17-Jun-23 20:25:00 - INFO - login sysadmin: Se hace petición por el método: GET

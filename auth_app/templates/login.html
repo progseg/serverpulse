@@ -1,4 +1,6 @@
-{% extends 'base.html' %}{% load static %}{% block title %}login{% endblock %} 
+{% extends 'base.html' %}
+{% block title %}login{% endblock %} 
+{% block header %}Login{% endblock %}
 {% block content %}
     {% if messages %}
         <ul class='messages'>
@@ -8,28 +10,29 @@
         </ul>
     {% endif %}
 
-    <form method='POST'>
-        {% csrf_token %}
-        <section>
-            <h2>Iniciar Sesión</h2>
-            
-            <fieldset>
-            
+
+    <div class="card">
+        <div class="card-header text-center">
+            <h4>Ingrese sus crendenciales</h4>
+        </div>
+        <div class = "card-body card-block">
+            <form method='POST' class="form-horizontal">
+                {% csrf_token %}
                 {% for field in form %}
-                <div class="field-wrapper">
-                    {{ field.label_tag }}
-                    {{ field }}
-                    {% if field.errors %}
-                        <ul class="errorlist">
+                    <div class="row fom-group">
+                        <div class="col col-md-3 mb-3">{{ field.label_tag }}</div>
+                        <div class="col-12 col-md-9 mb-3">{{ field }}</div>
+                        {% if field.errors %}
                             {% for error in field.errors %}
-                                <li>{{ error }}</li>
+                                <div class="is-invalid">
+                                    <div class="badge bg-danger">{{ error|escape }}</div>
+                                </div>
                             {% endfor %}
-                        </ul>
-                    {% endif %}
-                </div>
-            {% endfor %}
-            </fieldset>
-        </section>
-        <button type='submit'>Enviar</button>
-    </form>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button type='submit' class="btn btn-success">Enviar</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}

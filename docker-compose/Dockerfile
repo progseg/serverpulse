@@ -2,15 +2,10 @@
 FROM python:3.10-bullseye
 
 # update and install environment dependencies
-RUN apt update
-RUN apt full-upgrade -y
-RUN pip install gunicorn
+RUN apt update && apt full-upgrade -y
 
 # create user exec
 RUN useradd -M -s /usr/bin/nologin serverpulse
-
-# app port
-EXPOSE 8000
 
 # Set workon dir
 WORKDIR /app
@@ -20,7 +15,7 @@ VOLUME /app
 
 # install internal dependencies
 COPY ./requeriments.txt .
-RUN pip install -r requeriments.txt
+RUN pip install --upgrade pip && pip install -r requeriments.txt
 
 # change owner and permissions of volume
 COPY ./setup_serverpulse.sh /usr/local/bin/

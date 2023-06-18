@@ -1,0 +1,67 @@
+{% extends 'base_sysadmin.html' %}
+{% block titulo %}Conexión remota{% endblock %}
+{% block encabezado %}Conectarse a un servidor{% endblock %}
+{% block contenido %}
+{% if messages %}
+<ul class='messages'>
+{% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% if servers %}
+<div class="card">
+  <div class="card-header">
+    <strong class="card-title">Servidores asociados</strong>
+  </div>
+  <div class="table-stats order-table ov-h">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Dirección IP</th>
+          <th>Opciones</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for server in servers %}
+        <tr>
+          <td>{{ server.ipv4_address }}</td>
+          <td>
+            <a href="{% url 'editar_server' server.uuid %}" class="btn btn-primary">Conexión remota</a>            
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+<h1>No existen servidores asociados</h1>
+{% endif %}
+
+<div class="modal fade" id="creacion" role="dialog">
+
+</div>
+
+<div class="modal fade" id="edicion" role="dialog">
+
+</div>
+
+{% endblock contenido %}
+
+{% block extrajs %}
+<script type="text/javascript">
+  var $ = jQuery.noConflict();
+  function abrir_modal_edicion(url){
+    $('#edicion').load(url, function (){
+      $(this).modal('show');
+    });
+  }
+  function abrir_modal_creacion(url){
+    $('#creacion').load(url,functestadoion(){
+      $(this).modal('show');
+    });
+  }
+</script>
+{% endblock extrajs %}
