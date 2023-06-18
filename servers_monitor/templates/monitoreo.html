@@ -1,8 +1,37 @@
-{% extends 'base_sysadmin.html' %}
+{% extends 'base.html' %}
+{% load static %}
 {% block titulo %}Monitoreo de Servidores{% endblock %}
 {% block encabezado %}Monitoreo de Servidores{% endblock %}
 {% block scripts %}
-<script src="/static/js/monitor_server.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+(function() {
+        function fetchData() {
+            $.ajax({
+                url: 'http://192.168.1.85:8000/monitor_data/',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response_data) {
+					$('#memory_percent').text(response_data.memory_percent + '%');
+					$('#cpu_percent').text(response_data.cpu_percent + '%');
+					$('#disk_percent').text(response_data.disk_percent + '%');
+					
+    			},
+
+                error: function(xhr, textStatus, errorThrown) {
+                    console.log('Error en la solicitud Ajax: ' + textStatus);
+                },
+                complete: function() {
+                    setTimeout(fetchData, 5000);
+                }
+            });
+        }
+    
+        $(function() {
+            fetchData();
+        });
+    })();
+</script>
 {% endblock %}
 {% block contenido %}
 <section class="container">
@@ -10,59 +39,21 @@
     <h1>Servidores</h1>
   </div>
 </section>
-<div class="container">
-  {% if error %}
-  <h3 style="color:red">Ocurrieron errores al cargar datos</h3>
-  <h4>Revise su conexión.</h4>
-  {% else %}
   Bienvenido <b> <span style="color:violet">{{ admin.user_name }}</span> </b> 
   <table class="table">
     <thead>
       <tr>
-        <th>Direccion IP</th>
+        <th>Memoria (%)</th>
         <th>CPU (%)</th>
-        <th>RAM (%)</th>
         <th>Disco (%)</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td id="ipv4_address">{{ servidor.ipv4_address }}</td>
-        <td id="cpu-usage"> {{ servidor.cpu-usage }}</td>
-        <td id="processor-details">{{ servidor.processor-details }}</td>
-        <td id="disk-usage">{{ servidor.disk-usage }}</td>
+        <td id="memory_percent"></td>
+        <td id="cpu_percent"></td>
+        <td id="disk_percent"></td>
       </tr>
-      <tbody id="cambiar"></tbody>
+      <tbody></tbody>
 </table>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<a class="btn btn-primary" href="http://10.0.2.61:8000/monitor_data/">Actualizar</a>
-<script>
-    function fetchData() {
-        $.ajax({
-            url: 'http://10.0.2.61:8000/monitor_data/',
-            method: 'POST',  // Método POST para enviar los datos desde el cliente remoto
-            success: function(response) {
-                // Actualizar los elementos HTML con los datos recibidos del servidor Django
-                $('#cpu-usage').text('CPU Usage: ' + response.cpu_usage);
-                $('#processor-details').text('Processor Details: ' + response.processor_details);
-                $('#disk-usage').text('Disk Usage: ' + response.disk_usage);
-            //dataType: 'json',
-            //success: function(data) {
-                //$('#cpu').text(data.cpu_percent + '%');
-                //$('#memory').text(data.memory_percent + '%');
-                //$('#disk').text(data.disk_percent + '%');
-            },
-            error: function(xhr, textStatus, errorThrown) {
-                console.log('Error en la solicitud Ajax: ' + textStatus);
-            },
-            complete: function() {
-                setTimeout(fetchData, 5000);
-            }
-        });
-    }
-
-    $(document).ready(function() {
-        fetchData();
-    });
-</script>
 {% endblock %}

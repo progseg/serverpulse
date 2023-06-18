@@ -171,27 +171,23 @@ def serializar_registros(servs):
 
 
 @csrf_exempt
-def monitor_data(request: HttpRequest) -> HttpResponse:
-    """
-    Esta función maneja una solicitud POST que contiene 
-    el uso de la CPU, procesador y uso del disco. 
-    Si el método de solicitud no es POST, devuelve una 
-    respuesta HTTP "Método no permitido".
-    Args:
-        request (HttpRequest): 
-
-    Returns:
-        HttpResponse: 
-    """
-    if request.method == 'POST':
-        cpu_usage = request.POST.get('cpu_usage')
-        processor_details = request.POST.get('processor_details')
-        disk_usage = request.POST.get('disk_usage')
-        context = {
-            'cpu_usage': cpu_usage,
-            'processor_details': processor_details,
-            'disk_usage': disk_usage
+def monitor_data(request):
+    if request.method == 'GET':
+        cpu_percent = request.GET.get('cpu_percent')
+        memory_percent = request.GET.get('memory_percent')
+        disk_percent = request.GET.get('disk_percent')
+        print(cpu_percent)
+        print(memory_percent)
+        print(disk_percent)
+        response_data = {
+            'cpu_percent': cpu_percent,
+            'memory_percent': memory_percent,
+            'disk_percent': disk_percent
         }
-        return render(request, 'monitoreo.html', context)
+        return JsonResponse(response_data, safe=False)
     else:
-        return HttpResponse('Método no permitido')
+        return JsonResponse({'error': 'Método no permitido'})
+        
+
+def monitor(request):
+    return render(request, 'monitoreo.html')
