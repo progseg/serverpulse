@@ -14,7 +14,7 @@
   + Porcentaje de uso de memoria
   + Porcentaje de uso de disco
   + Puntos extra: mandar una notificación por fuera del sistema (a telegram por ejemplo) si algún servidor cae
-- Conectarse al servidor: a través de la misma interfaz web (no usar ssh por fuera) se puede abrir una terminal hacía el servidor
+- :accept: Conectarse al servidor: a través de la misma interfaz web (no usar ssh por fuera) se puede abrir una terminal hacía el servidor
 
 ## Prácticas
 
