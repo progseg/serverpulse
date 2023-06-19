@@ -18,6 +18,14 @@ from . import views
 
 
 urlpatterns = [
-    path('dashboard_sys_admin', views.dashboard_sys_admin,
-         name='dashboard_sys_admin')
+    path(
+        'dashboard_sys_admin',
+        views.dashboard_sys_admin,
+        name='dashboard_sys_admin'
+    ),
+    path(
+        'list_conn',
+        views.server_list,
+        name='list_conn'
+    )
 ]

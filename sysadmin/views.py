@@ -25,10 +25,12 @@ def dashboard_sys_admin(request: HttpRequest) -> HttpResponse:
 def server_list(request):
     uuid = request.session.get('uuid')
     sysadmin = models.Sysadmin.objects.get(uuid=uuid)
+    user_name=sysadmin.user_name
 
-    servidores = sysadmin.servidores.all()
+    servidores = models.Servidor.objects.filter(sysadmin=sysadmin)
 
     context = {
-        'servidores': servidores
+        'servidores': servidores,
+        'username': user_name,
     }
     return render(request, 'server_list.html', context)

@@ -156,7 +156,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Sessions and cookies
 
 # CSRF settings
-CSRF_TRUSTED_ORIGINS=['nginx', 'https://127.0.0.1']
+CSRF_TRUSTED_ORIGINS=['https://127.0.0.1']
 #CSRF_COOKIE_DOMAIN='localhost'
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = "Strict"

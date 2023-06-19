@@ -726,9 +726,10 @@ def login_double_auth_sysadmin(request: HttpRequest) -> HttpResponse:
                 timestamp_ultimo_intento = None,
                 ipv4_address = None
             )
+            uuid = str(user.uuid)
             request.session['token_spected'] = False
             request.session['role'] = 'sysadmin'
-            request.session['uuid'] = str(user.uuid)
+            request.session['uuid'] = uuid
             return redirect('dashboard_sys_admin')
 
         else:

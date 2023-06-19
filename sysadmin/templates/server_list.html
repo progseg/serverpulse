@@ -9,10 +9,10 @@
 {% endfor %}
 </ul>
 {% endif %}
-{% if servers %}
+{% if servidores %}
 <div class="card">
   <div class="card-header">
-    <strong class="card-title">Servidores asociados</strong>
+    <strong class="card-title">Servidores asociados a {{ username }}</strong>
   </div>
   <div class="table-stats order-table ov-h">
     <table class="table">
@@ -20,24 +20,25 @@
         <tr>
           <th>Dirección IP</th>
           <th>Opciones</th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
-        {% for server in servers %}
-        <tr>
-          <td>{{ server.ipv4_address }}</td>
-          <td>
-            <a href="{% url 'editar_server' server.uuid %}" class="btn btn-primary">Conexión remota</a>            
-          </td>
-        </tr>
+        {% for servidor in servidores %}
+          <tr>
+            <td>
+              <strong>{{ servidor.ipv4_address }}</strong>
+            </td>
+            <td>
+              <a href="https://{{ servidor.ipv4_address }}:7681" target="_blank" class="btn btn-success">Conexión remota</a>
+            </td>
+          </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
 </div>
 {% else %}
-<h1>No existen servidores asociados</h1>
+<h1>No existen servidores asociados a {{ username }}</h1>
 {% endif %}
 
 <div class="modal fade" id="creacion" role="dialog">

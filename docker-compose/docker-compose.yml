@@ -10,12 +10,10 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
     networks:
-      - serverpulse_net
+      - docker-compose_serverpulse_net
 
   django:
     image: serverpulse:latest
-    expose:
-      - 8000
     depends_on:
       - postgres
     environment:
@@ -29,7 +27,7 @@ services:
     volumes:
       - /home/dllg/Documentos/ProgramaciónSegura/nuevoProyFin/serverPulse:/app
     networks:
-      - serverpulse_net
+      - docker-compose_serverpulse_net
     
   nginx:
     image: nginx:stable-bullseye
@@ -43,8 +41,9 @@ services:
     depends_on:
       - django
     networks:
-      - serverpulse_net
+      - docker-compose_serverpulse_net
+    
 
 networks:
-  serverpulse_net:
+  docker-compose_serverpulse_net:
     driver: bridge
