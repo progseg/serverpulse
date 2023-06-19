@@ -1,0 +1,16 @@
+version: '2.18.1'
+services:
+  terminal:
+    build: .
+    ports:
+      - 7681:7681
+    restart: always
+    environment:
+      USER_TERMINAL: ${USER_TERMINAL}
+      PASSWORD_TERMINAL: ${PASSWORD_TERMINAL}
+    networks:
+      - terminal
+
+networks:
+  terminal:
+    external: true

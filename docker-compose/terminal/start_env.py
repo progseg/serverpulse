@@ -22,8 +22,10 @@ for env in env_data.decode().splitlines():
     os.environ[key] = value
 
 try:
-    exec_docker_compose = subprocess.call(['docker', 'compose', 'up'])
-except Exception:
-    print('El ambiente no pudo inicializarse, error inesperado')
+    exec_docker_compose = subprocess.call(['docker', 'compose', 'up', '-d'])
+    print('Ambiente inicializado')
+    exit(0)
+except Exception as e:
+    print(f"El ambiente no pudo inicializarse, error inesperado: {e}")
     subprocess.call(['docker', 'compose', 'kill'])
     exit(1)

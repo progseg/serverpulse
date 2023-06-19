@@ -28,6 +28,5 @@ urlpatterns = [
     path('serverpulse/', include('admon_global.urls')),
     path('serverpulse/', include('sysadmin.urls')),
     path('serverpulse/', include('servers_monitor.urls')),
-    path('serverpulse/', include('conn_servers.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

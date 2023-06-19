@@ -1,0 +1,8 @@
+ # encrypt enviroment variables
+gpg --symmetric --cipher-algo AES256 secrets.env
+
+# create external subnet with gateway, route container to host 
+docker network create -d bridge --subnet 192.167.54.0/24 --gateway 192.167.54.1 terminal
+
+# start enviroment
+python3 start_env.py

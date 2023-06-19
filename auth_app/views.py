@@ -442,7 +442,7 @@ def login_double_auth_admon_global(request: HttpRequest) -> HttpResponse:
             new_token = None
             update_tokenotp(user, new_token)
             messages.error(request,
-                           'No se completó la solicitud del token. Por favor, vuelva a inicar sesión')
+                           'No se completó la solicitud del token. Por favor, compruebe su información de 2FA con el webmaster')
             return redirect('login_admon_global')
 
         request.session['username'] = user.user_name
@@ -674,7 +674,7 @@ def login_double_auth_sysadmin(request: HttpRequest) -> HttpResponse:
             new_token = None
             update_tokenotp(user, new_token)
             messages.error(request,
-                           'No se completó la solicitud del token. Por favor, vuelva a inicar sesión')
+                           'No se completó la solicitud del token. Por favor, compruebe su información 2FA con el admonGlobal')
             return redirect('login_sysadmin')
 
         request.session['username'] = user.user_name
