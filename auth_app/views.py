@@ -36,6 +36,15 @@ LOCK_TIME_RANGE = 300.0  # 5 min
 
 
 def clean_specials(clean_data):
+    """
+    Limpia los datos especiales escapando los valores de los campos.
+
+    Args:
+        clean_data (dict): Diccionario con los datos a limpiar.
+
+    Returns:
+        dict: Diccionario con los datos escapados.
+    """
     escaped_data = {}
     for field_name, field_value in clean_data.items():
         escaped_data[field_name] = escape(field_value)
@@ -43,6 +52,19 @@ def clean_specials(clean_data):
 
 
 def derivate_passwd(salt, passwd):
+    """
+    Deriva la contraseña utilizando una sal y el algoritmo bcrypt.
+
+    Args:
+        salt (str): Sal utilizada en la derivación.
+        passwd (str): Contraseña a derivar.
+
+    Returns:
+        str: Contraseña derivada.
+    Raises:
+        Exception: Si ocurre un error durante la derivación 
+        de la contraseña.
+    """
     salt_bytes = salt.encode()
     passwd_bytes = passwd.encode()
 
@@ -54,6 +76,16 @@ def derivate_passwd(salt, passwd):
 
 
 def request_tokenotp(user: Model) -> bool:
+    """
+    Realiza una solicitud de token OTP para el usuario.
+
+    Args:
+        user (Model): Instancia del modelo de usuario.
+
+    Returns:
+        bool: True si la solicitud de token fue exitosa, 
+        False en caso contrario.
+    """
     logging.info(
         'mandar token: Se hace petición de token')
 
@@ -83,12 +115,29 @@ def request_tokenotp(user: Model) -> bool:
 
 
 def create_tokenotp() -> str:
+    """
+    Crea un nuevo token OTP.
+
+    Returns:
+        str: Token OTP generado.
+    """
     new_token_double_auth = ''.join(secrets.choice(
         string.ascii_letters + string.digits) for _ in range(24))
     return new_token_double_auth
 
 
 def update_tokenotp(user: Model, new_token_double_auth: str) -> bool:
+    """
+    Actualiza el token OTP del usuario en la base de datos.
+
+    Args:
+        user (Model): Instancia del modelo de usuario.
+        new_token_double_auth (str): Nuevo token OTP.
+
+    Returns:
+        bool: True si la actualización fue exitosa, 
+        False en caso contrario.
+    """
     try:
         user.__class__.objects.filter(uuid=user.uuid).update(
             token_double_auth = new_token_double_auth,
@@ -112,6 +161,18 @@ def update_tokenotp(user: Model, new_token_double_auth: str) -> bool:
 
 
 def send_tokenotp(user: Model, new_token_double_auth) -> bool:
+    """
+    Envía un token OTP al usuario a través de Telegram.
+
+    Args:
+        user (Model): El usuario al que se enviará el token.
+        new_token_double_auth: El nuevo token de autenticación 
+        de doble factor.
+
+    Returns:
+        bool: True si se envió el token correctamente, 
+        False en caso contrario.
+    """
 
     username = user.user_name
     token_bot = user.token_bot
@@ -146,6 +207,16 @@ def send_tokenotp(user: Model, new_token_double_auth) -> bool:
 
 
 def check_tokenotp_valid(user: Model, form_tokenotp: str) -> bool:
+    """
+    Verifica si el token OTP proporcionado por el usuario es válido.
+
+    Args:
+        user (Model): El usuario para el cual se verifica el token.
+        form_tokenotp (str): El token OTP proporcionado por el usuario.
+
+    Returns:
+        bool: True si el token es válido, False en caso contrario.
+    """
 
     user_token = user.token_double_auth
     user_timestamp_token = user.timestamp_token_double_auth
@@ -162,6 +233,15 @@ def check_tokenotp_valid(user: Model, form_tokenotp: str) -> bool:
 
 # login attemps validation over IPv4
 def get_ip_client(request: HttpRequest) -> str:
+    """
+    Obtiene la dirección IP del cliente que realiza la solicitud.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP recibida.
+
+    Returns:
+        str: La dirección IP del cliente.
+    """
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
@@ -172,6 +252,19 @@ def get_ip_client(request: HttpRequest) -> str:
 
 
 def save_ip_client(user: Model, ip: str) -> bool:
+    """
+    Guarda la dirección IP del cliente en el objeto de usuario 
+    proporcionado.
+
+    Args:
+        user (Model): El usuario para el cual se guarda 
+        la dirección IP.
+        ip (str): La dirección IP del cliente.
+
+    Returns:
+        bool: True si se guarda la dirección IP correctamente, 
+        False en caso contrario.
+    """
 
     timestamp_now = timezone.now()
 
@@ -187,6 +280,18 @@ def save_ip_client(user: Model, ip: str) -> bool:
 
 
 def delete_ipv4_client(user: Model) -> bool:
+    """
+    Elimina la dirección IP almacenada del cliente en el 
+    objeto de usuario proporcionado.
+
+    Args:
+        user (Model): El usuario para el cual se eliminará 
+        la dirección IP.
+
+    Returns:
+        bool: True si se elimina la dirección IP correctamente, 
+        False en caso contrario.
+    """
     try:
         user.__class__.objects.filter(uuid=user.uuid).update(
             ipv4_address = None
@@ -198,6 +303,18 @@ def delete_ipv4_client(user: Model) -> bool:
 
 # Section of attempt count
 def check_attemps_login(attemps_count: int) -> bool:
+    """
+    Verifica si el número de intentos de inicio de sesión 
+    es menor que el máximo permitido.
+
+    Args:
+        attemps_count (int): El número de intentos de 
+        inicio de sesión.
+
+    Returns:
+        bool: True si los intentos son menores que el 
+        máximo permitido, False en caso contrario.
+    """
     if (attemps_count < MAX_ATTEMPS):
         return True
     else:
@@ -205,6 +322,18 @@ def check_attemps_login(attemps_count: int) -> bool:
 
 
 def increment_attemps_account(user: Model) -> bool:
+    """
+    Incrementa el contador de intentos de inicio de sesión 
+    y actualiza el timestamp.
+
+    Args:
+        user (Model): El usuario para el cual se incrementan 
+        los intentos.
+
+    Returns:
+        bool: True si se incrementan los intentos correctamente, 
+        False en caso contrario.
+    """
     # incrementa el contador de intentos y actualiza el timestamp
     update_attemps = user.intentos + 1
     update_timestamp_attemps = timezone.now()
@@ -220,6 +349,15 @@ def increment_attemps_account(user: Model) -> bool:
 
 
 def block_user(user: Model) -> bool:
+    """
+    Bloquea la cuenta del usuario si el tiempo de bloqueo no ha expirado.
+
+    Args:
+        user (Model): El usuario para el cual se verifica el tiempo de bloqueo.
+
+    Returns:
+        bool: True si la cuenta está bloqueada, False si no está bloqueada.
+    """
     # si ya pasaron más de 5 minutos, reinicia el contador y el timestamp, sino, truena la atenticación
     # False seugnifica que la cuenta no se bloquea, True que la cuenta si se bloquea
     timestamp_now = timezone.now()
@@ -250,6 +388,18 @@ def block_user(user: Model) -> bool:
 
 
 def restart_attemps(user: Model) -> bool:
+    """
+    Reinicia el contador de intentos de inicio de sesión 
+    y el timestamp.
+
+    Args:
+        user (Model): El usuario para el cual se reinician 
+        los intentos.
+
+    Returns:
+        bool: True si se reinician los intentos correctamente, 
+        False en caso contrario.
+    """
     try:
         user.__class__.objects.filter(uuid=user.uuid).update(
             intentos = MIN_ATTEMPS,
@@ -262,6 +412,17 @@ def restart_attemps(user: Model) -> bool:
 
 # logout section
 def logout(request: HttpRequest) -> HttpResponse:
+    """
+    Cierra la sesión del usuario actual en la vista 
+    de administrador global.
+
+    Args:
+    - request: La solicitud HTTP recibida.
+
+    Return:
+    - HttpResponse: Redirige a la página de inicio de 
+    sesión del administrador global.
+    """
     logging.info(
         'logout Admin Global: Se hace petición por el método: ' + request.method)
     request.session.flush()
@@ -269,6 +430,17 @@ def logout(request: HttpRequest) -> HttpResponse:
 
 
 def logout_sysadmin(request: HttpRequest) -> HttpResponse:
+    """
+    Cierra la sesión del usuario actual en la vista 
+    de sysadmin.
+
+    Args:
+    - request: La solicitud HTTP recibida.
+
+    Return:
+    - HttpResponse: Redirige a la página de inicio de 
+    sesión del sysadmin.
+    """
     logging.info(
         'logout sysadmin: Se hace petición por el método: ' + request.method)
     request.session.flush()
@@ -278,6 +450,17 @@ def logout_sysadmin(request: HttpRequest) -> HttpResponse:
 # Section of login admon global
 @never_cache
 def login_admon_global(request: HttpRequest) -> HttpResponse:
+    """
+    Maneja la página de inicio de sesión del administrador global.
+
+    Args:
+    - request: La solicitud HTTP recibida.
+
+    Return:
+    - HttpResponse: Devuelve la página de inicio de sesión del 
+    administrador global o redirige a la página de inicio de sesión 
+    si el usuario ya ha iniciado sesión.
+    """
     if request.method == 'GET':
         logging.info(
             'login Admin Global: Se hace petición por el método: ' + request.method)
@@ -399,6 +582,17 @@ def login_admon_global(request: HttpRequest) -> HttpResponse:
 @csrf_protect
 @never_cache
 def login_double_auth_admon_global(request: HttpRequest) -> HttpResponse:
+    """
+    Maneja la página de inicio de sesión de autenticación doble del admin global.
+
+    Args:
+    - request: La solicitud HTTP recibida.
+
+    Return:
+    - HttpResponse: Devuelve la página de inicio de sesión de autenticación 
+    doble del sysadmin o redirige a la página de inicio de sesión si el usuario 
+    no ha completado la autenticación básica o la autenticación de dos factores.
+    """
     if request.method == 'GET':
 
         if request.session.get('token_spected') is not True:
@@ -512,6 +706,17 @@ def login_double_auth_admon_global(request: HttpRequest) -> HttpResponse:
 # Section of Sysadmin
 @never_cache
 def login_sysadmin(request: HttpRequest) -> HttpResponse:
+    """
+    Maneja la página de inicio de sesión del sysadmin.
+
+    Args:
+    - request: La solicitud HTTP recibida.
+
+    Return:
+    - HttpResponse: Devuelve la página de inicio de sesión 
+    del sysadmin o redirige a la página de inicio de sesión 
+    si el usuario ya ha iniciado sesión.
+    """
     if request.method == 'GET':
         logging.info(
             'login sysadmin: Se hace petición por el método: ' + request.method)
@@ -631,6 +836,17 @@ def login_sysadmin(request: HttpRequest) -> HttpResponse:
 @csrf_protect
 @never_cache
 def login_double_auth_sysadmin(request: HttpRequest) -> HttpResponse:
+    """
+    Maneja la página de inicio de sesión de autenticación doble del sysadmin.
+
+    Args:
+    - request: La solicitud HTTP recibida.
+
+    Return:
+    - HttpResponse: Devuelve la página de inicio de sesión de autenticación 
+    doble del sysadmin o redirige a la página de inicio de sesión si el usuario 
+    no ha completado la autenticación básica o la autenticación de dos factores.
+    """
     if request.method == 'GET':
 
         if request.session.get('token_spected') is not True:
